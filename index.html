@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GLB施工動画 タブ版</title>
+<style>
+:root{--bg:#f6f5f2;--paper:#fff;--ink:#1d2127;--sub:#5b6370;--line:#e2e0da;--accent:#8a6a2f;--soft:#f3ecdf;--navy:#1f2a3a;--warn:#9a3b2e;--warn-soft:#f8e9e6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.9 "Yu Gothic","Hiragino Sans",sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.hin{max-width:960px;margin:0 auto;padding:8px 16px 0}
+.ttl{font-size:13px;opacity:.8}
+.tabs{display:flex;gap:4px;overflow-x:auto;padding-top:6px}
+.tab{flex:1 0 auto;min-width:84px;border:0;border-radius:8px 8px 0 0;padding:6px 12px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer;font:inherit;line-height:1.35}
+.tab b{display:block;font-size:15px}.tab small{font-size:11px;opacity:.8}
+.tab.on{background:var(--bg);color:var(--ink)}
+.chips{background:var(--bg);border-bottom:1px solid var(--line)}
+.chips .cin{max-width:960px;margin:0 auto;padding:8px 16px;display:flex;gap:6px;overflow-x:auto}
+.chip{flex:0 0 auto;border:1px solid var(--line);border-radius:999px;padding:4px 12px;background:var(--paper);color:var(--ink);cursor:pointer;font:inherit;font-size:14px;line-height:1.5}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{max-width:960px;margin:0 auto;padding:18px 16px 40px}
+.pane{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px}
+.pane.main{border:2px solid var(--accent)}
+h2{font:700 19px/1.4 "Yu Mincho",serif;margin:0 0 10px}
+h2 .n{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:1px 9px;margin-right:8px;font:700 14px/1.6 "Yu Gothic",sans-serif}
+ul{margin:0;padding-left:1.3em}li{margin:4px 0}
+.say{background:var(--soft);border-radius:10px;padding:12px 16px}
+.say p{margin:0 0 10px}.say p:last-child{margin:0}
+.blank{color:var(--warn);font-weight:700}
+.src,.note,.lead{font-size:13px;color:var(--sub);margin:10px 0 0}.lead{margin:0 0 6px}
+.none{color:var(--sub);margin:0}
+details.rule{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-bottom:8px}
+details.rule summary{cursor:pointer;font-weight:700}
+details.rule ul,details.rule p{margin:8px 0 2px}
+.goalbig{background:var(--navy);color:#fff;border-radius:12px;padding:22px 24px;margin-bottom:8px}
+.goalbig small{display:block;font-size:13px;opacity:.8;margin-bottom:6px}
+.goalbig p{margin:0;font:700 clamp(24px,4vw,34px)/1.5 "Yu Mincho",serif}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-top:14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:14px}
+.box{background:#e8ecf2;border-radius:10px;padding:12px 16px;min-width:0}
+.box h3,h3.sub{font-size:15px;margin:0 0 6px;color:var(--navy)}
+h3.sub{margin-top:18px}
+.goalbox{background:var(--soft);border:2px solid var(--accent)}
+.notbox{background:var(--warn-soft)}
+.flow{display:flex;flex-direction:column;gap:18px}
+.fl{position:relative;background:var(--soft);border-radius:10px;padding:8px 14px;display:flex;gap:10px;align-items:baseline}
+.fl b{color:var(--accent)}
+.fl:not(.last)::after{content:"↓";position:absolute;left:18px;bottom:-22px;color:var(--accent);font-weight:700}
+.fl.last{background:var(--accent);color:#fff}.fl.last b{color:#fff}
+.goalline{font-size:14px;font-weight:700;line-height:1.5}
+.tab{min-width:76px;padding:6px 8px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-bottom:6px}
+.facts div{background:var(--soft);border-radius:8px;padding:8px 12px;min-width:0}
+.facts small{display:block;font-size:12px;color:var(--sub)}
+.facts b{font-size:16px}
+.rlist{margin:12px 0}
+.rstep{border:1px solid var(--line);border-radius:10px;margin-bottom:6px;background:var(--paper)}
+.rstep summary{cursor:pointer;padding:9px 12px;display:grid;grid-template-columns:28px minmax(0,1.4fr) 62px minmax(0,1.6fr);gap:8px;align-items:center;list-style:none}
+.rstep summary::-webkit-details-marker{display:none}
+.rn{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;font-size:13px}
+.rname{font-weight:700}.rt{text-align:right;font-weight:700}
+.rbar{display:block;height:12px;background:var(--bg);border-radius:6px;overflow:hidden}
+.rbar i{display:block;height:100%;background:var(--accent)}
+.rstep.wait .rbar i{background:#9aa3b0}.rstep.wait .rn{background:#9aa3b0}
+.rstep.big{border:2px solid var(--accent)}
+.rstep ol{margin:0;padding:0 16px 12px 52px}.rstep ol li{margin:3px 0}
+@media (max-width:560px){.rstep summary{grid-template-columns:28px minmax(0,1fr) 58px}.rbar{grid-column:1/-1}.rstep ol{padding-left:36px}}
+.plist{list-style:none;margin:6px 0 0;padding:0}
+.pitem{border-top:1px solid var(--line);margin:0}
+.pitem label{display:flex;flex-wrap:wrap;align-items:flex-start;gap:4px 10px;padding:8px 2px;cursor:pointer}
+.pitem input{width:20px;height:20px;margin-top:5px;accent-color:var(--accent);flex:0 0 auto}
+.txt{flex:1 1 240px;min-width:0}
+.where{font-size:12px;color:var(--sub);background:var(--bg);border-radius:999px;padding:2px 10px}
+.pitem.done .txt{color:var(--sub);text-decoration:line-through}
+.common{margin-bottom:16px}
+.alert{background:var(--warn-soft);color:var(--warn);border-radius:10px;padding:10px 14px;margin:0;font-weight:700}
+.nav{display:flex;justify-content:space-between;gap:10px}
+.nav button{border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:8px 14px;font:inherit;cursor:pointer}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
+<div class="chips" id="chips"><div class="cin"><button class="chip" data-stage="all">全部</button><button class="chip" data-stage="0">0 冒頭</button><button class="chip" data-stage="1">1 足回り</button><button class="chip" data-stage="2">2 予備洗浄</button><button class="chip" data-stage="3">3 ミット洗車</button><button class="chip" data-stage="4">4 鉄粉取り</button><button class="chip" data-stage="5">5 油膜取り</button><button class="chip" data-stage="6">6 軽研磨</button><button class="chip" data-stage="7">7 1層目</button><button class="chip" data-stage="8">8 2層目</button><button class="chip" data-stage="9">9 完成</button></div></div>
+</header>
+<main>
+<div class="common" data-tab="mind"><details class="rule"><summary>誰に向けて話すか</summary><ul>
+<li>新車を、できるだけ長く綺麗な状態のまま乗りたい人。話はこの目的に持っていく</li>
+<li>20〜30万円のコーティングをもう比べている人。金払いがよく、専門的な所はプロに任せたい人</li>
+<li>コーティングをしたことがある人。初めてでも、納得できたらお金を出す人。心に余裕がある人</li>
+<li>「必要か」の段階は越えて、「どこでやってもらおうか」で迷っている人に話す</li>
+<li>長く綺麗に乗る目的が無い人（自分で塗る人、その場しのぎで済ませたい人）は見込み客にならない</li>
+<li>見る人が知りたいのは、どんな人がやっているか、誰がやってくれるか、ちゃんと比べた情報、段取り</li>
+<li>車が分からない人の第一印象は「高っ、なんでこんな高いんや」「何がそんなにいいんやろ」（50万円の見本を見た村田さん）。この疑問に動画全体で答える</li>
+<li>チャンネルとして大事なこと：専門家なんだと分かってもらう。ディーラーとどう違うのかを伝える。誰から買うかの安心感・信用・信頼感を、BUDDICAの動画よりどんな要素で作るかを考える</li>
+</ul></details><details class="rule"><summary>どう喋るか</summary><ul>
+<li>普通に喋る。なよなよせず、自信を持ってはきはきと。聞き取りやすい言葉遣いで</li>
+<li>語尾は全部言い切る。です・ます調。「〜かもしれません」は使わない</li>
+<li>言い切る前に前置き：「当店ではこういったお客様が多いので、〇〇にならないために、こうしています／皆様にはこうお伝えしています」</li>
+<li>動画内の言葉遣いから、営業の人の感じが伝わる。言葉遣いに気をつける</li>
+<li>ナレーターは関西弁が強い人なので、言葉遣いに気をつけてもらう。雅の店舗で見本の雰囲気が出せるかは分からない</li>
+<li>音のいいマイクで録る。見本はボソボソ喋っていてもよく聞こえる</li>
+</ul></details><details class="rule"><summary>何を言うか</summary><ul>
+<li>こだわり、何に気をつけているか、こうやるとこういうメリットがある、を丁寧に話す</li>
+<li>一つ一つの動作に「こうだから、こういう意識でやっています」を付けて重みを出す</li>
+<li>専門用語を言いっぱなしにしない。「それがあるから、こうなんです」の「こうなんです」を、目で見て分かる物・言葉・メリットまで言う。これが差別化</li>
+<li>その施工がどんな問題にどう効くのかを言う。お客さんの目線、お客さんが使う言葉で</li>
+<li>職人には当たり前の所も、知識がない人には「そういう感じでやるんや」になる。当たり前だと思って飛ばさない</li>
+<li>実際にあったことに、そこに至った経緯をちょいちょい入れる。信頼につながる</li>
+<li>終わった後の話（保証・気遣い）をちょいちょい入れる。「ここまで気を使ってくれるのか」と思ってもらう</li>
+<li>見ていて思う疑問に、施工しながら答える</li>
+<li>新車でも付いている鉄粉、新車なのになぜ磨きが要るか、新車でコーティングする理由とメリット、しないデメリットをちょいちょい言う</li>
+<li>値段だけが一人歩きしないように、「なぜその値段か」を工程の中で言っておく</li>
+</ul></details><details class="rule"><summary>どう見せるか</summary><ul>
+<li>段取りを分かりやすくする。段取りが悪いとイラつきやすい。手取り足取り、視聴者第一で</li>
+<li>工程の頭で「今この工程をやっています」と言う。施工場所の見映えで劣る分、ここで差別化する</li>
+<li>手間と時間ははしょらない。大変な作業ほど省かない。お客さんは手間代を買っている</li>
+<li>見本は細かい工程まで本当に全部やっている。ただ、全工程を完璧に出す必要はない。大筋は合わせる。見る人は知識がないので「こんなにやってくれるんだ」と感じてもらう</li>
+<li>職人の技と細かさが出る所は長めに撮る。どこが細かくなるかは車による</li>
+<li>施工する人が見られている（コメント：「施工してくれる人がすごい」「手際がよくて見とれる」「お店選びが大事」）。手元と手際を映す</li>
+<li>かっこよさ・店の映えでは勝てない（雅は工場っぽい）。中身の説明と保証で勝つ</li>
+<li>見本を丸々まねしない。見本にこちらの強みを足す（引いてから足す、でもよい）</li>
+</ul></details><details class="rule"><summary>コメントで気をつけること</summary><ul>
+<li>高額な施工は、お金持ちへのひがみがコメント欄に出る</li>
+<li>新車は「もともときれいで違いが分からない」と言われる。だから違いが見える場面を作る（9番）</li>
+<li>手順が見えると安心される（「預けたので手順が分からなかったが動画で分かった」）</li>
+<li>手間を見ると値段に納得される（「あの手間を見ると高いのも頷ける」）</li>
+<li>動画を見て予約した人がいる（「この動画を見て施工すると決めた」）</li>
+</ul></details></div><div class="common" data-tab="shot"><details class="rule" open><summary>撮影・文字</summary><ul>
+<li>天気のいい日に撮る。薄暗いと、きらびやかな感じが出ない</li>
+<li>白飛びに注意（コメント：「白飛びして分かりにくい」「撮影の明るさを考えて」）</li>
+<li>横長なので、見せたい物を画面の真ん中に置く</li>
+<li>テロップは明朝体。黒背景（透明度は半分くらい）に白文字。画面の下に入れる</li>
+</ul></details><p class="note">工程ごとの細かい画角は、まだ決まっていません。ここには、村田さんのメモにある物だけを書いています。</p></div><div class="common" data-tab="say"><p class="alert">この台本の工程は、センスRの動画の流れを使った物です。雅の実際の施工は「工程表」タブにあります。</p></div><div class="common" data-tab="ask"><details class="rule" open><summary>雅の工程の質問（11/4に送った6つ）</summary><ul><li>答えが来た物：工程の順番、内訳、時間、セラミック2層、コーティング剤の名前。「工程表」タブにまとめました</li><li><b>まだ答えが無い物：預かりの日数、他のコーティング店と工程が違う所</b></li></ul></details></div><div class="common" data-tab="prep"><p class="alert">この一覧は、センスRの動画の流れをもとにした物です。雅の実際の施工は「工程表」タブにあります。</p></div>
+<section class="pane" data-tab="goal" data-stage="any">
+<div class="goalbig"><small>この動画の目的</small><p>新車を長く綺麗に乗りたい人に、セラミックコーティング（20〜30万円）を、納得して選んでもらう</p></div>
+<p class="src">マインドマップ「動画の設計図」の中心の言葉です。迷ったら、ここに戻ります。</p>
+<div class="two">
+<div class="box goalbox"><h3>目的（ぶらさない）</h3><ul>
+<li><b>動画の目的：</b>上の一文</li>
+<li><b>お客さんの目的：</b>とにかく長く綺麗に乗りたい（見込み客みんなに共通）</li>
+<li><b>集客の大元の目的：</b>新車のコーティングの見込み客を取る（10/31 村田さん）</li>
+</ul></div>
+<div class="box"><h3>手段（目的のために使う物）</h3><ul>
+<li><b>売る物：</b>セラミックコーティング（20〜30万円）</li>
+<li><b>動画の形：</b>GLBの施工してみた動画</li>
+<li><b>納得してもらう材料：</b>工程と手間を見せる、板金屋の磨き、4大保証、お客さんの疑問に答える、金額は手間を見せた後に出す</li>
+</ul></div>
+</div>
+<h3 class="sub">目的と手段が逆転しないために</h3>
+<ul>
+<li>施工の様子を全部見せることは、目的ではありません。全工程を完璧に出す必要はなく、大筋が合っていれば十分です</li>
+<li>かっこよく撮ることも、目的ではありません。かっこよさや店の見映えでは勝てないので、中身の説明と保証で納得してもらいます</li>
+<li>一番よくないのは、価格だけが一人歩きすることです。値段と一緒に、なぜその値段なのかを伝えます</li>
+<li>なぜその値段かは、次の5つで伝えます：セラミックが良い理由／するメリット／しないデメリット／自分で塗る時の弊害／他社との比較</li>
+<li>長く綺麗に乗る目的が無い人（自分で塗る人、その場しのぎで済ませたい人）は、この動画では追いません</li>
+<li>中古車の水垢から来る人は、作業の中身が違います。この動画は新車の人に向けます</li>
+<li>入れるか迷う場面は、「新車を長く綺麗に乗りたい人が、20〜30万円に納得する材料になるか」で決めます（上の目的から書いた基準です）</li>
+</ul>
+<p class="src">見た後に何をしてもらうか（CTA）は、まだ決まっていません。</p>
+</section>
+<section class="pane" data-tab="who" data-stage="any">
+<h2>見込み客の人物像</h2>
+<div class="flow">
+<div class="fl"><b>1</b>新車を、できるだけ長く綺麗な状態のまま乗りたい</div>
+<div class="fl"><b>2</b>「コーティングが必要か」の段階は、もう越えている</div>
+<div class="fl"><b>3</b>20〜30万円のコーティングを、もう比べている</div>
+<div class="fl"><b>4</b>「どこでやってもらおうか」で迷っている</div>
+<div class="fl"><b>5</b>動画で、誰が・どんな手順で・どこまで手間をかけるかを見る</div>
+<div class="fl last"><b>6</b>「この金額でここまでやってくれるなら納得」と思って頼む</div>
+</div>
+<p class="src">村田さんのメモの言葉を、お店に頼むまでの順に並べました。順番は私が並べた物です。</p>
+<div class="cards">
+<div class="box"><h3>どんな人か</h3><ul>
+<li>金払いがよく、専門的な所はプロに任せたい</li>
+<li>コーティングをしたことがある人。初めてでも、納得できたらお金を出す人</li>
+<li>心に余裕がある人</li>
+</ul></div>
+<div class="box"><h3>知りたいこと</h3><ul>
+<li>どんな人がやっているのか</li>
+<li>誰がやってくれるのか</li>
+<li>ちゃんと比較しながら情報を教えてほしい</li>
+<li>段取り（どういう手順で進むのか）</li>
+</ul></div>
+<div class="box"><h3>引っかかっている疑問</h3><ul>
+<li>ディーラーと比べてどうなのか</li>
+<li>誰が施工してくれるのか</li>
+<li>営業の人の説明を信じていいか</li>
+<li>工数と、どういう順でやってくれるのか</li>
+<li>その価値に納得できる価格帯か</li>
+</ul></div>
+<div class="box"><h3>本人の声（台帳から）</h3><ul>
+<li>レクサス購入検討。頻繁には洗わないが「新車の綺麗さは維持したい」。ディーラーと専門店の品質の差を知りたい</li>
+<li>好きな赤の新車・屋外駐車。前のディーラー施工に満足できず動画で調べた。20万円以内なら出せる、30〜40万円は難しい</li>
+<li>白いミニバン。セラミックを比較中。ある店は36万円＋後日10万円、別の店は24万円という説明</li>
+</ul></div>
+<div class="box"><h3>動画を見た人のコメント</h3><ul>
+<li>施工する人を見ている：「手際がよくて見とれる」「お店選びが大事」</li>
+<li>手順が見えると安心する：「預けたので手順が分からなかったが動画で分かった」</li>
+<li>手間を見ると納得する：「あの手間を見ると高いのも頷ける」</li>
+<li>見て決めた人がいる：「この動画を見て施工すると決めた」</li>
+</ul></div>
+<div class="box notbox"><h3>見込み客ではない人</h3><ul>
+<li>自分で塗る人</li>
+<li>その場しのぎで済ませたい人</li>
+<li>長く綺麗に乗る目的が無い人</li>
+</ul></div>
+</div>
+<p class="src">年齢・家族・仕事は、マップに書いていないので入れていません。「お金に余裕がある」は村田さんの見立てで、未検証です。</p>
+</section>
+<section class="pane" data-tab="real" data-stage="any">
+<h2>GLBの実際の工程表</h2>
+<div class="facts">
+<div><small>車</small><b>ベンツGLB　新車</b></div>
+<div><small>施工</small><b>セラミック2層＋軽研磨</b></div>
+<div><small>コーティング剤</small><b>セラミック マティーニ</b></div>
+<div><small>施工日</small><b>11/14（暫定）</b></div>
+<div><small>合計（足し算）</small><b>17時間30分</b></div>
+<div><small>うち硬化</small><b>6時間</b></div>
+</div>
+<p class="src">納車日で施工日は前後します。納車前なので、車の状態はまだ分かりません。工程の名前を押すと、内訳が開きます。棒の長さは時間の長さです。</p>
+<div class="rlist"><details class="rstep"><summary><span class="rn">1</span><span class="rname">洗車</span><span class="rt">1時間</span><span class="rbar"><i style="width:5.7%"></i></span></summary><ol><li>高圧洗浄機でボディ全体の表面の汚れを流す</li><li>ホイールを高圧洗浄して、表面の汚れを流す</li><li>洗剤でホイールを洗う</li><li>ボディの鉄粉を見る（あれば取る。今回は新車なのでなし）</li><li>ボディを洗車する</li><li>エアーで、あらかた水分を飛ばす</li><li>拭き上げる</li></ol></details><details class="rstep"><summary><span class="rn">2</span><span class="rname">ボディチェック</span><span class="rt">30分</span><span class="rbar"><i style="width:2.9%"></i></span></summary><ol><li>洗車後の洗い残しがないか</li><li>拭き残しがないか</li><li>傷がないか</li><li>水垢を見る</li></ol></details><details class="rstep"><summary><span class="rn">3</span><span class="rname">マスキング</span><span class="rt">1時間</span><span class="rbar"><i style="width:5.7%"></i></span></summary><ol><li>フロントガラスにマスカーをかける</li><li>窓枠とフロントガラスのマスキング</li><li>両サイドの枠のマスキング</li><li>屋根のモールなどがある場合はマスキング</li><li>エンブレム類のマスキング</li></ol></details><details class="rstep big"><summary><span class="rn">4</span><span class="rname">軽研磨</span><span class="rt">3時間</span><span class="rbar"><i style="width:17.1%"></i></span></summary><ol><li>ボンネット→右フェンダー→フロントバンパー→左フェンダー→右ピラー→屋根→左ピラー→リアゲート→右フロントドア→右リアドア→左リアドア→左フロントドアの順に磨く</li></ol></details><details class="rstep"><summary><span class="rn">5</span><span class="rname">セラミック1層目の塗り込み</span><span class="rt">2時間</span><span class="rbar"><i style="width:11.4%"></i></span></summary><ol><li>コンパウンドをボディ全体から拭き取る</li><li>磨き残しがないかを見る</li><li>ボンネット→右フェンダー→フロントバンパー→左フェンダー→右ピラー→屋根→左ピラー→リアゲート→右フロントドア→右リアドア→左リアドア→左フロントドアの順に塗る</li></ol></details><details class="rstep wait"><summary><span class="rn">6</span><span class="rname">硬化</span><span class="rt">6時間</span><span class="rbar"><i style="width:34.3%"></i></span></summary><ol><li>作業は特になし</li></ol></details><details class="rstep"><summary><span class="rn">7</span><span class="rname">セラミック2層目の塗り込み</span><span class="rt">2時間</span><span class="rbar"><i style="width:11.4%"></i></span></summary><ol><li>ボンネット→右フェンダー→フロントバンパー→左フェンダー→右ピラー→屋根→左ピラー→リアゲート→右フロントドア→右リアドア→左リアドア→左フロントドアの順に塗る</li></ol></details><details class="rstep"><summary><span class="rn">8</span><span class="rname">最終の仕上げ</span><span class="rt">2時間</span><span class="rbar"><i style="width:11.4%"></i></span></summary><ol><li>ライトを使って、ムラがないかを見る</li></ol></details></div>
+<details class="rule"><summary>今の台本の0〜9と違う所</summary><ul>
+<li><b>鉄粉取り：</b>実際は「今回は新車なのでなし」。台本の4番は「新車にも鉄粉は付いています」と言っています</li>
+<li><b>ホイールを外して洗う：</b>返事の内訳に、外す話はありません</li>
+<li><b>油膜取り、タイヤカバー、脱脂：</b>返事の内訳にありません。足す工程は「今は追加なし」で、預かる時に追加があれば聞くとのことです</li>
+<li><b>洗う順番：</b>実際はボディの高圧洗浄→ホイールの順。台本は足回りから始めています</li>
+<li><b>台本に無い工程：</b>ボディチェック、マスキング、コンパウンドの拭き取り、硬化、ライトでの最終の仕上げ</li>
+</ul></details>
+<details class="rule"><summary>まだ答えが無いこと</summary><ul><li>預かりの日数</li><li>他のコーティング店と工程が違う所</li></ul></details>
+<p class="src">出どころ：お店とのLINE（2026-11-02、11-04）の返事。合計は各工程の時間を私が足した数字で、お店から聞いた数字ではありません。動画はこの工程どおりでなくてかまいません。</p>
+</section>
+<section class="pane" data-tab="say" data-stage="0"><h2><span class="n">0</span>冒頭（見本の中身はまだ取れていない）</h2><div class="say">
+<p>過去にコーティングをされた方から、よくいただくお悩みなんですが、<span class="blank">〔お店でよく聞く悩み。案：前のコーティングに満足できなかった。次はどこに頼めばいいのか分からない〕</span>というお声です。</p>
+<p>本日のお車は、新車のメルセデス・ベンツGLBです。オーナー様は、<span class="blank">〔どこ〕</span>から、<span class="blank">〔かかった時間〕</span>かけてお越しくださいました。<span class="blank">〔なぜ雅を選んだか〕</span>。</p>
+<p>保管は<span class="blank">〔屋根あり／青空〕</span>、洗車は<span class="blank">〔回数〕</span>、乗り方は<span class="blank">〔乗り方〕</span>です。この状況ですので、今回はセラミックコーティング2層と、塗装を軽く磨く軽研磨で進めます。</p>
+<p>雅は板金屋です。今回の施工は<span class="blank">〔誰が〕</span>が行います。ディーラーに頼むのと何が違うのか、誰が作業するのかを、施工の順番どおりにお見せします。</p>
+<p>全部で8工程で進んでいきます。まずこの工程です。</p>
+</div></section><section class="pane" data-tab="say" data-stage="1"><h2><span class="n">1</span>足回りの洗浄</h2><div class="say">
+<p>1つ目の工程は、足回りの洗浄です。タイヤ、ホイール、タイヤの上の囲いの内側に付いた、鉄の粉と油の汚れを落とします。</p>
+<p>当店では<span class="blank">〔こういったお客様が多い〕</span>ので、<span class="blank">〔こうならない〕</span>ために、ホイールを外して、裏や中まで洗っています。タイヤの溝まで、細かく洗っていきます。</p>
+<p>これで、お客様のお車は<span class="blank">〔目で見て分かる得〕</span>になります。</p>
+</div></section><section class="pane" data-tab="say" data-stage="2"><h2><span class="n">2</span>ボディの予備洗浄</h2><div class="say">
+<p>2つ目の工程は、ボディの予備洗浄です。塗装に触る前に、泡で砂や泥を浮かせて落とします。だから洗車傷がつきません。</p>
+<p><span class="blank">〔カバーをする場合〕</span>先ほど洗った足回りに、水や洗剤がかからないよう、タイヤにカバーをかけています。</p>
+</div></section><section class="pane" data-tab="say" data-stage="3"><h2><span class="n">3</span>ミット洗車</h2><div class="say">
+<p>3つ目の工程は、ミット洗車です。ミットは、洗車用の手袋です。傷がつかないよう、優しく手で洗います。</p>
+<p>雅では4大保証をすべて無料で行っていますので、施工後も安心して、長く満足いただけるコーティングをお客様に提供させていただいております。4大保証は、<span class="blank">〔4つの中身〕</span>です。</p>
+</div></section><section class="pane" data-tab="say" data-stage="4"><h2><span class="n">4</span>鉄粉取り</h2><div class="say">
+<p>4つ目の工程は、鉄粉取りです。鉄粉は、塗装に付く細かな鉄の粉です。新車にも、鉄粉は付いています。</p>
+<p>この薬をかけると、紫色に変わります。これを取らずにコーティングをすると、<span class="blank">〔どうなるか〕</span>。</p>
+</div></section><section class="pane" data-tab="say" data-stage="5"><h2><span class="n">5</span>窓ガラスの油膜取り</h2><div class="say">
+<p>5つ目の工程は、窓ガラスの油膜取りです。油膜は、ガラスに付く油の汚れです。油膜を落とすと、雨の日でも前が見やすくなります。</p>
+</div></section><section class="pane main" data-tab="say" data-stage="6"><h2><span class="n">6</span>軽研磨（一番長く見せる。ここで差をつける）</h2><div class="say">
+<p>6つ目の工程は、軽研磨です。塗装を軽く磨いて、表面を整える作業です。ここが、雅が一番お見せしたい工程です。</p>
+<p>新車なのに、なぜ磨きが要るのか。<span class="blank">〔新車に磨きが要る理由〕</span>。磨かないと、<span class="blank">〔どうなるか〕</span>。</p>
+<p>雅は板金屋です。板金屋ならではの技術で、細かな洗車傷や塗装の凸凹を段階的に磨いて、深い艶の土台を作ります。この下地があるから、コーティングが映えます。お客様にも喜んでいただいています。</p>
+<p>こちらがバフ、磨くためのパッドです。板金屋なので、硬い物から柔らかい物まで<span class="blank">〔10種類くらい〕</span>あります。この中から、今回は新車なので、これを使います。こういう状態なので、ここをこう磨いていきます。</p>
+<p>GLBは<span class="blank">〔塗装が弱い／熱に弱いメッキが多い／樹脂が隣にある、など実物を見て〕</span>ので、<span class="blank">〔どう気をつけるか〕</span>。この車に合わせて磨いています。</p>
+<p>下地処理をここまでやっています。ここまでできるのは、板金屋だからです。</p>
+</div></section><section class="pane" data-tab="say" data-stage="7"><h2><span class="n">7</span>セラミックコーティング1層目</h2><div class="say">
+<p>7つ目の工程は、セラミックコーティングの1層目です。今回使うコーティング剤は、こちらです。</p>
+<p>ガラスではなくセラミックにしている理由は、<span class="blank">〔セラミックが良い理由〕</span>。だからお客様のお車は、<span class="blank">〔メリット〕</span>になります。</p>
+<p>くぼみはこう塗るので、コーティング剤が素材までしっかり行き届きます。塗る範囲は、<span class="blank">〔ドアの内側・ステップ・樹脂・ルーフはどうか〕</span>です。</p>
+<p>新車のうちにコーティングをする理由は、<span class="blank">〔理由〕</span>です。しないままだと、<span class="blank">〔デメリット〕</span>。</p>
+<p>ご自分で塗る場合との違いは、<span class="blank">〔自分で塗る時に困ること〕</span>です。</p>
+</div></section><section class="pane" data-tab="say" data-stage="8"><h2><span class="n">8</span>セラミックコーティング2層目</h2><div class="say">
+<p>8つ目の工程は、セラミックコーティングの2層目です。2層にするのは、<span class="blank">〔理由〕</span>からです。</p>
+<p>納車の後によくいただくご質問にもお答えします。ここはこうケアすると長持ちします。<span class="blank">〔お手入れの仕方〕</span>。洗車は<span class="blank">〔いつから、どのくらい〕</span>です。</p>
+</div></section><section class="pane" data-tab="say" data-stage="9"><h2><span class="n">9</span>完成・締め</h2><div class="say">
+<p>本日の施工内容は、こちらです。<span class="blank">〔工程・かかった時間や日数・オプション・金額・割引〕</span>。ディーラーや他のお店との違いは、<span class="blank">〔違いとして言える事実〕</span>です。</p>
+<p>この1から8の工程でやった上で、今回出来上がったお車はこちらです。</p>
+<p>新車のコーティングをされるお客様からよくいただく疑問なんですが、新車だからコーティングはいらない、違いは分からない、という方がよくいらっしゃいます。こちらが、コーティングの前と後の水のはじき方です。</p>
+<p>効果は<span class="blank">〔何年〕</span>持ちます。施工の後も、4大保証で<span class="blank">〔何を〕</span>お守りします。</p>
+<p><span class="blank">〔高級感のある締めの一言〕</span></p>
+<p><span class="blank">〔CTA：見た人に何をしてもらうか〕</span></p>
+</div></section><section class="pane" data-tab="shot" data-stage="0"><h2><span class="n">0</span>冒頭（見本の中身はまだ取れていない）</h2><ul><li>施工前のGLBを色んな角度から。2秒くらいずつ5カット。車好きが「この角度のここ、気になるんよな」と思う所</li></ul></section><section class="pane" data-tab="shot" data-stage="1"><h2><span class="n">1</span>足回りの洗浄</h2><ul>
+<li>ホイールを外して、裏や中まで洗う所。タイヤの溝を細かく洗う所</li>
+<li>終わったらホイールのビフォーアフター（同じ場所・画角・光の当たり具合・天気）</li>
+</ul></section><section class="pane" data-tab="shot" data-stage="2"><h2><span class="n">2</span>ボディの予備洗浄</h2><ul><li>高圧の水と泡。泡を車にかける所。タイヤカバーをかけた足回り</li></ul></section><section class="pane" data-tab="shot" data-stage="3"><h2><span class="n">3</span>ミット洗車</h2><ul><li>洗車の道具。バケツで洗剤を作る所。手で洗う所</li></ul></section><section class="pane" data-tab="shot" data-stage="4"><h2><span class="n">4</span>鉄粉取り</h2><ul><li>薬をかけると紫色に変わる所。変わる様子が分かるように映す</li></ul></section><section class="pane" data-tab="shot" data-stage="5"><h2><span class="n">5</span>窓ガラスの油膜取り</h2><ul><li>ガラスの油汚れを落とす所</li></ul></section><section class="pane main" data-tab="shot" data-stage="6"><h2><span class="n">6</span>軽研磨（一番長く見せる。ここで差をつける）</h2><ul>
+<li>バフを硬い物から柔らかい物まで並べた所。そこから1つ選ぶ所</li>
+<li>磨きの液だけのカット。液をポリッシャーにつける所</li>
+<li>職人の手元と細かさが出る所を長めに。GLBで一番難しい所を丁寧に</li>
+</ul></section><section class="pane" data-tab="shot" data-stage="7"><h2><span class="n">7</span>セラミックコーティング1層目</h2><ul><li>コーティング剤の液だけのカット。タオルにつける所。くぼみや隙間を塗る所</li></ul></section><section class="pane" data-tab="shot" data-stage="8"><h2><span class="n">8</span>セラミックコーティング2層目</h2><ul><li>2層目を塗る所。お手入れの話に合う部分</li></ul></section><section class="pane" data-tab="shot" data-stage="9"><h2><span class="n">9</span>完成・締め</h2><p class="lead">この順番で映します。</p><ul>
+<li>全工程の短いカットをつなぐ → 「本日の施工内容」の表（施工内容・オプション・金額・割引）</li>
+<li>仕上がったGLB → ビフォーアフター（同じ場所・画角・光・天気。アフターが雨、ビフォーが晴れは避ける）。場所は顔のゴツゴツした部分、その下、ミラー、後ろの車名の文字など。文字の所を多めに。車に合わせて決める</li>
+<li>ビフォーアフターの左上に小さな画面で疑問を出す → コーティング前と後の水のはじき方</li>
+</ul></section><section class="pane" data-tab="mind" data-stage="0"><h2><span class="n">0</span>冒頭（見本の中身はまだ取れていない）</h2><ul>
+<li>第三者話法で入る。「どこに頼むか」で迷っている人に話し、「必要かどうか」の話はしない</li>
+<li>背景は「宮城の仙台から12時間かけてお越しくださいました」の形。直接言わなくても「頼まれる理由があるんだな」と伝わり、重みがつく</li>
+<li>車の状況を言うと、自分の車に合った施工を考えてくれる店だと分かり、安心につながる。元は中古車の時のメモ。GLBは新車・納車待ちで、車の状態はまだ分からない</li>
+<li>新車・中古車に乗る人がほかに何を知っておきたいかは、まだ分からない（要調査のまま）</li>
+<li>工程の予告で差別化する。「8工程」は、今の構成の1〜8を数えた物</li>
+</ul><p class="src">元：⑦やることメモ／⑦BUDDICAのメモ／⑦撮影メモ／④</p></section><section class="pane" data-tab="mind" data-stage="1"><h2><span class="n">1</span>足回りの洗浄</h2><ul>
+<li>部品を外して中まで洗う系はとても強い。何をしているか分からなくても「そこまでやってくれてるんや」という安心が出る</li>
+<li>細かい作業をしている感が出る所なので、タイヤの溝は長めに見せる</li>
+<li>見本はホイールのビフォーアフターが逆に入っているように見える。わざとかは分からない。「ほんまかいな」と止めて見る人が出るので、滞在時間が延びる要素かもしれない、というのが村田さんのメモ。雅でまねるかは村田さんが決める</li>
+</ul><p class="src">元：⑦撮影メモ／⑦センスRのメモ（撮影）</p></section><section class="pane" data-tab="mind" data-stage="2"><h2><span class="n">2</span>ボディの予備洗浄</h2><ul><li>タイヤカバーは見本への指摘から。コメントに「コーティングしたばかりのホイールに洗剤と水がかかってもったいない」。カバーをする、または動画の中で触れる</li></ul><p class="src">元：⑦撮影メモ／⑦センスRのメモ（疑問に答える）</p></section><section class="pane" data-tab="mind" data-stage="3"><h2><span class="n">3</span>ミット洗車</h2><ul>
+<li>保証の話は、洗車か下地処理のタイミングで言う（村田さんのメモ）。6番で言ってもいい</li>
+<li>コーティング屋の動画はかっこよくて映えるが、保証の話が弱く安心感に欠ける。ここは勝てる</li>
+</ul><p class="src">元：⑦撮影メモ／⑦センスRのメモ（保証）</p></section><section class="pane" data-tab="mind" data-stage="4"><h2><span class="n">4</span>鉄粉取り</h2><ul><li>状態の変化を分かりやすく見せる（村田さんが「とても良い」と言った所）。「新車なのに、こんなに」と思ってもらい、新車にコーティングが要る理由の一つにする</li></ul><p class="src">元：⑦センスRのメモ（撮影・新車への答え）</p></section><section class="pane" data-tab="mind" data-stage="5"><h2><span class="n">5</span>窓ガラスの油膜取り</h2><ul>
+<li>村田さんのメモに、この工程の話はありません。工程は村田さんが貼った見本の流れから入れました。「全工程を完璧に出す必要はない」のメモどおり、短くしてよい工程です</li>
+<li>使える声：窓に取れない染みが出て「コーティングで防げた」と言われたが、契約の時に案内はなかった</li>
+</ul><p class="src">元：見本の流れ／④</p></section><section class="pane main" data-tab="mind" data-stage="6"><h2><span class="n">6</span>軽研磨（一番長く見せる。ここで差をつける）</h2><ul>
+<li>「下地処理をここまでやっています。ここまでできるのは板金屋だからです」は、うざいくらい言っていい</li>
+<li>下地処理がコーティングの良さに直結することを、分かりやすく伝えるのが一番効く</li>
+<li>バフの手札の多さで、板金屋ならではの下地処理が伝わる</li>
+<li>見本（コーティング屋）はここが約1分10秒で短い。コーティング屋は下地処理のシーンが少ないというのは村田さんの憶測なので、他社を悪く言う形では読まない</li>
+<li>動画の中身は、その車に沿って作る</li>
+<li>GLBの施工は軽研磨（11/2 LINE）。マップの「11日・強研磨」はカローラスポーツの予定</li>
+</ul><p class="src">元：⑦センスRのメモ（雅の強み）／⑦撮影メモ／④／⑥／⑦コメント</p></section><section class="pane" data-tab="mind" data-stage="7"><h2><span class="n">7</span>セラミックコーティング1層目</h2><ul>
+<li>「くぼみや隙間にも本当に塗れてるの？」は村田さんが見ていて思った疑問。見ていて思う疑問に答えるのが良い</li>
+<li>洗車をたっぷり見せた後に「今回使うコーティング剤です」と見せる</li>
+<li>長く綺麗に乗りたい目的に話を持っていく</li>
+</ul><p class="src">元：⑦センスRのメモ（撮影・疑問に答える）／④／⑥</p></section><section class="pane" data-tab="mind" data-stage="8"><h2><span class="n">8</span>セラミックコーティング2層目</h2><ul><li>メンテナンスの質問はよく出る、という村田さんのメモ。施工しながら答える</li></ul><p class="src">元：⑦センスRのメモ（疑問に答える）／④／⑥</p></section><section class="pane" data-tab="mind" data-stage="9"><h2><span class="n">9</span>完成・締め</h2><ul>
+<li>金額は、手間を全部見せた後に出す。値段だけで判断されないようにする。お金を出す人に「プロに頼むなら、この金額でここまでやってくれるなら納得」と思ってもらう</li>
+<li>工程を見せた後に完成を出すと、普通に出すより重みが出る</li>
+<li>「新車だから違いが分からない」と言われる＝必要かという疑問が解消しきれていない証拠。水はじきで見せる</li>
+<li>見本の最後の一言は洒落ていて、普段使わない高級感のある言葉が「高単価なんやな」と納得する要素の一つ</li>
+<li>何年効果があるかと保証の中身に触れる。コーティング屋に勝てる所</li>
+<li>狙う価格帯は、見本の動画より倍ぐらい高い（11/2の村田さんの見立て）。金払いのいい人が求めている情報を足す</li>
+</ul><p class="src">元：⑦センスRのメモ（段取り・新車への答え・話し方）／③④⑤⑥／⑦コメント／⑦やることメモ</p></section><section class="pane" data-tab="voice" data-stage="0"><h2><span class="n">0</span>冒頭（見本の中身はまだ取れていない）</h2><ul>
+<li>ディーラーと専門店のどちらにするか（ディーラーの27.5万円、16万・10万・自分で塗るの3案、キーパー専門店）。ディーラーのコーティングは本当に評判が悪いのか</li>
+<li>誰が施工するのか。回答者の意見「ディーラーは中間マージンと下請け施工で手抜きになりやすい」「外注なので割高」。値引きの代わりの無料施工が、施工されていなかった</li>
+<li>レクサス検討：頻繁には洗わないが新車の綺麗さは維持したい。ディーラーと専門店の品質の差を知りたい</li>
+<li>好きな赤の新車・屋外駐車：前のディーラー施工に満足できず動画で調べた。20万円以内なら出せる、30〜40万円は難しい</li>
+<li>白いミニバン：セラミックを比較中。ある店は36万円＋後日10万円、別の店は24万円という説明</li>
+</ul></section><section class="pane" data-tab="voice" data-stage="1"><h2><span class="n">1</span>足回りの洗浄</h2><p class="none">この工程に入れる声はありません。</p></section><section class="pane" data-tab="voice" data-stage="2"><h2><span class="n">2</span>ボディの予備洗浄</h2><p class="none">この工程に入れる声はありません。</p></section><section class="pane" data-tab="voice" data-stage="3"><h2><span class="n">3</span>ミット洗車</h2><p class="none">この工程に入れる声はありません。</p></section><section class="pane" data-tab="voice" data-stage="4"><h2><span class="n">4</span>鉄粉取り</h2><p class="none">この工程に入れる声はありません。</p></section><section class="pane" data-tab="voice" data-stage="5"><h2><span class="n">5</span>窓ガラスの油膜取り</h2><p class="none">この工程に入れる声はありません。</p></section><section class="pane main" data-tab="voice" data-stage="6"><h2><span class="n">6</span>軽研磨（一番長く見せる。ここで差をつける）</h2><ul>
+<li>チェーン店で下地処理なし。輸送中の小傷が残ったまま固められた</li>
+<li>新車に研磨がいるのかが疑問（40アルファード）</li>
+<li>コメント：「下地作りにここまで手間をかけているとは知らなかった」</li>
+</ul></section><section class="pane" data-tab="voice" data-stage="7"><h2><span class="n">7</span>セラミックコーティング1層目</h2><ul>
+<li>20万円でセラミックを頼んだのに証明書はガラス系。施工も1か月遅れた（使う剤を見せる理由になる）</li>
+<li>ディーラー施工で、ドアの内側とステップが塗られていなかった。樹脂部やルーフが範囲外だと後で知った</li>
+<li>「塗装が落ち着くまで1か月待つ」という情報があり、いつ施工するか決められない</li>
+<li>ガラスかセラミックか。ワックス、約25万円のガラス、約46万円のセラミックの比較。NOJセラミック・NOJロイヤル・キーパーEXのどれがいいか。CPCダブルGNとキーパーの比較</li>
+<li>しないデメリット：コーティングなしで雨染みだらけになった。断ったが、新車のうちにやるべきだったか。数か月放置してもう手遅れか。10万円のプロ施工をしないとツヤで見劣りするか</li>
+<li>自分で塗る弊害：ザラつきが残った。拭き忘れでムラのまま固まった。7時間かかり液が足りなかった。大型車はムラになる（回答者）。冬に塗るのが不安。「自分でやる人」の台帳にも声がある</li>
+</ul></section><section class="pane" data-tab="voice" data-stage="8"><h2><span class="n">8</span>セラミックコーティング2層目</h2><ul>
+<li>「1か月洗車を控えて」と言われたが洗いたい（レクサスRX）</li>
+<li>何層もある図と性能、維持費が疑問（40アルファード）。3層追加の約5.5万円がいるか迷う</li>
+</ul></section><section class="pane" data-tab="voice" data-stage="9"><h2><span class="n">9</span>完成・締め</h2><ul>
+<li>価格：見積もり30万円弱に価値はあるか。27.5万円の良さが分からない。20万円で本人は不要・妻は希望。14.8万円で付けたが専門店が得と知って損した気分</li>
+<li>価格だけで判断する声：ガラス8万円がばかばかしい、ワックスで足りるか。6〜7万円が高い、自分で塗れるか。約11万円を付けないリスクは？（回答「値段に見合わない」）</li>
+<li>説明の信用：36万円と後日の追加10万円（別の店は24万円）。勝手にオプションから外された。約9万円で施工したのに1年点検でまた勧められた、施工されていない疑い</li>
+<li>他社との比較：ディーラーの27.5万円と屋内施工の専門店。NOJの見積もりでセラミックが予算に合わなかった。事故の後の再施工はどうなるか</li>
+<li>コメントの要望：納車から5年で再施工を考える人の汚れた車のビフォーアフター。代車、送り迎え、ホイールや窓、どの店舗でできるか</li>
+<li>コメント：「作業時間から考えると30万円台前半はお得」「専門店は屋根の下なので安心」</li>
+</ul></section><section class="pane" data-tab="ask" data-stage="0"><h2><span class="n">0</span>冒頭（見本の中身はまだ取れていない）</h2><ul><li>お客様の背景、車の色と保管状況、誰が作業するか、ディーラーとの違いとして言える事実</li><li>見本の最初の1分の中身（BUDDICAの動画）。村田さんに話してもらう</li></ul></section><section class="pane" data-tab="ask" data-stage="1"><h2><span class="n">1</span>足回りの洗浄</h2><ul><li>雅でもホイールを外して洗うか。ホイールにもコーティングをするか（見本は、洗った後に「今回使うコーティング剤です」と見せて、タオルでホイールに塗っている）</li><li>前置きに入れるお客様の例、足回りを洗うとお客様の車がどうなるか</li></ul></section><section class="pane" data-tab="ask" data-stage="2"><h2><span class="n">2</span>ボディの予備洗浄</h2><ul><li>「洗車傷がつきません」と言い切ってよいか</li><li>カバーをするか。足回りを先に洗う順番でよいか</li></ul></section><section class="pane" data-tab="ask" data-stage="3"><h2><span class="n">3</span>ミット洗車</h2><ul><li>「傷がつかないよう」と言い切ってよいか、4大保証の中身</li></ul></section><section class="pane" data-tab="ask" data-stage="4"><h2><span class="n">4</span>鉄粉取り</h2><ul><li>雅の薬も紫色に変わるか（見本の場面です）</li><li>鉄粉を取らずに塗るとどうなるか</li></ul></section><section class="pane" data-tab="ask" data-stage="5"><h2><span class="n">5</span>窓ガラスの油膜取り</h2><p class="none">この工程でお店に聞くことはありません。</p></section><section class="pane main" data-tab="ask" data-stage="6"><h2><span class="n">6</span>軽研磨（一番長く見せる。ここで差をつける）</h2><ul><li><b>施工日の決定（GLBは11/14の暫定で、納車日で前後する）</b></li><li>新車に磨きが要る理由、磨かないとどうなるか、バフの数、GLBで気をつける所と一番難しい所</li></ul></section><section class="pane" data-tab="ask" data-stage="7"><h2><span class="n">7</span>セラミックコーティング1層目</h2><ul><li>セラミックが良い理由とメリット、塗る範囲、新車のうちにやる理由と、しないデメリット、自分で塗る時に困ること、納車から施工までの時期、証明書の有無</li></ul></section><section class="pane" data-tab="ask" data-stage="8"><h2><span class="n">8</span>セラミックコーティング2層目</h2><ul><li>2層にする理由、お手入れの仕方、施工後の洗車の時期、維持費</li></ul></section><section class="pane" data-tab="ask" data-stage="9"><h2><span class="n">9</span>完成・締め</h2><ul><li>CTA（無料相談・LINE登録・見積もりなど）は未定</li><li>施工内容の表の中身、かかる時間と日数、金額、割引、何年持つか、4大保証の中身、ディーラーや他社との違い、事故の後の再施工、代車・送り迎え・ホイールや窓・店舗</li></ul></section>
+<section class="pane" data-tab="prep" data-stage="any"><h2>用意する物</h2><details class="rule pgroup" open><summary>撮影の日に用意する物</summary><ul class="plist"><li class="pitem" data-st="all"><label><input type="checkbox" data-i="1"><span class="txt">天気のいい日の日程（ビフォーとアフターで、天気と光をそろえる）</span><span class="where">全体</span></label></li><li class="pitem" data-st="all"><label><input type="checkbox" data-i="2"><span class="txt">横長で撮るカメラ</span><span class="where">全体</span></label></li><li class="pitem" data-st="all"><label><input type="checkbox" data-i="3"><span class="txt">ナレーション用の、音のいいマイク</span><span class="where">全体</span></label></li><li class="pitem" data-st="1"><label><input type="checkbox" data-i="4"><span class="txt">ホイールを外して裏や中まで洗う準備</span><span class="where">1 足回り</span></label></li><li class="pitem" data-st="2"><label><input type="checkbox" data-i="5"><span class="txt">高圧の洗浄と泡</span><span class="where">2 予備洗浄</span></label></li><li class="pitem" data-st="2"><label><input type="checkbox" data-i="6"><span class="txt">タイヤカバー</span><span class="where">2 予備洗浄</span></label></li><li class="pitem" data-st="3"><label><input type="checkbox" data-i="7"><span class="txt">洗車の道具（バケツ・シャンプー・ミット）。映すカットを撮る</span><span class="where">3 ミット洗車</span></label></li><li class="pitem" data-st="4"><label><input type="checkbox" data-i="8"><span class="txt">鉄粉を取る薬（かけると紫色に変わる物）</span><span class="where">4 鉄粉取り</span></label></li><li class="pitem" data-st="5"><label><input type="checkbox" data-i="9"><span class="txt">窓ガラスの油膜を取る物</span><span class="where">5 油膜取り</span></label></li><li class="pitem" data-st="6"><label><input type="checkbox" data-i="10"><span class="txt">バフ一式（並べて見せる）・ポリッシャー・磨きの液</span><span class="where">6 軽研磨</span></label></li><li class="pitem" data-st="7 8"><label><input type="checkbox" data-i="11"><span class="txt">セラミックコーティング剤（液だけを映すカットを撮る）・塗るタオル</span><span class="where">7・8 コーティング</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="12"><span class="txt">水のはじき方を見せる水（コーティング前と後で同じかけ方）</span><span class="where">9 完成</span></label></li></ul></details><details class="rule pgroup" open><summary>撮るカット</summary><ul class="plist"><li class="pitem" data-st="0"><label><input type="checkbox" data-i="13"><span class="txt">施工前の状態：いろいろな角度から、2秒くらいずつ5カット</span><span class="where">0 冒頭</span></label></li><li class="pitem" data-st="1"><label><input type="checkbox" data-i="14"><span class="txt">ホイールを外して、裏や中まで洗う所</span><span class="where">1 足回り</span></label></li><li class="pitem" data-st="1"><label><input type="checkbox" data-i="15"><span class="txt">タイヤの溝を細かく洗う所</span><span class="where">1 足回り</span></label></li><li class="pitem" data-st="1"><label><input type="checkbox" data-i="16"><span class="txt">ホイールのビフォーアフター（同じ場所・画角・光）</span><span class="where">1 足回り</span></label></li><li class="pitem" data-st="2"><label><input type="checkbox" data-i="17"><span class="txt">泡を車にかける所</span><span class="where">2 予備洗浄</span></label></li><li class="pitem" data-st="3"><label><input type="checkbox" data-i="18"><span class="txt">バケツでシャンプーを作る所・道具</span><span class="where">3 ミット洗車</span></label></li><li class="pitem" data-st="4"><label><input type="checkbox" data-i="19"><span class="txt">鉄粉を取る薬が紫色に変わる所</span><span class="where">4 鉄粉取り</span></label></li><li class="pitem" data-st="6"><label><input type="checkbox" data-i="20"><span class="txt">バフを何種類も並べた所</span><span class="where">6 軽研磨</span></label></li><li class="pitem" data-st="6"><label><input type="checkbox" data-i="21"><span class="txt">磨きの液だけのカット・ポリッシャーにつける所</span><span class="where">6 軽研磨</span></label></li><li class="pitem" data-st="6"><label><input type="checkbox" data-i="22"><span class="txt">職人の技と細かさが出る所（長めに）・GLBで一番難しい所</span><span class="where">6 軽研磨</span></label></li><li class="pitem" data-st="7 1"><label><input type="checkbox" data-i="23"><span class="txt">コーティング剤だけのカット・タオルにつける所</span><span class="where">7 1層目</span></label></li><li class="pitem" data-st="7 1"><label><input type="checkbox" data-i="24"><span class="txt">くぼみや隙間を塗る所</span><span class="where">7 1層目</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="25"><span class="txt">水のはじき方：コーティング前と後</span><span class="where">9 完成</span></label></li><li class="pitem" data-st="0 9"><label><input type="checkbox" data-i="26"><span class="txt">ビフォーアフター：GLBの顔・ミラー・車名の文字の所など（施工前と同じ場所・画角・光・天気）</span><span class="where">0 冒頭・9 完成</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="27"><span class="txt">仕上がったGLB</span><span class="where">9 完成</span></label></li><li class="pitem" data-st="2"><label><input type="checkbox" data-i="28"><span class="txt">タイヤカバーをかけた足回り</span><span class="where">2 予備洗浄</span></label></li><li class="pitem" data-st="2"><label><input type="checkbox" data-i="29"><span class="txt">高圧の水をかける所</span><span class="where">2 予備洗浄</span></label></li><li class="pitem" data-st="3"><label><input type="checkbox" data-i="30"><span class="txt">手で洗う所</span><span class="where">3 ミット洗車</span></label></li><li class="pitem" data-st="5"><label><input type="checkbox" data-i="31"><span class="txt">窓ガラスの油汚れを落とす所</span><span class="where">5 油膜取り</span></label></li><li class="pitem" data-st="8 2"><label><input type="checkbox" data-i="32"><span class="txt">2層目を塗る所</span><span class="where">8 2層目</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="33"><span class="txt">全工程の短いカット（完成の手前につなぐ）</span><span class="where">9 完成</span></label></li></ul></details><details class="rule pgroup" open><summary>編集で入れる物</summary><ul class="plist"><li class="pitem" data-st="all"><label><input type="checkbox" data-i="34"><span class="txt">テロップ：明朝体、半分透けた黒の背景に白い文字、画面の下</span><span class="where">全体</span></label></li><li class="pitem" data-st="all"><label><input type="checkbox" data-i="35"><span class="txt">工程の頭に出す表示：「全部で〇工程」「今この工程」</span><span class="where">全体</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="36"><span class="txt">「本日の施工内容」の表：工程・オプション・金額・割引</span><span class="where">9 完成</span></label></li><li class="pitem" data-st="9"><label><input type="checkbox" data-i="37"><span class="txt">ビフォーアフターの左上に出す小さな画面：「新車だから違いは分からない」の疑問</span><span class="where">9 完成</span></label></li><li class="pitem" data-st="all"><label><input type="checkbox" data-i="38"><span class="txt">ショート動画：本編の映像を組み合わせて、本編1本から3〜4本</span><span class="where">全体</span></label></li></ul></details><details class="rule pgroup" open><summary>人に頼むこと</summary><ul class="plist"><li class="pitem" data-st="all"><label><input type="checkbox" data-i="39"><span class="txt">ナレーターの方：です・ます調で言い切る、関西弁が出ないよう気をつける、と伝える</span></label></li><li class="pitem" data-st="all"><label><input type="checkbox" data-i="40"><span class="txt">マラハさん：チャンネルの説明に入れる、雅のキャッチコピーを一緒に考える</span></label></li></ul></details><p class="src">四角を押すと済みの印が付きます。印はこのパソコンのこのブラウザにだけ残ります。上のボタンで工程を絞ると、その工程と全工程共通の物が出ます。</p></section>
+<section class="pane" data-tab="out" data-stage="any"><h2>0〜9の外のメモ</h2><details class="rule"><summary>決める順番</summary><p>11/3に村田さんが、AIの企画と構成の案をダメとして「サムネ→タイトル→冒頭の順に一から決める」と話しました。この順番は今も未着手で、0番の下書きはその前の仮の物です</p></details><details class="rule"><summary>サムネ</summary><p>車を真ん中、上下に文字。上は「車種名＋コーティングの種類」か「金額＋コーティング施工」。見本と同じだとパクリが気になるが、配置はどの会社も同じ。今は決めない</p></details><details class="rule"><summary>タイトル</summary><p>これから決める。見本の【洗車】と「72時間徹底洗車」は、センスRのサービス名からの型。72時間はかけた作業の時間。英語の「car detailing」は「車をすみずみまで綺麗に仕上げる仕事」の意味で、海外の検索も取りに行っている見立て（理由は未確認）。センスRで再生が多いのは汚れた古い車で、新車は少なめ</p></details><details class="rule"><summary>概要欄</summary><p>見本はリンクが多すぎる。センスRはコーティング剤や機材も売っているのでリンクが多い見立て（村田さん）。雅はシンプルにして、迷わずリンクを押せるようにする。見本のハッシュタグは3つ（店名・徹底洗車・手洗い洗車）。洗車に興味がある人とコーティングの言葉の両方を取りに行っている見立て（村田さん）</p></details><details class="rule"><summary>チャンネル</summary><p>アイコンとヘッダーはコーティング屋さんらしく。説明に雅のキャッチコピーを1つ（マラハさんと考える）</p></details><details class="rule"><summary>ショート</summary><p>本編の映像を組み合わせて、本編1本から3〜4本</p></details><details class="rule"><summary>テスラの案</summary><p>11/2のメモは、テスラを使う前提でした。今回はGLBなので、「前にコーティング経験がある人に向ける」「第三者話法」だけを使いました。テスラで調べて分かったこと：伸びている日本語の施工動画はBUDDICAの1本だけ。「テスラ 塗装 弱い」は検索候補にあるが直近3か月の動画は無し。「前にコーティングした人がテスラを新車で買って施工」を合わせた動画も無し</p></details><details class="rule"><summary>中古車（フィット・カローラスポーツ）</summary><p>今回の動画の対象外</p></details><details class="rule"><summary>見本動画のリスト（A・B）</summary><p>参考の一覧なので、工程には入れていません</p></details></section>
+<div class="nav" id="nav"><button id="prev">← 前の工程</button><button id="next">次の工程 →</button></div>
+</main>
+<script>
+(function(){
+  var tab='goal',stage='0';
+  var free=function(){return ['goal','who','real','out'].indexOf(tab)>=0};
+  var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var key='glb-tabs-prep-v1',saved={};
+  try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+  q('.pitem input').forEach(function(b){
+    if(saved[b.dataset.i]){b.checked=true;b.closest('.pitem').classList.add('done')}
+    b.addEventListener('change',function(){
+      b.closest('.pitem').classList.toggle('done',b.checked);
+      saved[b.dataset.i]=b.checked;
+      try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}
+    });
+  });
+  function render(){
+    q('.tab').forEach(function(b){b.classList.toggle('on',b.dataset.tab===tab)});
+    q('.chip').forEach(function(b){b.classList.toggle('on',b.dataset.stage===stage)});
+    document.getElementById('chips').hidden=free();
+    document.getElementById('nav').hidden=(free()||stage==='all');
+    q('.common').forEach(function(c){c.hidden=c.dataset.tab!==tab});
+    q('.pane').forEach(function(p){
+      p.hidden=!(p.dataset.tab===tab&&(free()||tab==='prep'||stage==='all'||p.dataset.stage===stage));
+    });
+    q('.pitem').forEach(function(li){
+      var s=li.dataset.st.split(' ');
+      li.hidden=!(stage==='all'||s.indexOf(stage)>=0||s.indexOf('all')>=0);
+    });
+    q('.pgroup').forEach(function(g){
+      g.hidden=q('.pitem',g).every(function(li){return li.hidden});
+    });
+    var n=parseInt(stage,10);
+    document.getElementById('prev').disabled=(n===0);
+    document.getElementById('next').disabled=(n===9);
+    window.scrollTo(0,0);
+  }
+  q('.tab').forEach(function(b){b.addEventListener('click',function(){tab=b.dataset.tab;if(tab==='prep')stage='all';render()})});
+  q('.chip').forEach(function(b){b.addEventListener('click',function(){stage=b.dataset.stage;render();b.scrollIntoView({inline:'center',block:'nearest'})})});
+  document.getElementById('prev').addEventListener('click',function(){stage=String(parseInt(stage,10)-1);render()});
+  document.getElementById('next').addEventListener('click',function(){stage=String(parseInt(stage,10)+1);render()});
+  render();
+})();
+</script>
+</body>
+</html>
