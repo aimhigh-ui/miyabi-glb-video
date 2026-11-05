@@ -116,7 +116,7 @@ main.wide{max-width:1320px}
 .vhead a{font-size:12px;font-weight:400;white-space:nowrap}
 #vclose{border:0;border-radius:8px;background:var(--navy);color:#fff;font:inherit;font-size:13px;padding:6px 12px;cursor:pointer}
 .vscreen{aspect-ratio:16/9;background:#000}
-.vscreen iframe{display:block;width:100%;height:100%;border:0}
+.vscreen iframe,.vscreen video{display:block;width:100%;height:100%;border:0}
 .cgroup.smain th{background:var(--accent);color:#fff}
 .oldsay .say{margin-bottom:8px}
 @media (max-width:720px){
@@ -442,7 +442,7 @@ main.wide{max-width:1320px}
 <section class="pane" data-tab="out" data-stage="any"><h2>0〜9の外のメモ</h2><details class="rule"><summary>決める順番</summary><p>11/3に村田さんが、AIの企画と構成の案をダメとして「サムネ→タイトル→冒頭の順に一から決める」と話しました。この順番は今も未着手で、0番の下書きはその前の仮の物です</p></details><details class="rule"><summary>サムネ</summary><p>車を真ん中、上下に文字。上は「車種名＋コーティングの種類」か「金額＋コーティング施工」。見本と同じだとパクリが気になるが、配置はどの会社も同じ。今は決めない</p></details><details class="rule"><summary>タイトル</summary><p>これから決める。見本の【洗車】と「72時間徹底洗車」は、センスRのサービス名からの型。72時間はかけた作業の時間。英語の「car detailing」は「車をすみずみまで綺麗に仕上げる仕事」の意味で、海外の検索も取りに行っている見立て（理由は未確認）。センスRで再生が多いのは汚れた古い車で、新車は少なめ</p></details><details class="rule"><summary>概要欄</summary><p>見本はリンクが多すぎる。センスRはコーティング剤や機材も売っているのでリンクが多い見立て（村田さん）。雅はシンプルにして、迷わずリンクを押せるようにする。見本のハッシュタグは3つ（店名・徹底洗車・手洗い洗車）。洗車に興味がある人とコーティングの言葉の両方を取りに行っている見立て（村田さん）</p></details><details class="rule"><summary>チャンネル</summary><p>アイコンとヘッダーはコーティング屋さんらしく。説明に雅のキャッチコピーを1つ（マラハさんと考える）</p></details><details class="rule"><summary>ショート</summary><p>本編の映像を組み合わせて、本編1本から3〜4本</p></details><details class="rule"><summary>テスラの案</summary><p>11/2のメモは、テスラを使う前提でした。今回はGLBなので、「前にコーティング経験がある人に向ける」「第三者話法」だけを使いました。テスラで調べて分かったこと：伸びている日本語の施工動画はBUDDICAの1本だけ。「テスラ 塗装 弱い」は検索候補にあるが直近3か月の動画は無し。「前にコーティングした人がテスラを新車で買って施工」を合わせた動画も無し</p></details><details class="rule"><summary>中古車（フィット・カローラスポーツ）</summary><p>今回の動画の対象外</p></details><details class="rule"><summary>見本動画のリスト（A・B）</summary><p>参考の一覧なので、工程には入れていません</p></details></section>
 <div class="nav" id="nav"><button id="prev">← 前の工程</button><button id="next">次の工程 →</button></div>
 </main>
-<div id="vmodal" hidden><div class="vbox" role="dialog" aria-modal="true" aria-labelledby="vtitle"><div class="vhead"><span id="vtitle"></span><a id="vlink" href="#" target="_blank" rel="noopener">YouTubeで開く</a><button type="button" id="vclose">閉じる</button></div><div class="vscreen"><iframe id="vframe" title="見本の映像" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div></div></div>
+<div id="vmodal" hidden><div class="vbox" role="dialog" aria-modal="true" aria-labelledby="vtitle"><div class="vhead"><span id="vtitle"></span><a id="vlink" href="#" target="_blank" rel="noopener">YouTubeで開く</a><button type="button" id="vclose">閉じる</button></div><div class="vscreen"><iframe id="vframe" title="見本の映像" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe><video id="vlocal" controls playsinline hidden></video></div></div></div>
 <script>
 (function(){
   var tab='goal',stage='0';
@@ -484,13 +484,23 @@ main.wide{max-width:1320px}
   q('.tab').forEach(function(b){b.addEventListener('click',function(){tab=b.dataset.tab;if(tab==='prep')stage='all';render()})});
   q('.chip').forEach(function(b){b.addEventListener('click',function(){stage=b.dataset.stage;render();b.scrollIntoView({inline:'center',block:'nearest'})})});
   var vm=document.getElementById('vmodal'),vf=document.getElementById('vframe');
-  function vclose(){vm.hidden=true;vf.removeAttribute('src')}
+  var vl=document.getElementById('vlocal'),isLocal=location.protocol==='file:',vEnd=0;
+  var files={'SN11AV7Mops':'_見本動画/BUDDICA_テスラ.mp4','dz_wX6YQAaI':'_見本動画/センスR_アルファード.mp4'};
+  vl.hidden=!isLocal;vf.hidden=isLocal;
+  vl.addEventListener('timeupdate',function(){if(vEnd&&vl.currentTime>=vEnd){vl.pause();vEnd=0}});
+  function vclose(){vm.hidden=true;vf.removeAttribute('src');vl.pause();vl.removeAttribute('src');vl.load()}
   q('.vbtn').forEach(function(b){b.addEventListener('click',function(){
     var id=b.dataset.id,s=b.dataset.s,e=b.dataset.e;
     document.getElementById('vtitle').textContent=b.dataset.t;
     document.getElementById('vlink').href='https://www.youtube.com/watch?v='+id+'&t='+s+'s';
-    vf.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1&start='+s+'&end='+e;
     vm.hidden=false;
+    if(isLocal){
+      vEnd=parseFloat(e);
+      vl.src=files[id]+'#t='+s;
+      vl.play().catch(function(){});
+    }else{
+      vf.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&playsinline=1&start='+s+'&end='+e;
+    }
   })});
   document.getElementById('vclose').addEventListener('click',vclose);
   vm.addEventListener('click',function(ev){if(ev.target===vm)vclose()});
