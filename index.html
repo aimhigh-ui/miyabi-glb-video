@@ -768,6 +768,9 @@ function render(){
   var w=Math.max(scr.clientWidth-2,(total()+20)*pps);inner.style.width=w+'px';
   ruler(w);
   var s=starts(),hv='',ha='';
+  // メインの素材の左の端を引っぱっている間は、左の端がマウスに付いてくるように見せる（後ろの素材はその場に残す）。離した時に、すき間を詰める
+  //   2026-11-14 村田さん「ケツ（右の端）は動かせるけど、左側は動かせない」：前は左を引っぱっても左の端がその場に止まって見えていた
+  if(drag&&drag.k==='l'&&drag.tr==='v'&&drag.moved){var df0=find('v',drag.id);if(df0){var dd=df0.c.a-drag.c0.a;for(var j=df0.i;j<s.length;j++)s[j]+=dd}}
   P.v.forEach(function(c,i){
     var m=IT[c.src],x=s[i]*pps,cw=Math.max(2,L(c)*pps),on=sel&&sel.tr==='v'&&sel.id===c.id,tiles='';
     if(m){var fw=Math.round(TW_*58/TH_);for(var k=0;k*fw<cw;k++){var st=c.a+(k*fw+fw/2)/pps,fi=Math.min(m.th.n-1,Math.max(0,Math.floor(st/m.th.s)));tiles+='<div class="tl" style="left:'+(k*fw)+'px;width:'+fw+'px;height:100%;background-image:url('+m.th.u+');background-size:'+(m.th.n*fw)+'px 100%;background-position:'+(-fi*fw)+'px 0"></div>'}}
