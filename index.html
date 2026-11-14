@@ -884,10 +884,13 @@ $('ed-popen').disabled=!PRE.length;
 $('ed-popen').addEventListener('click',function(){
   var p=PRE[+$('ed-pre').value];if(!p)return;
   if((P.v.length||P.au.length)&&!confirm('今並べている物を、Claudeの案に入れ替えますか？（「元に戻す」で戻せます）'))return;
+  openPre(p);
+});
+function openPre(p){
   snap();var cp=JSON.parse(JSON.stringify(p));cp.v.forEach(function(c){c.id=uid()});cp.au.forEach(function(c){c.id=uid()});
   P={name:cp.name,how:cp.how,out:cp.out,v:cp.v,au:cp.au};sel=null;T=0;if(mode!=='tl')setTL();keep();render();sync(true);scr.scrollLeft=0;
   msg('Claudeの案を開きました。帯の素材を押すと、右に「なぜ使うか」が出ます。何も選んでいない時は「使わなかった所」が出ます。');
-});
+}
 $('ed-name').addEventListener('change',function(){P.name=this.value;keep()});
 $('ed-new').addEventListener('click',function(){if(!confirm('今の編集を消して、新しく作りますか？（保存していない物は消えます）'))return;snap();P=blank();sel=null;T=0;keep();render();sync(true)});
 $('ed-save').addEventListener('click',function(){
@@ -914,6 +917,15 @@ window.addEventListener('resize',function(){if(!pane.hidden)render()});
 // タブを開いた時に、帯の幅を合わせる
 new MutationObserver(function(){if(!pane.hidden){render();sync(true)}}).observe(pane,{attributes:true,attributeFilter:['hidden']});
 pps=zoomV();bins();render();
+// 新しいClaudeの案は、タブを開いた時に自動で帯に並べる（2026-11-14 村田さん「編集タブにあなたが編集したものが入ってない」）
+//   一度開いた案は、次からは自動で開かない。並べていた物は「-backup」に残す
+(function(){
+  if(!PRE.length)return;var SK='glb-edit-seen',seen=[];try{seen=JSON.parse(localStorage.getItem(SK)||'[]')}catch(e){}
+  var nw=PRE[PRE.length-1];$('ed-pre').value=String(PRE.length-1);
+  if(seen.indexOf(nw.name)>=0)return;
+  if(P.v.length||P.au.length){try{localStorage.setItem(KEY+'-backup',JSON.stringify(P))}catch(e){}}
+  openPre(nw);seen.push(nw.name);try{localStorage.setItem(SK,JSON.stringify(seen))}catch(e){}
+})();
 })();
 </script></section>
 <section class="pane" data-tab="who" data-stage="any">
