@@ -182,7 +182,7 @@ details.rule{padding:10px 12px}
 <body>
 <div class="goalbar">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div>
 <header>
-<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="kumi"><b>組み合わせ</b><small>秒を自由に</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
+<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="edit"><b>編集</b><small>CapCutの画面</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
 <div class="chips" id="chips"><div class="cin"><button class="chip" data-stage="all">全部</button><button class="chip" data-stage="0">0 冒頭</button><button class="chip" data-stage="1">1 足回り</button><button class="chip" data-stage="2">2 予備洗浄</button><button class="chip" data-stage="3">3 ミット洗車</button><button class="chip" data-stage="4">4 鉄粉取り</button><button class="chip" data-stage="5">5 油膜取り</button><button class="chip" data-stage="6">6 軽研磨</button><button class="chip" data-stage="7">7 1層目</button><button class="chip" data-stage="8">8 2層目</button><button class="chip" data-stage="9">9 完成</button></div></div>
 </header>
 <main>
@@ -569,155 +569,328 @@ details.rule{padding:10px 12px}
 })();
 </script>
 </section>
-<section class="pane" data-tab="kumi" data-stage="any"><style>
-.km-wrap{display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:16px;align-items:start}
-.km-view{position:sticky;top:104px;border:2px solid var(--accent);border-radius:10px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 116px);overflow:auto}
-.km-view h3{margin:0;font-size:17px}
-.km-view select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;width:100%}
-.km-view video{width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;display:block}
-.km-what{font-size:13px;color:var(--sub);line-height:1.5}
-.km-io{display:grid;grid-template-columns:auto 1fr auto;gap:6px 8px;align-items:center}
-.km-io input{width:100%;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px}
-.km-btn{border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:var(--accent);line-height:1.3}
-.km-btn.main{background:var(--accent);color:#fff}
-.km-btns{display:flex;gap:6px;flex-wrap:wrap}.km-btns .km-btn{flex:1 1 140px}
-.km-len{font-size:18px;font-weight:700}
-.km-now{font-size:14px;color:var(--sub)}
-.km-bar{position:sticky;top:104px;z-index:5;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.km-bar label.km-btn{display:inline-block}
-.km-msg{flex:1 1 100%;font-size:14px;color:var(--sub);line-height:1.6}
-.km-cut{border:1px solid var(--line);border-radius:10px;background:#fff;margin:0 0 10px;padding:10px 12px}
-.km-cut.on{border:3px solid var(--accent);background:#fffdf7}
-.km-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
-.km-head b{font-size:18px}
-.km-diff{font-weight:700;border-radius:999px;padding:1px 12px;font-size:14px}
-.km-diff.short{background:#f8e9e6;color:#9a3b2e}.km-diff.over{background:#fff3e0;color:#a35a00}.km-diff.ok{background:#e3f1e4;color:#22682c}
-.km-say{font-size:14px;color:var(--sub);line-height:1.6;margin:4px 0 6px}
-.km-list{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:4px}
-.km-list li{display:flex;gap:6px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fafaf8}
-.km-list li.ed{border-color:var(--accent);background:#fff3e0}
-.km-list li span{flex:1 1 200px}
-.km-list li button{border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;font-size:14px;padding:2px 8px;cursor:pointer}
-.km-empty{font-size:14px;color:var(--sub)}
-.km-total{font-weight:700}
-@media(max-width:1000px){.km-wrap{grid-template-columns:1fr}.km-view{position:static;max-height:none}}
-</style><h2>組み合わせ（映像の秒を自由に決めて並べる）</h2><p>カット62〜79に、使いたい動画の「始め〜終わり」を何本でも並べられます。カットの秒は、並べた映像の合計で決まります。右の「声」は元の録音の長さです。AIの声を作った後、並べた映像に合わせて声と秒を合わせ直します。</p><p class="src">使い方：①カットの「このカットに足す」を押す　②右で動画を選んで再生し、「今の所を始めに」「今の所を終わりに」を押す　③「カットに足す」を押す。並べた映像の「直す」を押すと、右に読み込んで秒を直せます。</p><div class="km-bar"><span>全部の映像 <b id="km-all">0.0</b>秒 ／ 声 <b id="km-voice">0.0</b>秒</span><button type="button" class="km-btn main" id="km-save">保存する</button><label class="km-btn">保存した物を読み込む<input type="file" id="km-load" accept=".json" hidden></label><button type="button" class="km-btn" id="km-playall">全部を通して再生</button><span class="km-msg" id="km-msg">並べるたびに、このブラウザに自動で残ります。「保存する」を押すと、ダウンロードのフォルダにファイルができます。</span></div><div class="km-wrap"><div class="km-cuts"><div class="km-cut" data-n="62" data-dur="12.2"><div class="km-head"><b>カット62</b><span>声 12.2秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：MIYABIでは2層塗りをお勧めしています1層だけでは塗装の凸凹を埋め切れず膜が薄くなって水の弾き方やムラが出やすいからです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="63" data-dur="4.5"><div class="km-head"><b>カット63</b><span>声 4.5秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：納車の後によくいただくご質問にもお答えしておきます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="64" data-dur="9.7"><div class="km-head"><b>カット64</b><span>声 9.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：施工の後は3ヶ月から半年に1回を目安に洗車でお越しくださいそのときに水の弾き具合を見て無料で整えます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="65" data-dur="11.9"><div class="km-head"><b>カット65</b><span>声 11.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：最後の工程は最終の仕上げですライトを使ってムラがないかを2時間かけてみていきます塗って終わりにはしません長く綺麗に乗っていただくためです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="66" data-dur="4.0"><div class="km-head"><b>カット66</b><span>声 4.0秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：本日の施工内容はこちらです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="67" data-dur="3.3"><div class="km-head"><b>カット67</b><span>声 3.3秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：洗車から最終の仕上げまで8工程</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="68" data-dur="2.5"><div class="km-head"><b>カット68</b><span>声 2.5秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：約17時間30分</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="69" data-dur="4.7"><div class="km-head"><b>カット69</b><span>声 4.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：金額は19万2000円から22万2000円です</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="70" data-dur="3.4"><div class="km-head"><b>カット70</b><span>声 3.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：この金額にはここまでお見せした磨きと</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="71" data-dur="4.4"><div class="km-head"><b>カット71</b><span>声 4.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：2層の塗り方重ねと4大保証がすべて入っております</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="72" data-dur="2.7"><div class="km-head"><b>カット72</b><span>声 2.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：この8工程でやった上で</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="73" data-dur="2.8"><div class="km-head"><b>カット73</b><span>声 2.8秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：今回出来上がったお車はこちらです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="74" data-dur="9.9"><div class="km-head"><b>カット74</b><span>声 9.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：新車のコーティングをされるお客様からよくいただく疑問なんですけど新車だからコーティングはいらない違いがわからないという方はよくいらっしゃいます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="75" data-dur="5.4"><div class="km-head"><b>カット75</b><span>声 5.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：こちらがコーティングの前と後の水の弾き方です</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="76" data-dur="4.7"><div class="km-head"><b>カット76</b><span>声 4.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：新車の時の感動を5年から7年持続します</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="77" data-dur="14.9"><div class="km-head"><b>カット77</b><span>声 14.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：施工の後も洗車でお越しの時に汚れ落とし小さな傷の直し水の弾きの手入れを4大保証でお守りします板金塗装で直したところは無料でかけ直します</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="78" data-dur="11.6"><div class="km-head"><b>カット78</b><span>声 11.6秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：ディーラーや他のお店との違いは1日1台だけを施工して受付からお渡しまで同じ担当が見て車の状態に合わせて工程を組み立てることです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="79" data-dur="8.1"><div class="km-head"><b>カット79</b><span>声 8.1秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：ご視聴ありがとうございましたチャンネル登録高評価もよろしくお願いします</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div></div><div class="km-view"><h3>素材を見る</h3><label>足す先：<select id="km-target"><option value="62">カット62（声 12.2秒）</option><option value="63">カット63（声 4.5秒）</option><option value="64">カット64（声 9.7秒）</option><option value="65">カット65（声 11.9秒）</option><option value="66">カット66（声 4.0秒）</option><option value="67">カット67（声 3.3秒）</option><option value="68">カット68（声 2.5秒）</option><option value="69">カット69（声 4.7秒）</option><option value="70">カット70（声 3.4秒）</option><option value="71">カット71（声 4.4秒）</option><option value="72">カット72（声 2.7秒）</option><option value="73">カット73（声 2.8秒）</option><option value="74">カット74（声 9.9秒）</option><option value="75">カット75（声 5.4秒）</option><option value="76">カット76（声 4.7秒）</option><option value="77">カット77（声 14.9秒）</option><option value="78">カット78（声 11.6秒）</option><option value="79">カット79（声 8.1秒）</option></select></label><label>動画：<select id="km-src"></select></label><video id="km-video" controls muted playsinline preload="metadata"></video><div class="km-now">今の所：<b id="km-cur">0.0</b>秒</div><div class="km-what" id="km-what"></div><div class="km-io"><button type="button" class="km-btn" id="km-setA">今の所を始めに</button><input type="number" id="km-a" step="0.1" min="0" value="0"><span>秒</span><button type="button" class="km-btn" id="km-setB">今の所を終わりに</button><input type="number" id="km-b" step="0.1" min="0" value="0"><span>秒</span></div><div>使う長さ：<span class="km-len" id="km-len">0.0</span>秒</div><div class="km-btns"><button type="button" class="km-btn" id="km-playAB">始め〜終わりを再生</button><button type="button" class="km-btn main" id="km-add">カットに足す</button></div><div class="km-btns" id="km-edbox" hidden><button type="button" class="km-btn main" id="km-upd">直した秒で上書き</button><button type="button" class="km-btn" id="km-cancel">直すのをやめる</button></div></div></div><script>
+<section class="pane" data-tab="edit" data-stage="any">
+<style>
+main.full{max-width:none!important;padding:8px 10px 10px!important}
+.ed{--e0:#141416;--e1:#1d1d21;--e2:#26262b;--e3:#33333a;--et:#e8e8ea;--es:#9a9aa3;--ea:#25c3d6;--ev:#2f6f7a;--eau:#2f5d3a;
+  background:var(--e0);color:var(--et);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;height:calc(100vh - 128px);min-height:640px;font-size:14px;line-height:1.5;user-select:none}
+.ed button{font:inherit;color:var(--et);background:var(--e3);border:0;border-radius:6px;padding:5px 12px;cursor:pointer}
+.ed button:hover{background:#40404a}.ed button:disabled{opacity:.35;cursor:default}
+.ed button.pri{background:var(--ea);color:#062a30;font-weight:700}
+.ed input,.ed select{font:inherit;color:var(--et);background:var(--e2);border:1px solid var(--e3);border-radius:6px;padding:4px 8px}
+.ed-top{display:flex;gap:8px;align-items:center;padding:6px 10px;background:var(--e1);border-bottom:1px solid #000}
+.ed-top input{width:220px}.ed-msg{flex:1;color:var(--es);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-mid{flex:1 1 58%;min-height:0;display:grid;grid-template-columns:minmax(260px,30%) 1fr minmax(220px,21%);gap:2px;background:#000}
+.ed-box{background:var(--e1);display:flex;flex-direction:column;min-height:0;min-width:0}
+.ed-ph{padding:6px 10px;font-weight:700;border-bottom:1px solid var(--e3);display:flex;gap:8px;align-items:center}
+.ed-ph small{color:var(--es);font-weight:400}
+.ed-bin{margin:8px 10px 4px}
+.ed-grid{flex:1;overflow:auto;padding:6px 10px 10px;display:grid;grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;align-content:start}
+.ed-card{position:relative;cursor:pointer;border-radius:6px}
+.ed-card .im{position:relative;aspect-ratio:16/9;background:#000 no-repeat;background-size:auto 100%;border-radius:6px;border:2px solid transparent;overflow:hidden}
+.ed-card.on .im{border-color:var(--ea)}
+.ed-card .im.au{background:var(--eau);display:flex;align-items:center;justify-content:center;font-size:22px}
+.ed-card .du{position:absolute;right:4px;bottom:3px;font-size:11px;background:rgba(0,0,0,.65);padding:0 4px;border-radius:3px}
+.ed-card .ad{position:absolute;right:4px;top:4px;width:24px;height:24px;border-radius:50%;background:var(--ea);color:#062a30;font-weight:700;display:none;align-items:center;justify-content:center;font-size:18px;line-height:1}
+.ed-card:hover .ad{display:flex}
+.ed-card .nm{font-size:12px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ed-screen{flex:1;min-height:0;position:relative;background:#000;display:flex;align-items:center;justify-content:center}
+.ed-screen video{max-width:100%;max-height:100%;width:100%;height:100%;object-fit:contain;background:#000}
+.ed-screen .bl{position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;color:var(--es)}
+.ed-screen audio{position:absolute;left:10%;right:10%;bottom:12px;width:80%}
+.ed-ctl{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:6px 10px;border-top:1px solid var(--e3)}
+.ed-tc{font-variant-numeric:tabular-nums;color:var(--es)}.ed-tc b{color:var(--ea);font-weight:400}
+.ed-play{width:40px;height:32px;font-size:16px}
+.ed-prop{padding:10px;overflow:auto;display:flex;flex-direction:column;gap:8px}
+.ed-prop .row{display:grid;grid-template-columns:5.5em 1fr;gap:6px;align-items:center}
+.ed-prop input{width:100%}.ed-prop .lb{color:var(--es)}.ed-prop .big{font-size:16px;font-weight:700;word-break:break-all}
+.ed-prop .note{color:var(--es);font-size:12px;word-break:break-all}
+.ed-prop ul{margin:0;padding-left:1.2em;color:var(--es);font-size:12px}
+.ed-tools{display:flex;gap:6px;align-items:center;padding:5px 10px;background:var(--e1);border-top:2px solid #000;border-bottom:1px solid #000}
+.ed-tools .sp{flex:1}.ed-tools input[type=range]{width:160px;padding:0}
+.ed-tl{flex:1 1 42%;min-height:170px;display:flex;background:var(--e0)}
+.ed-heads{width:84px;flex:0 0 84px;background:var(--e1);border-right:1px solid #000}
+.ed-heads div{display:flex;align-items:center;justify-content:center;color:var(--es);font-size:12px;border-bottom:1px solid #000}
+.ed-scroll{flex:1;overflow:auto;position:relative}
+.ed-inner{position:relative;min-height:100%}
+.ed-ruler{position:sticky;top:0;z-index:3;height:26px;background:var(--e1);border-bottom:1px solid var(--e3);cursor:pointer}
+.ed-ruler i{position:absolute;bottom:0;width:1px;background:#55555e}
+.ed-ruler span{position:absolute;top:2px;font-size:10px;color:var(--es);transform:translateX(3px);white-space:nowrap}
+.ed-track{position:relative;border-bottom:1px solid #000}
+.ed-track.v{height:76px}.ed-track.a{height:58px}
+.ed-track .tip{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#55555e;font-size:13px;pointer-events:none;white-space:nowrap}
+.ed-clip{position:absolute;top:8px;bottom:8px;border-radius:5px;overflow:hidden;cursor:grab;box-sizing:border-box;border:1px solid rgba(255,255,255,.18)}
+.ed-track.v .ed-clip{background:var(--ev)}.ed-track.a .ed-clip{background:var(--eau)}
+.ed-clip.sel{border:2px solid #fff;z-index:2}
+.ed-clip.miss{background:#6b2525!important}
+.ed-clip .tl{position:absolute;top:0;bottom:0;background-repeat:no-repeat;pointer-events:none}
+.ed-clip canvas{position:absolute;left:0;top:0;height:100%;pointer-events:none}
+.ed-clip .lab{position:absolute;left:4px;top:2px;right:4px;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 3px #000,0 0 3px #000;pointer-events:none}
+.ed-clip .h{position:absolute;top:0;bottom:0;width:9px;background:rgba(255,255,255,.0);cursor:ew-resize;z-index:3}
+.ed-clip .h.l{left:0}.ed-clip .h.r{right:0}
+.ed-clip.sel .h{background:#fff}.ed-clip.sel .h:after{content:"";position:absolute;left:3px;top:35%;bottom:35%;width:2px;background:#333;border-radius:1px}
+.ed-clip:hover .h{background:rgba(255,255,255,.55)}
+.ed-clip.drag{opacity:.75;z-index:5;cursor:grabbing}
+.ed-ins{position:absolute;top:4px;bottom:4px;width:3px;background:var(--ea);border-radius:2px;display:none;z-index:6;pointer-events:none}
+.ed-line{position:absolute;top:0;bottom:0;width:0;z-index:8;pointer-events:none}
+.ed-line:before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:2px;background:#fff}
+.ed-line:after{content:"";position:absolute;left:-7px;top:0;border:7px solid transparent;border-top:9px solid #fff}
+.ed-drop{outline:2px dashed var(--ea);outline-offset:-2px}
+</style>
+<div class="ed" id="ed">
+ <div class="ed-top"><span>名前</span><input id="ed-name" type="text"><button id="ed-new">新しく作る</button>
+  <label><button type="button" id="ed-loadb">読み込む</button><input type="file" id="ed-load" accept=".json" hidden></label>
+  <button class="pri" id="ed-save">保存する</button><span class="ed-msg" id="ed-msg">並べた物は、このブラウザに自動で残ります。「保存する」でダウンロードのフォルダにファイルができます。</span></div>
+ <div class="ed-mid">
+  <div class="ed-box"><div class="ed-ph">素材<small>押すと見られる・＋か引っぱって足す</small></div><select class="ed-bin" id="ed-bin"></select><div class="ed-grid" id="ed-grid"></div></div>
+  <div class="ed-box"><div class="ed-ph">プレイヤー<small id="ed-pm">時間の帯</small></div>
+   <div class="ed-screen"><video id="ed-v" playsinline muted preload="auto"></video><div class="bl" id="ed-bl">映像はありません</div><audio id="ed-a" preload="auto"></audio></div>
+   <div class="ed-ctl"><span class="ed-tc" id="ed-tc"></span><button class="ed-play" id="ed-play" title="再生（スペース）">▶</button><span></span></div></div>
+  <div class="ed-box"><div class="ed-ph">詳細</div><div class="ed-prop" id="ed-prop"></div></div>
+ </div>
+ <div class="ed-tools"><button id="ed-undo" title="元に戻す（Ctrl+Z）">↶ 元に戻す</button><button id="ed-redo" title="やり直す（Ctrl+Y）">↷ やり直す</button>
+  <button id="ed-split" title="再生位置で分ける（Ctrl+B）">✂ 分割</button><button id="ed-del" title="消す（Delete）">🗑 削除</button><span class="sp"></span>
+  <button id="ed-zo" title="縮める">－</button><input type="range" id="ed-zoom" min="0" max="100" value="40"><button id="ed-zi" title="広げる">＋</button></div>
+ <div class="ed-tl">
+  <div class="ed-heads"><div style="height:27px"></div><div style="height:77px">メイン<br>（映像）</div><div style="height:59px">声・音</div></div>
+  <div class="ed-scroll" id="ed-scroll"><div class="ed-inner" id="ed-inner">
+   <div class="ed-ruler" id="ed-ruler"></div>
+   <div class="ed-track v" id="ed-tv"></div>
+   <div class="ed-track a" id="ed-ta"></div>
+   <div class="ed-ins" id="ed-ins"></div>
+   <div class="ed-line" id="ed-line"></div>
+  </div></div>
+ </div>
+</div>
+<script>
 (function(){
-  var KEY='glb-kumiawase-v1',CANDS={"62": [364, 362, 363, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "63": [367, 366, 370, 368, 369, 371, 372, 373, 374, 375], "64": [369, 371, 366, 367, 368, 370, 372, 373, 374, 375], "65": [375, 373, 366, 367, 368, 369, 370, 371, 372, 374, 376, 377, 378, 379, 380], "66": [313, 303, 304, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "67": [327, 309, 310, 311, 315, 316, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "68": [341, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "69": [374, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 375, 366, 367, 376, 377, 378, 379, 380], "70": [343, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "71": [363, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 362, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "72": [376, 368, 369, 370, 371, 372, 373, 374, 375, 377, 378, 379, 380, 366, 367], "73": [380, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 366, 367], "74": [377, 376, 378, 379, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "75": [379, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 376, 377, 378, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "76": [376, 368, 369, 370, 371, 372, 373, 374, 375, 377, 378, 379, 380, 366, 367], "77": [369, 373, 375, 366, 367, 368, 370, 371, 372, 374, 376, 377, 378, 379, 380], "78": [374, 370, 366, 367, 368, 369, 371, 372, 373, 375, 376, 377, 378, 379, 380], "79": [378, 376, 377, 379, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375]};
-  var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
-  var $=function(i){return document.getElementById(i)};
-  var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
-  if(!st.cuts)st.cuts={};
-  function keep(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
-  function f1(x){return (Math.round(x*10)/10).toFixed(1)}
-  var ALL=(window.ST_ALL||[]),INFO={};ALL.forEach(function(v){INFO[v.no]=v});
-  var vid=$('km-video'),tgt=$('km-target'),src=$('km-src'),edit=null,play=null,auto=false;
-  function label(no){var v=INFO[no];return 'GX010'+no+(v?'　'+v.stage+'　'+Math.round(v.len)+'秒':'')}
-  function fillSrc(keepNo){
-    var n=tgt.value,c=CANDS[n]||[],h='<optgroup label="このカットの候補">';
-    c.forEach(function(no){h+='<option value="'+no+'">'+label(no)+'</option>'});
-    h+='</optgroup><optgroup label="ほかの動画（全部）">';
-    ALL.forEach(function(v){if(c.indexOf(+v.no)<0)h+='<option value="'+v.no+'">'+label(v.no)+'</option>'});
-    src.innerHTML=h+'</optgroup>';
-    if(keepNo)src.value=String(keepNo);
-  }
-  function load(no,t){
-    var u='sentei_full/GX010'+no+'.mp4';
-    $('km-what').textContent=INFO[no]?INFO[no].what.replace(/&amp;/g,'&'):'';
-    if(vid.getAttribute('src')!==u){vid.setAttribute('src',u);vid.addEventListener('loadedmetadata',function(){auto=true;vid.currentTime=t||0},{once:true})}
-    else{auto=true;vid.currentTime=t||0}
-  }
-  function A(){return parseFloat($('km-a').value)||0}
-  function B(){return parseFloat($('km-b').value)||0}
-  function showLen(){$('km-len').textContent=f1(Math.max(0,B()-A()))}
-  function setTarget(n){tgt.value=String(n);q('.km-cut').forEach(function(d){d.classList.toggle('on',d.dataset.n===String(n))});fillSrc(src.value)}
-  function paint(){
-    var all=0,voice=0;
-    q('.km-cut').forEach(function(d){
-      var n=d.dataset.n,L=st.cuts[n]||[],dur=parseFloat(d.dataset.dur),sum=0,ul=d.querySelector('.km-list');
-      ul.innerHTML='';
-      L.forEach(function(x,i){
-        sum+=x.b-x.a;
-        var li=document.createElement('li');
-        if(edit&&edit.n===n&&edit.i===i)li.className='ed';
-        li.innerHTML='<span>'+(i+1)+'. GX010'+x.no+'　'+f1(x.a)+'〜'+f1(x.b)+'秒（'+f1(x.b-x.a)+'秒）</span>'+
-          '<button data-k="up">↑</button><button data-k="down">↓</button><button data-k="see">直す</button><button data-k="del">消す</button>';
-        q('button',li).forEach(function(b){b.addEventListener('click',function(){
-          var k=b.dataset.k;
-          if(k==='up'&&i>0){L.splice(i-1,0,L.splice(i,1)[0])}
-          if(k==='down'&&i<L.length-1){L.splice(i+1,0,L.splice(i,1)[0])}
-          if(k==='del'){L.splice(i,1);if(edit&&edit.n===n)endEdit()}
-          if(k==='see'){setTarget(n);fillSrc(x.no);load(x.no,x.a);$('km-a').value=f1(x.a);$('km-b').value=f1(x.b);showLen();edit={n:n,i:i};$('km-edbox').hidden=false;$('km-add').hidden=true}
-          keep();paint();
-        })});
-        ul.appendChild(li);
-      });
-      if(!L.length)ul.innerHTML='<li class="km-empty" style="border:0;background:none">まだ並べていません</li>';
-      d.querySelector('.km-sum').textContent=f1(sum);
-      var df=sum-dur,s=d.querySelector('.km-diff');
-      s.className='km-diff '+(!L.length?'short':Math.abs(df)<0.3?'ok':df<0?'short':'over');
-      s.textContent=!L.length?'映像がまだありません':Math.abs(df)<0.3?'声とほぼ同じ':df<0?'映像が '+f1(-df)+'秒 足りない':'映像が '+f1(df)+'秒 多い';
-      all+=sum;voice+=dur;
-    });
-    $('km-all').textContent=f1(all);$('km-voice').textContent=f1(voice);
-  }
-  function endEdit(){edit=null;$('km-edbox').hidden=true;$('km-add').hidden=false}
-  function playList(list){
-    var tok={};play=tok;var i=0;
-    function next(){
-      if(play!==tok)return;
-      if(i>=list.length){play=null;vid.pause();return}
-      var x=list[i++];fillSrc(x.no);load(x.no,x.a);
-      var go=function(){if(play!==tok)return;vid.play().catch(function(){})};
-      if(vid.readyState>=1)go();else vid.addEventListener('loadedmetadata',function(){setTimeout(go,50)},{once:true});
-      tok.end=x.b;tok.next=next;
-    }
-    next();
-  }
-  vid.addEventListener('timeupdate',function(){
-    $('km-cur').textContent=f1(vid.currentTime);
-    if(play&&play.end!==undefined&&vid.currentTime>=play.end){var nx=play.next;play.end=undefined;nx()}
+var M={"bins":[{"name":"GLB施工の動画（104本）","ids":["v277","v278","v279","v280","v281","v282","v283","v284","v285","v286","v287","v288","v289","v290","v291","v292","v293","v294","v295","v296","v297","v298","v299","v300","v301","v302","v303","v304","v305","v306","v307","v308","v309","v310","v311","v312","v313","v314","v315","v316","v317","v318","v319","v320","v321","v322","v323","v324","v325","v326","v327","v328","v329","v330","v331","v332","v333","v334","v335","v336","v337","v338","v339","v340","v341","v342","v343","v344","v345","v346","v347","v348","v349","v350","v351","v352","v353","v354","v355","v356","v357","v358","v359","v360","v361","v362","v363","v364","v365","v366","v367","v368","v369","v370","v371","v372","v373","v374","v375","v376","v377","v378","v379","v380"]},{"name":"AIの声（決まった案）","ids":["ad7b792a2bb","a94771b0f46","a99b97034fe","acfa4a1b735","a501a2341b7","a3932f27c80","a5e16b00bbf"]}],"items":{"v277":{"name":"GX010277","k":"v","u":"sentei_full/GX010277.mp4","d":2.102,"th":{"u":"edit_thumbs/GX010277.jpg","s":1,"n":2},"note":"試し撮り"},"v278":{"name":"GX010278","k":"v","u":"sentei_full/GX010278.mp4","d":4.471,"th":{"u":"edit_thumbs/GX010278.jpg","s":1,"n":4},"note":"試し撮り"},"v279":{"name":"GX010279","k":"v","u":"sentei_full/GX010279.mp4","d":0.601,"th":{"u":"edit_thumbs/GX010279.jpg","s":1,"n":1},"note":"試し撮り"},"v280":{"name":"GX010280","k":"v","u":"sentei_full/GX010280.mp4","d":1.468,"th":{"u":"edit_thumbs/GX010280.jpg","s":1,"n":1},"note":"試し撮り"},"v281":{"name":"GX010281","k":"v","u":"sentei_full/GX010281.mp4","d":1.268,"th":{"u":"edit_thumbs/GX010281.jpg","s":1,"n":1},"note":"試し撮り"},"v282":{"name":"GX010282","k":"v","u":"sentei_full/GX010282.mp4","d":19.086,"th":{"u":"edit_thumbs/GX010282.jpg","s":1,"n":19},"note":"施工前の外観　GLBの正面全体（MIYABIプレート）、左に黒い車"},"v283":{"name":"GX010283","k":"v","u":"sentei_full/GX010283.mp4","d":12.212,"th":{"u":"edit_thumbs/GX010283.jpg","s":1,"n":12},"note":"施工前の外観　左前から斜めに車全体／左側面を歩きながら撮る"},"v284":{"name":"GX010284","k":"v","u":"sentei_full/GX010284.mp4","d":14.848,"th":{"u":"edit_thumbs/GX010284.jpg","s":1,"n":14},"note":"施工前の外観　正面全体（MIYABIプレート）、左に黒い車"},"v285":{"name":"GX010285","k":"v","u":"sentei_full/GX010285.mp4","d":15.249,"th":{"u":"edit_thumbs/GX010285.jpg","s":1,"n":15},"note":"施工前の外観　左前から斜めに車全体／左側面〜左後ろ／右後ろ斜めに車全体（後ろのナンバー）"},"v286":{"name":"GX010286","k":"v","u":"sentei_full/GX010286.mp4","d":8.909,"th":{"u":"edit_thumbs/GX010286.jpg","s":1,"n":8},"note":"施工前の外観　真後ろから車全体（後ろのナンバー）、右に黒い車"},"v287":{"name":"GX010287","k":"v","u":"sentei_full/GX010287.mp4","d":6.44,"th":{"u":"edit_thumbs/GX010287.jpg","s":1,"n":6},"note":"施工前の外観　ボンネットに六角ライトが映り込む"},"v288":{"name":"GX010288","k":"v","u":"sentei_full/GX010288.mp4","d":13.146,"th":{"u":"edit_thumbs/GX010288.jpg","s":1,"n":13},"note":"施工前の外観　左ヘッドライトとグリル／正面グリル・ヘッドライト（MIYABIプレート）"},"v289":{"name":"GX010289","k":"v","u":"sentei_full/GX010289.mp4","d":47.614,"th":{"u":"edit_thumbs/GX010289.jpg","s":1,"n":47},"note":"施工前の外観　正面全体から回り始める、左に黒い車／右前斜め、ボンネットとヘッドライト／左側面〜左後ろ／左後ろ斜め（後ろのナンバー）、右…"},"v290":{"name":"GX010290","k":"v","u":"sentei_full/GX010290.mp4","d":16.049,"th":{"u":"edit_thumbs/GX010290.jpg","s":1,"n":16},"note":"施工前の外観　ボンネットに六角ライトが映り込む"},"v291":{"name":"GX010291","k":"v","u":"sentei_full/GX010291.mp4","d":12.913,"th":{"u":"edit_thumbs/GX010291.jpg","s":1,"n":12},"note":"施工前の外観　右ヘッドライトとグリル／正面グリル（MIYABIプレート）、左に黒い車／左ヘッドライトとグリル、奥に白い車"},"v292":{"name":"GX010292","k":"v","u":"sentei_full/GX010292.mp4","d":20.053,"th":{"u":"edit_thumbs/GX010292.jpg","s":1,"n":20},"note":"施工前の外観　黒いドアミラーに六角ライトが映り込む"},"v293":{"name":"GX010293","k":"v","u":"sentei_full/GX010293.mp4","d":37.971,"th":{"u":"edit_thumbs/GX010293.jpg","s":1,"n":37},"note":"施工前の外観　GLB 200dエンブレムとテールランプ／スタッフが立っている、手前にエンブレム／GLB 200dエンブレム"},"v294":{"name":"GX010294","k":"v","u":"sentei_full/GX010294.mp4","d":17.117,"th":{"u":"edit_thumbs/GX010294.jpg","s":1,"n":17},"note":"施工前の外観　天井の六角ライトと車の後ろ、ライト器具を持つ手／手がレンズの前、ブレ／エンブレムとテールランプ"},"v295":{"name":"GX010295","k":"v","u":"sentei_full/GX010295.mp4","d":18.518,"th":{"u":"edit_thumbs/GX010295.jpg","s":1,"n":18},"note":"施工前の外観　エンブレムと白い四角の映り込み／エンブレムと後ろのナンバー"},"v296":{"name":"GX010296","k":"v","u":"sentei_full/GX010296.mp4","d":35.035,"th":{"u":"edit_thumbs/GX010296.jpg","s":1,"n":35},"note":"施工前の外観　洗車前のホイール／ホイールのアップ／タイヤ（ブリヂストン）のアップ"},"v297":{"name":"GX010297","k":"v","u":"sentei_full/GX010297.mp4","d":21.355,"th":{"u":"edit_thumbs/GX010297.jpg","s":1,"n":21},"note":"ホイールを洗う　スタッフがしゃがんで前タイヤに水をかける／左前から、前タイヤに水をかける"},"v298":{"name":"GX010298","k":"v","u":"sentei_full/GX010298.mp4","d":55.822,"th":{"u":"edit_thumbs/GX010298.jpg","s":1,"n":55},"note":"ホイールを洗う　しゃがんで左前タイヤを水で流す／左後ろタイヤ付近を水で流す（遠め）"},"v299":{"name":"GX010299","k":"v","u":"sentei_full/GX010299.mp4","d":38.972,"th":{"u":"edit_thumbs/GX010299.jpg","s":1,"n":38},"note":"ホイールを洗う　タイヤに泡がついた状態、奥でスタッフ作業／店の外の道路と止まっている車／泡ガンで前タイヤに泡をかける"},"v300":{"name":"GX010300","k":"v","u":"sentei_full/GX010300.mp4","d":133.133,"th":{"u":"edit_thumbs/GX010300.jpg","s":2,"n":66},"note":"ホイールを洗う　前ホイールをミットで洗う（顔あり）／泡のホイールをグローブで洗う手元／ホイールを洗う、右にスマホ画面／ホイールの中心をミ…"},"v301":{"name":"GX010301","k":"v","u":"sentei_full/GX010301.mp4","d":60.761,"th":{"u":"edit_thumbs/GX010301.jpg","s":1,"n":60},"note":"ホイールを洗う　しゃがんで前タイヤを水で流す、カメラに笑う（0:06腕が横切る・0:26他の人の手が商品を持って入る）／前タイヤを水で流…"},"v302":{"name":"GX010302","k":"v","u":"sentei_full/GX010302.mp4","d":23.657,"th":{"u":"edit_thumbs/GX010302.jpg","s":1,"n":23},"note":"ホイールを洗う　水で流した後のホイール"},"v303":{"name":"GX010303","k":"v","u":"sentei_full/GX010303.mp4","d":62.696,"th":{"u":"edit_thumbs/GX010303.jpg","s":1,"n":62},"note":"高圧の水で流す　高圧の水でボディ前を流す／スタッフの背中が手前をふさぐ／ボディ・屋根を水で流す"},"v304":{"name":"GX010304","k":"v","u":"sentei_full/GX010304.mp4","d":54.621,"th":{"u":"edit_thumbs/GX010304.jpg","s":1,"n":54},"note":"高圧の水で流す　踏み台に乗って屋根を水で流す／左側面を水で流す（遠め）"},"v305":{"name":"GX010305","k":"v","u":"sentei_full/GX010305.mp4","d":76.176,"th":{"u":"edit_thumbs/GX010305.jpg","s":1,"n":76},"note":"泡をかける　泡をかけ始める、右手前にスタッフ／ボディ全体が泡に包まれていく／スタッフが泡をかけ足す"},"v306":{"name":"GX010306","k":"v","u":"sentei_full/GX010306.mp4","d":48.181,"th":{"u":"edit_thumbs/GX010306.jpg","s":1,"n":48},"note":"手洗い　泡の上からミットでボディ前を手洗い"},"v307":{"name":"GX010307","k":"v","u":"sentei_full/GX010307.mp4","d":55.856,"th":{"u":"edit_thumbs/GX010307.jpg","s":1,"n":55},"note":"手洗い　前バンパー・グリルをミットで洗う／スタッフの体が手前をふさぐ／ヘッドライトをミットで洗う／前フェンダー・タイヤ周りを洗う…"},"v308":{"name":"GX010308","k":"v","u":"sentei_full/GX010308.mp4","d":47.614,"th":{"u":"edit_thumbs/GX010308.jpg","s":1,"n":47},"note":"手洗い　左側のドアをしゃがんで手洗い"},"v309":{"name":"GX010309","k":"v","u":"sentei_full/GX010309.mp4","d":7.474,"th":{"u":"edit_thumbs/GX010309.jpg","s":1,"n":7},"note":"泡を流す　手洗い後、泡が残るGLB正面"},"v310":{"name":"GX010310","k":"v","u":"sentei_full/GX010310.mp4","d":93.226,"th":{"u":"edit_thumbs/GX010310.jpg","s":1,"n":93},"note":"泡を流す　左前から、泡を水で流す／真正面から、ボディの泡を水で流す（MIYABIプレート）／前バンパー下を水で流す（前に本物のナン…"},"v311":{"name":"GX010311","k":"v","u":"sentei_full/GX010311.mp4","d":104.504,"th":{"u":"edit_thumbs/GX010311.jpg","s":1,"n":104},"note":"泡を流す　前バンパー近くを水で流す／左前から水で流す／左側面・窓を水で流す／左側面・屋根を水で流す、手前に黒い車／踏み台に乗り屋根…"},"v312":{"name":"GX010312","k":"v","u":"sentei_full/GX010312.mp4","d":32.165,"th":{"u":"edit_thumbs/GX010312.jpg","s":1,"n":32},"note":"スプレー　スプレーボトルでボディに吹き付ける／正面からスプレー作業"},"v313":{"name":"GX010313","k":"v","u":"sentei_full/GX010313.mp4","d":106.106,"th":{"u":"edit_thumbs/GX010313.jpg","s":1,"n":106},"note":"高圧の水で流す　高圧の水でボディ前を流す／ボンネット・前を水で流す／スタッフの背中がふさぐ／左前から水で流す／左前から水で流す、指が左上…"},"v314":{"name":"GX010314","k":"v","u":"sentei_full/GX010314.mp4","d":45.979,"th":{"u":"edit_thumbs/GX010314.jpg","s":1,"n":45},"note":"手洗い　泡のボディ前をミットで手洗い（2回目）／前バンパー下を洗う（前に本物のナンバー）"},"v315":{"name":"GX010315","k":"v","u":"sentei_full/GX010315.mp4","d":15.849,"th":{"u":"edit_thumbs/GX010315.jpg","s":1,"n":15},"note":"泡を流す　前から泡を水で流す（前に本物のナンバー）／左前斜め、泡を水で流す"},"v316":{"name":"GX010316","k":"v","u":"sentei_full/GX010316.mp4","d":49.483,"th":{"u":"edit_thumbs/GX010316.jpg","s":1,"n":49},"note":"泡を流す　左前タイヤ・ボディを水で流す"},"v317":{"name":"GX010317","k":"v","u":"sentei_full/GX010317.mp4","d":22.256,"th":{"u":"edit_thumbs/GX010317.jpg","s":1,"n":22},"note":"拭き上げ　正面、オレンジのタオルでボンネットを拭く（前に本物のナンバー）／ベージュの上着の人の背中がふさぐ／前でしゃがむ人（プレー…"},"v318":{"name":"GX010318","k":"v","u":"sentei_full/GX010318.mp4","d":107.841,"th":{"u":"edit_thumbs/GX010318.jpg","s":1,"n":107},"note":"拭き上げ　大きなタオルでボンネットを拭き上げる／踏み台に乗り屋根を拭く（高い位置から）／左側面・屋根を拭く"},"v319":{"name":"GX010319","k":"v","u":"sentei_full/GX010319.mp4","d":14.781,"th":{"u":"edit_thumbs/GX010319.jpg","s":1,"n":14},"note":"拭き上げ　左ドア・ミラーをタオルで拭く"},"v320":{"name":"GX010320","k":"v","u":"sentei_full/GX010320.mp4","d":21.088,"th":{"u":"edit_thumbs/GX010320.jpg","s":1,"n":21},"note":"拭き上げ　右後ろから、右側面を拭く"},"v321":{"name":"GX010321","k":"v","u":"sentei_full/GX010321.mp4","d":120.153,"th":{"u":"edit_thumbs/GX010321.jpg","s":2,"n":60},"note":"エンブレムの掃除　ボトルを持って準備、体が近い／GLB 200dエンブレムのすき間を細い棒で掃除する手元／エンブレム周りにスプレーを吹く手…"},"v322":{"name":"GX010322","k":"v","u":"sentei_full/GX010322.mp4","d":45.145,"th":{"u":"edit_thumbs/GX010322.jpg","s":1,"n":45},"note":"エンブレムの掃除　エンブレムをタオルで拭く手元／エンブレムと白い四角の映り込み／エンブレムのアップ（ピンぼけ）"},"v323":{"name":"GX010323","k":"v","u":"sentei_full/GX010323.mp4","d":0.734,"th":{"u":"edit_thumbs/GX010323.jpg","s":1,"n":1},"note":"そのほか"},"v324":{"name":"GX010324","k":"v","u":"sentei_full/GX010324.mp4","d":53.32,"th":{"u":"edit_thumbs/GX010324.jpg","s":1,"n":53},"note":"エアーで水を飛ばす　しゃがんでエアガンでホイールの水を飛ばす"},"v325":{"name":"GX010325","k":"v","u":"sentei_full/GX010325.mp4","d":30.631,"th":{"u":"edit_thumbs/GX010325.jpg","s":1,"n":30},"note":"ボディチェック　ボンネットを開けて中を見る"},"v326":{"name":"GX010326","k":"v","u":"sentei_full/GX010326.mp4","d":45.579,"th":{"u":"edit_thumbs/GX010326.jpg","s":1,"n":45},"note":"ボディチェック　ライトを塗装に当てて傷を見る（左側面、ボンネット開）"},"v327":{"name":"GX010327","k":"v","u":"sentei_full/GX010327.mp4","d":33.7,"th":{"u":"edit_thumbs/GX010327.jpg","s":1,"n":33},"note":"マスキング　前フェンダー・バンパーのふちに黄色いマスキングテープを貼る／指がレンズをふさぐ"},"v328":{"name":"GX010328","k":"v","u":"sentei_full/GX010328.mp4","d":10.511,"th":{"u":"edit_thumbs/GX010328.jpg","s":1,"n":10},"note":"マスキング　マスキング後の正面、テープを貼る"},"v329":{"name":"GX010329","k":"v","u":"sentei_full/GX010329.mp4","d":7.04,"th":{"u":"edit_thumbs/GX010329.jpg","s":1,"n":7},"note":"マスキング　左側面のマスキング"},"v330":{"name":"GX010330","k":"v","u":"sentei_full/GX010330.mp4","d":19.453,"th":{"u":"edit_thumbs/GX010330.jpg","s":1,"n":19},"note":"マスキング　後ろのエンブレムをマスキングする手元（後ろのナンバー）"},"v331":{"name":"GX010331","k":"v","u":"sentei_full/GX010331.mp4","d":7.007,"th":{"u":"edit_thumbs/GX010331.jpg","s":1,"n":7},"note":"マスキング　4MATIC・GLB 200dエンブレムのマスキング"},"v332":{"name":"GX010332","k":"v","u":"sentei_full/GX010332.mp4","d":10.777,"th":{"u":"edit_thumbs/GX010332.jpg","s":1,"n":10},"note":"バフ　バフを並べた赤い台"},"v333":{"name":"GX010333","k":"v","u":"sentei_full/GX010333.mp4","d":100.2,"th":{"u":"edit_thumbs/GX010333.jpg","s":1,"n":100},"note":"研磨　ポリッシャーとバフを手に持って見せる／バフを載せた赤いカートとスタッフ／ボンネットをポリッシャーで磨く／ボンネット磨き（…"},"v334":{"name":"GX010334","k":"v","u":"sentei_full/GX010334.mp4","d":4.538,"th":{"u":"edit_thumbs/GX010334.jpg","s":1,"n":4},"note":"研磨　正面からボンネット磨き"},"v335":{"name":"GX010335","k":"v","u":"sentei_full/GX010335.mp4","d":35.335,"th":{"u":"edit_thumbs/GX010335.jpg","s":1,"n":35},"note":"研磨　正面からボンネット磨き、左に黒い車と白い車／ボンネット磨き"},"v336":{"name":"GX010336","k":"v","u":"sentei_full/GX010336.mp4","d":148.782,"th":{"u":"edit_thumbs/GX010336.jpg","s":2,"n":74},"note":"研磨　マスキングした窓枠・ミラー（窓に撮影者が映る、0:06–0:10ボンネット開）／小さいポリッシャーを持って窓枠に向かう／…"},"v337":{"name":"GX010337","k":"v","u":"sentei_full/GX010337.mp4","d":71.338,"th":{"u":"edit_thumbs/GX010337.jpg","s":1,"n":71},"note":"研磨　前ドア・フェンダーをポリッシャーで磨く／ライトをドアに当てて傷を見る／スタッフがカメラに笑う／前ドアを磨く"},"v338":{"name":"GX010338","k":"v","u":"sentei_full/GX010338.mp4","d":264.598,"th":{"u":"edit_thumbs/GX010338.jpg","s":2,"n":132},"note":"研磨　前ドアをポリッシャーで磨く／指で塗装を指す／ドア下を磨く／ドアを指さして説明／ポリッシャーとドア／(前シートからの続き)…"},"v339":{"name":"GX010339","k":"v","u":"sentei_full/GX010339.mp4","d":24.191,"th":{"u":"edit_thumbs/GX010339.jpg","s":1,"n":24},"note":"研磨　ポリッシャーでリアドア上部・ピラー付近を磨く"},"v340":{"name":"GX010340","k":"v","u":"sentei_full/GX010340.mp4","d":60.827,"th":{"u":"edit_thumbs/GX010340.jpg","s":1,"n":60},"note":"研磨　ポリッシャーでリアフェンダー付近を磨く（側面全体が見える）／リアフェンダーを磨く・右下に指が入る／側面を見ながら手で指し…"},"v341":{"name":"GX010341","k":"v","u":"sentei_full/GX010341.mp4","d":73.073,"th":{"u":"edit_thumbs/GX010341.jpg","s":1,"n":73},"note":"研磨　ポリッシャーでリアフェンダー・リアドアを磨く"},"v342":{"name":"GX010342","k":"v","u":"sentei_full/GX010342.mp4","d":20.42,"th":{"u":"edit_thumbs/GX010342.jpg","s":1,"n":20},"note":"研磨　ポリッシャーでテールランプ横（リア角）を磨く"},"v343":{"name":"GX010343","k":"v","u":"sentei_full/GX010343.mp4","d":143.844,"th":{"u":"edit_thumbs/GX010343.jpg","s":2,"n":71},"note":"研磨　ポリッシャーでリアゲートのガラス周り・Dピラーを磨く（窓越しに外の家）／カメラが動いて傾く・ガラスに顔が映る／リアゲート…"},"v344":{"name":"GX010344","k":"v","u":"sentei_full/GX010344.mp4","d":104.304,"th":{"u":"edit_thumbs/GX010344.jpg","s":1,"n":104},"note":"研磨　ポリッシャーでボンネットを磨く／店内の引き：天井のハニカム照明とGLB正面、ボンネットを磨く人／天井のハニカム照明（下に…"},"v345":{"name":"GX010345","k":"v","u":"sentei_full/GX010345.mp4","d":93.026,"th":{"u":"edit_thumbs/GX010345.jpg","s":1,"n":93},"note":"コーティング剤のボトル　コーティング剤のボトル（CERAMIC MARTINI／BAYTHREE）をボンネットの前で見せる／ボンネット越しの店内…"},"v346":{"name":"GX010346","k":"v","u":"sentei_full/GX010346.mp4","d":36.67,"th":{"u":"edit_thumbs/GX010346.jpg","s":1,"n":36},"note":"コーティング1層目　GLBの側面を回りながら撮る（人がスポンジ等を持つ）／床のホース・脚立（カメラ移動中）／店の入口から外（外に人・家）"},"v347":{"name":"GX010347","k":"v","u":"sentei_full/GX010347.mp4","d":65.399,"th":{"u":"edit_thumbs/GX010347.jpg","s":1,"n":65},"note":"コーティング1層目　クロスにコーティング剤を垂らす／ボンネットにコーティング剤を塗る"},"v348":{"name":"GX010348","k":"v","u":"sentei_full/GX010348.mp4","d":38.071,"th":{"u":"edit_thumbs/GX010348.jpg","s":1,"n":38},"note":"コーティング1層目　ボンネットをクロスで拭き上げる"},"v349":{"name":"GX010349","k":"v","u":"sentei_full/GX010349.mp4","d":30.864,"th":{"u":"edit_thumbs/GX010349.jpg","s":1,"n":30},"note":"コーティング1層目　ボンネットを青いクロスで拭き上げる／拭き上げ後のボンネット"},"v350":{"name":"GX010350","k":"v","u":"sentei_full/GX010350.mp4","d":53.587,"th":{"u":"edit_thumbs/GX010350.jpg","s":1,"n":53},"note":"コーティング1層目　ボンネットとフロントガラス（養生）／ボンネットの艶・映り込み／フェンダー・ボンネット端にスポンジでコーティング剤を塗る"},"v351":{"name":"GX010351","k":"v","u":"sentei_full/GX010351.mp4","d":105.272,"th":{"u":"edit_thumbs/GX010351.jpg","s":1,"n":105},"note":"コーティング1層目　ボンネットの横に立つ作業者／ボンネットを拭く／GLB正面斜め・ボンネットを拭き上げ／ボンネットを拭き上げる／カメラ移動中…"},"v352":{"name":"GX010352","k":"v","u":"sentei_full/GX010352.mp4","d":43.443,"th":{"u":"edit_thumbs/GX010352.jpg","s":1,"n":43},"note":"コーティング1層目　ボンネットを拭き上げる・仕上がりの艶／天井のハニカム照明／ボンネットの艶"},"v353":{"name":"GX010353","k":"v","u":"sentei_full/GX010353.mp4","d":54.121,"th":{"u":"edit_thumbs/GX010353.jpg","s":1,"n":54},"note":"コーティング1層目　GLB正面（グリル・ヘッドライト）／ヘッドライト・フロントフェンダー／フロントフェンダーにコーティング剤を塗る／フロント…"},"v354":{"name":"GX010354","k":"v","u":"sentei_full/GX010354.mp4","d":31.732,"th":{"u":"edit_thumbs/GX010354.jpg","s":1,"n":31},"note":"コーティング1層目　フェンダー上部にコーティング剤を塗る／ドアミラーとフロントドア／Bピラーを塗る・拭く（窓に撮影者の顔が映る）／側面の窓・…"},"v355":{"name":"GX010355","k":"v","u":"sentei_full/GX010355.mp4","d":16.783,"th":{"u":"edit_thumbs/GX010355.jpg","s":1,"n":16},"note":"コーティング1層目　リアのDピラー周りを塗る／リア斜め"},"v356":{"name":"GX010356","k":"v","u":"sentei_full/GX010356.mp4","d":51.318,"th":{"u":"edit_thumbs/GX010356.jpg","s":1,"n":51},"note":"コーティング1層目　ミラー付近を塗る作業者／ドアミラーを塗る／Bピラー・窓を拭く（窓に撮影者の顔が映る）"},"v357":{"name":"GX010357","k":"v","u":"sentei_full/GX010357.mp4","d":53.52,"th":{"u":"edit_thumbs/GX010357.jpg","s":1,"n":53},"note":"コーティング1層目　窓・ピラーを青いクロスで拭く"},"v358":{"name":"GX010358","k":"v","u":"sentei_full/GX010358.mp4","d":16.016,"th":{"u":"edit_thumbs/GX010358.jpg","s":1,"n":16},"note":"コーティング1層目　リアのDピラー・リアゲート角をクロスで拭く"},"v359":{"name":"GX010359","k":"v","u":"sentei_full/GX010359.mp4","d":23.757,"th":{"u":"edit_thumbs/GX010359.jpg","s":1,"n":23},"note":"コーティング1層目　ルーフ（屋根）を拭く（高い位置から）／ルーフを拭く"},"v360":{"name":"GX010360","k":"v","u":"sentei_full/GX010360.mp4","d":21.855,"th":{"u":"edit_thumbs/GX010360.jpg","s":1,"n":21},"note":"コーティング1層目　上から見たリア全景／上から見たリア全景・人2人／ルーフを上から"},"v361":{"name":"GX010361","k":"v","u":"sentei_full/GX010361.mp4","d":1.201,"th":{"u":"edit_thumbs/GX010361.jpg","s":1,"n":1},"note":"そのほか"},"v362":{"name":"GX010362","k":"v","u":"sentei_full/GX010362.mp4","d":23.223,"th":{"u":"edit_thumbs/GX010362.jpg","s":1,"n":23},"note":"コーティング2層目　GLB側面・人がスポンジにコーティング剤を出す／ドアにコーティング剤を塗る／黒い車（黄色テープ）と白いトヨタ"},"v363":{"name":"GX010363","k":"v","u":"sentei_full/GX010363.mp4","d":287.02,"th":{"u":"edit_thumbs/GX010363.jpg","s":2,"n":143},"note":"コーティング2層目　フロントドアにコーティング剤を塗る／ドアハンドル周りを塗る／リアドア・窓周りを塗る／カメラ移動：天井照明・黒い車・白いト…"},"v364":{"name":"GX010364","k":"v","u":"sentei_full/GX010364.mp4","d":198.198,"th":{"u":"edit_thumbs/GX010364.jpg","s":2,"n":99},"note":"コーティング2層目　フロントドアをクロスで拭き上げる／ドアをクロスで拭き上げる／ドアを拭く・手にスマホ／リアドア・リアフェンダーをクロスで拭…"},"v365":{"name":"GX010365","k":"v","u":"sentei_full/GX010365.mp4","d":1.301,"th":{"u":"edit_thumbs/GX010365.jpg","s":1,"n":1},"note":"そのほか"},"v366":{"name":"GX010366","k":"v","u":"sentei_full/GX010366.mp4","d":10.21,"th":{"u":"edit_thumbs/GX010366.jpg","s":1,"n":10},"note":"コーティング2層目　スプレーボトル（BAYTHREE・青）をボンネットの前で見せる"},"v367":{"name":"GX010367","k":"v","u":"sentei_full/GX010367.mp4","d":17.551,"th":{"u":"edit_thumbs/GX010367.jpg","s":1,"n":17},"note":"コーティング2層目　スプレーボトルをボンネットの前で見せる"},"v368":{"name":"GX010368","k":"v","u":"sentei_full/GX010368.mp4","d":18.852,"th":{"u":"edit_thumbs/GX010368.jpg","s":1,"n":18},"note":"コーティング2層目　クロスを持つ手・床（奥に店の外）／指がレンズをふさぐ・白いトヨタと黒い車／指がレンズをふさぐ（下にMIYABIプレート）"},"v369":{"name":"GX010369","k":"v","u":"sentei_full/GX010369.mp4","d":48.282,"th":{"u":"edit_thumbs/GX010369.jpg","s":1,"n":48},"note":"コーティング2層目　ボンネットをクロスで拭き上げる（正面・MIYABIプレート）"},"v370":{"name":"GX010370","k":"v","u":"sentei_full/GX010370.mp4","d":29.763,"th":{"u":"edit_thumbs/GX010370.jpg","s":1,"n":29},"note":"コーティング2層目　ドアミラー・フェンダーを拭く作業者／GLBフロント斜め／ドアミラーを拭く"},"v371":{"name":"GX010371","k":"v","u":"sentei_full/GX010371.mp4","d":9.977,"th":{"u":"edit_thumbs/GX010371.jpg","s":1,"n":9},"note":"コーティング2層目　側面・人がドア下を拭く"},"v372":{"name":"GX010372","k":"v","u":"sentei_full/GX010372.mp4","d":38.872,"th":{"u":"edit_thumbs/GX010372.jpg","s":1,"n":38},"note":"コーティング2層目　GLB正面と隣の白いトヨタ／店の入口からGLBと白いトヨタ／外から店内のGLBと白いトヨタ・右に黒い車／店の外観（MIY…"},"v373":{"name":"GX010373","k":"v","u":"sentei_full/GX010373.mp4","d":15.048,"th":{"u":"edit_thumbs/GX010373.jpg","s":1,"n":15},"note":"コーティング2層目　白い塗装面のアップ／店の入口の壁とGLB側面・外の家／店の外の駐車場（黒いSUV・白い車）／作業者がフロントバンパーを拭…"},"v374":{"name":"GX010374","k":"v","u":"sentei_full/GX010374.mp4","d":35.135,"th":{"u":"edit_thumbs/GX010374.jpg","s":1,"n":35},"note":"コーティング2層目　フロントバンパー・グリルをクロスで拭く／GLB正面（MIYABIプレートを外して実ナンバーが見える）"},"v375":{"name":"GX010375","k":"v","u":"sentei_full/GX010375.mp4","d":17.517,"th":{"u":"edit_thumbs/GX010375.jpg","s":1,"n":17},"note":"コーティング2層目　サイドステップ下部をクロスで拭く"},"v376":{"name":"GX010376","k":"v","u":"sentei_full/GX010376.mp4","d":23.79,"th":{"u":"edit_thumbs/GX010376.jpg","s":1,"n":23},"note":"最終の仕上げ　仕上がった正面（MIYABIプレート）"},"v377":{"name":"GX010377","k":"v","u":"sentei_full/GX010377.mp4","d":27.628,"th":{"u":"edit_thumbs/GX010377.jpg","s":1,"n":27},"note":"最終の仕上げ　リアの実ナンバーとエンブレム／リアの「GLB 200d」エンブレム／床と2台のタイヤ（カメラ移動）"},"v378":{"name":"GX010378","k":"v","u":"sentei_full/GX010378.mp4","d":34.301,"th":{"u":"edit_thumbs/GX010378.jpg","s":1,"n":34},"note":"最終の仕上げ　仕上がった正面（MIYABIプレート）"},"v379":{"name":"GX010379","k":"v","u":"sentei_full/GX010379.mp4","d":18.619,"th":{"u":"edit_thumbs/GX010379.jpg","s":1,"n":18},"note":"最終の仕上げ　ボンネットの艶"},"v380":{"name":"GX010380","k":"v","u":"sentei_full/GX010380.mp4","d":16.25,"th":{"u":"edit_thumbs/GX010380.jpg","s":1,"n":16},"note":"最終の仕上げ　仕上がった正面（MIYABIプレート）"},"ad7b792a2bb":{"name":"マスキング_案D","k":"a","u":"edit_media/d7b792a2bb.m4a","d":7.815,"pk":[1,36,71,12,1,1,16,42,68,55,55,10,53,56,29,40,56,49,43,74,76,59,3,11,61,57,3,2,41,62,30,32,44,49,56,35,2,2,1,0,0,0,0,0,0,0,0,0,0,0,0,2,94,99,47,28,28,86,84,47,12,56,12,1,49,52,60,50,22,60,48,68,64,34,29,24,34,56,69,64,54,57,57,15,1,1,43,64,62,5,35,52,53,36,69,55,62,64,47,18,27,47,25,60,63,32,36,25,2,1,1,1,0,0,0,0,0,0,44,26,28,35,34,48,60,99,63,19,73,54,50,48,19,57,63,28,10,12,63,34,2,0,67,64,40,9,28,27,85,82,21,2,1,1,1,0,0],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\マスキング\\マスキング_案D.wav"},"a94771b0f46":{"name":"カット46_案C","k":"a","u":"edit_media/94771b0f46.m4a","d":8.255,"pk":[2,4,5,3,5,4,2,2,0,60,99,78,61,59,39,73,29,13,51,63,75,43,78,74,62,52,53,50,56,35,1,1,0,0,0,0,6,26,25,36,41,90,78,48,54,57,12,50,36,52,35,5,81,68,6,6,73,57,42,11,2,52,66,64,35,1,1,1,0,28,44,55,54,55,96,41,3,7,31,60,50,53,50,3,35,47,42,99,94,72,38,43,43,17,44,47,37,4,2,1,1,0,0,2,18,6,37,86,93,27,82,80,36,3,2,0,14,26,19,52,72,71,73,74,80,23,7,60,95,64,7,18,53,43,28,3,2,49,57,20,60,81,60,54,45,39,7,58,52,87,41,2,63,68,47,35,64,98,76,19,3,2,1,1,0],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\カット46\\カット46_案C.wav"},"a99b97034fe":{"name":"17番_1","k":"a","u":"edit_media/99b97034fe.m4a","d":8.039,"pk":[1,2,4,2,1,0,53,61,6,26,10,32,42,75,59,69,32,24,60,66,6,63,52,46,46,75,60,23,1,8,50,60,66,33,42,9,1,10,11,25,86,80,44,31,45,27,24,35,59,69,47,7,2,24,22,2,13,90,92,51,64,50,79,74,22,3,1,1,2,0,0,1,1,1,1,0,17,99,99,17,41,46,43,6,2,1,13,47,48,65,77,14,27,52,62,23,5,71,92,7,2,75,53,17,66,35,23,60,85,64,30,19,57,45,59,64,63,28,2,2,4,71,73,43,56,52,19,45,46,23,7,65,55,13,62,67,82,73,20,1,1,0,0,0,1,4,2,21,18,67,69,37,26,93,83,24,2,1,1,0,0],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\17番\\17番_1.wav"},"acfa4a1b735":{"name":"17番_2b","k":"a","u":"edit_media/cfa4a1b735.m4a","d":2.806,"pk":[1,2,3,3,3,1,0,0,43,91,90,9,34,35,30,28,50,25,61,53,51,37,29,79,73,58,27,1,0,0,0,1,35,47,65,47,38,32,4,1,34,30,99,96,5,39,43,32,34,33,61,41,3,2,1,0],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\17番\\17番_2b.wav"},"a501a2341b7":{"name":"17番_3","k":"a","u":"edit_media/501a2341b7.m4a","d":5.279,"pk":[0,57,62,63,59,29,32,89,31,60,61,62,47,5,68,61,9,3,9,20,99,90,73,31,7,14,52,60,58,8,38,40,29,26,22,76,76,57,49,54,29,12,41,48,95,73,54,12,50,40,7,68,87,58,2,1,1,0,0,0,0,0,0,0,0,11,35,39,46,62,70,53,57,51,50,13,20,51,50,21,40,41,55,52,49,22,20,39,55,35,75,25,72,96,99,77,24,16,78,90,38,3,2,1,1],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\17番\\17番_3.wav"},"a3932f27c80":{"name":"17番_4","k":"a","u":"edit_media/3932f27c80.m4a","d":4.202,"pk":[0,39,83,67,39,57,63,51,63,33,14,28,3,65,64,22,42,55,29,52,50,22,38,56,61,64,60,98,73,50,31,12,19,10,9,59,51,23,95,91,44,3,2,1,1,0,0,0,0,0,0,16,79,76,48,59,68,31,35,28,2,86,86,57,68,61,91,20,58,39,35,99,41,37,67,90,71,17,2,2,1,1,0,1],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\17番\\17番_4.wav"},"a5e16b00bbf":{"name":"硬化と2層目_案A","k":"a","u":"edit_media/5e16b00bbf.m4a","d":22.534,"pk":[1,2,3,2,2,1,38,99,21,99,59,4,25,61,58,63,51,48,72,61,5,60,54,54,83,73,9,2,33,76,77,36,83,80,29,48,44,3,2,2,1,1,3,0,0,0,0,0,0,0,28,45,21,1,67,87,19,68,79,54,6,43,41,29,41,37,83,88,74,32,11,28,11,89,25,84,74,48,34,50,60,60,60,33,10,80,50,31,42,25,44,15,92,83,47,46,57,56,26,93,80,11,16,44,99,82,14,3,1,1,0,0,0,0,0,1,60,66,74,73,23,92,87,63,6,2,1,2,15,60,63,76,70,4,19,24,50,60,59,64,17,49,71,65,30,8,66,72,73,20,5,1,0,0,3,55,61,66,53,53,4,12,4,70,86,61,9,67,40,28,48,55,53,21,29,3,58,83,65,62,83,53,16,75,61,7,18,50,30,20,26,69,89,61,4,2,2,1,2,0,0,0,1,65,96,97,36,56,55,43,36,36,50,59,78,66,33,2,1,0,0,0,6,27,40,49,28,26,93,11,37,34,58,87,50,34,34,71,72,26,5,38,46,71,55,59,40,45,42,58,44,16,2,2,1,5,0,0,0,42,40,4,2,90,95,72,57,55,88,95,38,12,63,52,99,83,62,50,13,2,1,0,0,0,0,0,0,43,49,6,64,77,68,55,60,73,56,15,18,54,68,77,20,79,77,72,88,85,68,50,62,59,71,55,45,51,47,26,2,1,0,0,0,11,78,66,92,71,63,74,48,63,12,41,82,58,64,26,60,68,31,25,51,56,50,12,3,2,8,46,77,68,56,88,70,42,57,53,23,33,5,56,75,86,72,12,44,43,6,18,17,71,79,45,3,1,1,2,2,0,0,0,0,3,38,72,66,5,92,98,80,47,47,31,66,48,27,2,1,1,2,44,45,57,50,41,54,43,57,75,73,6,4,8,43,46,35,3,19,48,50,49,41,3,27,55,96,33,99,87,12,44,82,71,5,8,15,46,13,2,59,47,11,25,19,76,76,39,2,1,0],"note":"D:\\miyabiYT動画素材\\音声\\AIの声\\VoiceStudio\\硬化と2層目\\硬化と2層目_案A.wav"}}},IT=M.items,KEY='glb-edit-v1',FPS=30;
+var $=function(i){return document.getElementById(i)};
+var pane=document.querySelector('.pane[data-tab=edit]');
+var V=$('ed-v'),AU=$('ed-a'),inner=$('ed-inner'),scr=$('ed-scroll'),TV=$('ed-tv'),TA=$('ed-ta');
+var P=null;try{P=JSON.parse(localStorage.getItem(KEY))}catch(e){}
+function blank(){return {name:'新しい編集',v:[],au:[]}}
+if(!P||!P.v||!P.au)P=blank();
+var undoS=[],redoS=[],pps=20,T=0,playing=false,sel=null,mode='tl',last=0,msgT=0;
+function uid(){return Math.random().toString(36).slice(2,9)}
+function snap(){undoS.push(JSON.stringify(P));if(undoS.length>200)undoS.shift();redoS=[]}
+function keep(){try{localStorage.setItem(KEY,JSON.stringify(P))}catch(e){}}
+function msg(t){$('ed-msg').textContent=t}
+function L(c){return c.b-c.a}
+function starts(){var s=0;return P.v.map(function(c){var r=s;s+=L(c);return r})}
+function vEnd(){return P.v.reduce(function(x,c){return x+L(c)},0)}
+function total(){var s=vEnd();P.au.forEach(function(c){s=Math.max(s,c.t+L(c))});return s}
+function tc(t){t=Math.max(0,t);var f=Math.floor(t*FPS+1e-6),ff=f%FPS,s=Math.floor(f/FPS),p=function(x){return ('0'+x).slice(-2)};return p(Math.floor(s/3600))+':'+p(Math.floor(s/60)%60)+':'+p(s%60)+':'+p(ff)}
+function f1(x){return (Math.round(x*10)/10).toFixed(1)}
+function find(tr,id){var a=tr==='v'?P.v:P.au;for(var i=0;i<a.length;i++)if(a[i].id===id)return {arr:a,i:i,c:a[i]};return null}
+function actV(t){var s=0;for(var i=0;i<P.v.length;i++){var c=P.v[i],l=L(c);if(t>=s-1e-6&&t<s+l-1e-6)return {c:c,s:s,i:i};s+=l}return null}
+function actA(t){for(var i=0;i<P.au.length;i++){var c=P.au[i];if(t>=c.t-1e-6&&t<c.t+L(c)-1e-6)return c}return null}
+// ---------- 素材 ----------
+function bins(){var h='';M.bins.forEach(function(b,i){h+='<option value="'+i+'">'+b.name+'（'+b.ids.length+'）</option>'});$('ed-bin').innerHTML=h;grid()}
+function grid(){
+  var b=M.bins[+$('ed-bin').value||0],g=$('ed-grid');g.innerHTML='';
+  if(!b)return;
+  b.ids.forEach(function(id){
+    var m=IT[id],d=document.createElement('div');d.className='ed-card';d.draggable=true;d.dataset.id=id;d.title=m.name+(m.note?'\n'+m.note:'');
+    var fi=Math.min(m.th?m.th.n-1:0,Math.floor((m.th?m.th.n:1)/3)),im=m.k==='v'?'<div class="im" style="background-image:url('+m.th.u+');background-size:'+(m.th.n*100)+'% 100%;background-position:'+(m.th.n>1?fi/(m.th.n-1)*100:0)+'% 0"></div>':'<div class="im au">♪</div>';
+    d.innerHTML=im.replace('</div>','<span class="du">'+tc(m.d).slice(3,8)+'</span><span class="ad" title="時間の帯に足す">＋</span></div>')+'<div class="nm">'+m.name+'</div>';
+    d.addEventListener('click',function(e){if(e.target.classList.contains('ad')){addMedia(id);return}srcPreview(id);q('.ed-card').forEach(function(x){x.classList.toggle('on',x===d)})});
+    d.addEventListener('dragstart',function(e){e.dataTransfer.setData('text/plain','ed:'+id);e.dataTransfer.effectAllowed='copy'});
+    g.appendChild(d);
   });
-  // 手で動画の位置を動かしたら、通しの再生をやめる（こちらで動かした時は auto で見分ける）
-  vid.addEventListener('seeking',function(){if(!auto)play=null});
-  vid.addEventListener('seeked',function(){auto=false});
-  tgt.addEventListener('change',function(){setTarget(tgt.value)});
-  src.addEventListener('change',function(){play=null;load(src.value,0)});
-  $('km-setA').addEventListener('click',function(){$('km-a').value=f1(vid.currentTime);if(B()<A())$('km-b').value=f1(Math.min(vid.duration||A(),A()+3));showLen()});
-  $('km-setB').addEventListener('click',function(){$('km-b').value=f1(vid.currentTime);showLen()});
-  $('km-a').addEventListener('input',showLen);$('km-b').addEventListener('input',showLen);
-  $('km-playAB').addEventListener('click',function(){if(B()>A())playList([{no:src.value,a:A(),b:B()}])});
-  $('km-add').addEventListener('click',function(){
-    if(!(B()>A())){$('km-msg').textContent='終わりを、始めより後にしてください。';return}
-    var n=tgt.value;(st.cuts[n]=st.cuts[n]||[]).push({no:+src.value,a:+f1(A()),b:+f1(B())});
-    keep();paint();$('km-msg').textContent='カット'+n+'に GX010'+src.value+' の '+f1(A())+'〜'+f1(B())+'秒 を足しました。';
+}
+function q(s,r){return Array.prototype.slice.call((r||pane).querySelectorAll(s))}
+function addMedia(id,at){
+  var m=IT[id];snap();
+  if(m.k==='v'){var c={id:uid(),src:id,a:0,b:m.d};if(at===undefined)P.v.push(c);else P.v.splice(at,0,c);sel={tr:'v',id:c.id}}
+  else{var t=at===undefined?T:at,c2={id:uid(),src:id,a:0,b:m.d,t:Math.max(0,t)};P.au.push(c2);sel={tr:'au',id:c2.id}}
+  keep();render();msg('「'+m.name+'」を足しました。');
+}
+// ---------- プレイヤー ----------
+function setTL(){if(mode==='tl')return;mode='tl';V.controls=false;AU.controls=false;AU.style.display='none';$('ed-pm').textContent='時間の帯';q('.ed-card').forEach(function(x){x.classList.remove('on')});V.dataset.u='';AU.dataset.u='';sync(true)}
+function srcPreview(id){
+  stop();mode='src';var m=IT[id];$('ed-pm').textContent='素材：'+m.name;
+  if(m.k==='v'){$('ed-bl').hidden=true;AU.pause();AU.style.display='none';V.dataset.u=m.u;V.src=m.u;V.controls=true}
+  else{V.pause();V.removeAttribute('src');V.dataset.u='';V.load();$('ed-bl').hidden=false;$('ed-bl').textContent='♪ '+m.name;AU.dataset.u=m.u;AU.src=m.u;AU.controls=true;AU.style.display='block'}
+  prop();
+}
+function load(el,u,t,go){
+  if(el.dataset.u!==u){el.dataset.u=u;el.src=u;el.addEventListener('loadedmetadata',function(){try{el.currentTime=t}catch(e){}if(go&&playing)el.play().catch(function(){})},{once:true});return}
+  if(Math.abs(el.currentTime-t)>(playing?0.3:0.01)&&!el.seeking)el.currentTime=t;
+  if(go&&playing&&el.paused)el.play().catch(function(){});
+}
+function sync(force){
+  if(mode!=='tl')return;
+  var av=actV(T);
+  if(!av){$('ed-bl').hidden=false;$('ed-bl').textContent='映像はありません';if(!V.paused)V.pause()}
+  else{var m=IT[av.c.src];if(!m){$('ed-bl').hidden=false;$('ed-bl').textContent='素材がありません';}else{$('ed-bl').hidden=true;var st=av.c.a+(T-av.s);if(force&&V.dataset.u===m.u&&!V.seeking)V.currentTime=st;load(V,m.u,st,true)}}
+  var aa=actA(T);
+  if(!aa||!IT[aa.src]){if(!AU.paused)AU.pause()}
+  else{var m2=IT[aa.src],st2=aa.a+(T-aa.t);if(force&&AU.dataset.u===m2.u&&!AU.seeking)AU.currentTime=st2;load(AU,m2.u,st2,true)}
+  if(!playing){if(!V.paused)V.pause();if(!AU.paused)AU.pause()}
+  head();
+}
+function play(){if(mode!=='tl')setTL();if(T>=total()-0.02)T=0;playing=true;last=performance.now();$('ed-play').textContent='❚❚';sync(true);requestAnimationFrame(tick)}
+function stop(){playing=false;$('ed-play').textContent='▶';V.pause();AU.pause();head()}
+function tick(){
+  if(!playing)return;
+  var now=performance.now(),dt=(now-last)/1000;last=now;
+  var av=actV(T);
+  if(av&&IT[av.c.src]&&V.dataset.u===IT[av.c.src].u){
+    if(!V.paused&&!V.seeking&&V.readyState>=3){var tv=av.s+(V.currentTime-av.c.a);T=Math.min(Math.max(tv,T),av.s+L(av.c))}
+    // 読み込み中は待つ（時間を進めない）
+  }else T+=dt;
+  if(T>=total()){T=total();sync(false);stop();return}
+  sync(false);follow();requestAnimationFrame(tick);
+}
+function follow(){var x=T*pps,w=scr.clientWidth;if(x<scr.scrollLeft+20||x>scr.scrollLeft+w-60)scr.scrollLeft=Math.max(0,x-w*0.25)}
+function head(){$('ed-line').style.left=(T*pps)+'px';$('ed-tc').innerHTML='<b>'+tc(T)+'</b> / '+tc(total())}
+$('ed-play').addEventListener('click',function(){if(mode==='src'){var e=V.dataset.u?V:AU;if(e.paused)e.play();else e.pause();return}playing?stop():play()});
+// ---------- 時間の帯 ----------
+function zoomV(){return 2*Math.pow(150,+$('ed-zoom').value/100)}
+function ruler(w){
+  var R=$('ed-ruler'),c=[1,2,5,10,15,30,60,120,300],maj=c[c.length-1];for(var i=0;i<c.length;i++)if(c[i]*pps>=70){maj=c[i];break}
+  var minor=maj/5,h='';
+  for(var t=0;t*pps<=w;t+=minor){var big=Math.abs(t/maj-Math.round(t/maj))<1e-6;h+='<i style="left:'+(t*pps)+'px;height:'+(big?12:5)+'px"></i>'+(big?'<span style="left:'+(t*pps)+'px">'+tc(t).slice(3,8)+'</span>':'')}
+  R.innerHTML=h;
+}
+function render(){
+  var w=Math.max(scr.clientWidth-2,(total()+20)*pps);inner.style.width=w+'px';
+  ruler(w);
+  var s=starts(),hv='',ha='';
+  P.v.forEach(function(c,i){
+    var m=IT[c.src],x=s[i]*pps,cw=Math.max(2,L(c)*pps),on=sel&&sel.tr==='v'&&sel.id===c.id,tiles='';
+    if(m){var fw=Math.round(TW_*58/TH_);for(var k=0;k*fw<cw;k++){var st=c.a+(k*fw+fw/2)/pps,fi=Math.min(m.th.n-1,Math.max(0,Math.floor(st/m.th.s)));tiles+='<div class="tl" style="left:'+(k*fw)+'px;width:'+fw+'px;height:100%;background-image:url('+m.th.u+');background-size:'+(m.th.n*fw)+'px 100%;background-position:'+(-fi*fw)+'px 0"></div>'}}
+    hv+='<div class="ed-clip'+(on?' sel':'')+(m?'':' miss')+'" data-tr="v" data-id="'+c.id+'" style="left:'+x+'px;width:'+cw+'px">'+tiles+'<div class="lab">'+(m?m.name:'素材がありません')+'　'+f1(L(c))+'秒</div><div class="h l"></div><div class="h r"></div></div>';
   });
-  $('km-upd').addEventListener('click',function(){
-    if(!edit||!(B()>A()))return;
-    st.cuts[edit.n][edit.i]={no:+src.value,a:+f1(A()),b:+f1(B())};keep();endEdit();paint();
+  P.au.forEach(function(c){
+    var m=IT[c.src],on=sel&&sel.tr==='au'&&sel.id===c.id;
+    ha+='<div class="ed-clip'+(on?' sel':'')+(m?'':' miss')+'" data-tr="au" data-id="'+c.id+'" style="left:'+(c.t*pps)+'px;width:'+Math.max(2,L(c)*pps)+'px"><canvas></canvas><div class="lab">'+(m?m.name:'素材がありません')+'　'+f1(L(c))+'秒</div><div class="h l"></div><div class="h r"></div></div>';
   });
-  $('km-cancel').addEventListener('click',function(){endEdit();paint()});
-  q('.km-cut').forEach(function(d){
-    d.querySelector('[data-act=target]').addEventListener('click',function(){setTarget(d.dataset.n);$('km-msg').textContent='足す先をカット'+d.dataset.n+'にしました。右で動画を選んでください。'});
-    d.querySelector('[data-act=playcut]').addEventListener('click',function(){var L=st.cuts[d.dataset.n]||[];if(L.length){setTarget(d.dataset.n);playList(L)}});
-  });
-  $('km-playall').addEventListener('click',function(){
-    var L=[];q('.km-cut').forEach(function(d){(st.cuts[d.dataset.n]||[]).forEach(function(x){L.push(x)})});if(L.length)playList(L);
-  });
-  $('km-save').addEventListener('click',function(){
-    var d=new Date(),p=function(x){return ('0'+x).slice(-2)},stamp=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
-    var out={saved:d.toISOString(),note:'カットごとに、並べた映像（動画の番号・始め・終わりの秒）。カット番号は1始まり',cuts:{}};
-    q('.km-cut').forEach(function(x){var L=st.cuts[x.dataset.n]||[];if(L.length)out.cuts[x.dataset.n]={voice:+x.dataset.dur,clips:L}});
-    var blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'});
-    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='GLB_組み合わせ_'+stamp+'.json';document.body.appendChild(a);a.click();a.remove();
-    $('km-msg').textContent='保存しました：ダウンロードのフォルダの「GLB_組み合わせ_'+stamp+'.json」。チャットで「保存した」と伝えてください。';
-  });
-  $('km-load').addEventListener('change',function(ev){
-    var f=ev.target.files[0];if(!f)return;var r=new FileReader();
-    r.onload=function(){try{var j=JSON.parse(r.result),c={};Object.keys(j.cuts||{}).forEach(function(k){c[k]=j.cuts[k].clips||j.cuts[k]});st.cuts=c;keep();paint();$('km-msg').textContent='読み込みました：'+f.name}catch(e){$('km-msg').textContent='読み込めませんでした'}};
-    r.readAsText(f);
-  });
-  setTarget(tgt.value);fillSrc();if(src.value)load(src.value,0);paint();
+  TV.innerHTML=hv+(P.v.length?'':'<div class="tip">ここに動画を引っぱってくる（素材の＋でも足せます）</div>');
+  TA.innerHTML=ha+(P.au.length?'':'<div class="tip">ここに声・音を引っぱってくる</div>');
+  q('.ed-track.a .ed-clip').forEach(function(el){var c=find('au',el.dataset.id).c,m=IT[c.src];if(m&&m.pk)wave(el.querySelector('canvas'),m,c,el.offsetWidth,el.offsetHeight)});
+  $('ed-name').value=P.name||'';
+  $('ed-undo').disabled=!undoS.length;$('ed-redo').disabled=!redoS.length;$('ed-del').disabled=!sel;
+  head();prop();
+}
+var TW_=96,TH_=54;
+function wave(cv,m,c,w,h){
+  var W=Math.min(w,16000);cv.width=W;cv.height=h;cv.style.width=w+'px';var g=cv.getContext('2d');g.fillStyle='rgba(160,240,170,.75)';
+  var pk=m.pk,n=pk.length;for(var x=0;x<W;x+=2){var t=c.a+(x/W)*L(c),i=Math.min(n-1,Math.floor(t*20)),v=pk[i]/99*(h-18);g.fillRect(x,h-4-v,1.5,v)}
+}
+function prop(){
+  var b=$('ed-prop');
+  if(sel){var f=find(sel.tr,sel.id);if(!f){sel=null;return prop()}var c=f.c,m=IT[c.src]||{name:'素材がありません',d:L(c)};
+    var st=sel.tr==='v'?starts()[f.i]:c.t;
+    b.innerHTML='<div class="big">'+m.name+'</div><div class="note">'+(m.note||'')+'</div>'+
+      '<div class="row"><span class="lb">素材の</span><span>'+f1(c.a)+'〜'+f1(c.b)+'秒を使う（全部で'+f1(m.d)+'秒）</span></div>'+
+      '<div class="row"><span class="lb">使い始め</span><input type="number" step="0.1" min="0" id="ed-pa" value="'+f1(c.a)+'"></div>'+
+      '<div class="row"><span class="lb">使い終わり</span><input type="number" step="0.1" min="0" id="ed-pb" value="'+f1(c.b)+'"></div>'+
+      '<div class="row"><span class="lb">長さ</span><span>'+f1(L(c))+'秒</span></div>'+
+      (sel.tr==='au'?'<div class="row"><span class="lb">帯の位置</span><input type="number" step="0.1" min="0" id="ed-pt" value="'+f1(c.t)+'"></div>':'<div class="row"><span class="lb">帯の位置</span><span>'+tc(st)+'（'+(f.i+1)+'本目）</span></div>')+
+      '<button id="ed-pv">この素材をプレイヤーで見る</button>';
+    var set=function(k,v){snap();var mx=m.d||1e9;if(k==='a')c.a=Math.min(Math.max(0,v),c.b-0.1);if(k==='b')c.b=Math.max(Math.min(mx,v),c.a+0.1);if(k==='t')c.t=Math.max(0,v);keep();render();sync(true)};
+    $('ed-pa').addEventListener('change',function(e){set('a',parseFloat(e.target.value)||0)});
+    $('ed-pb').addEventListener('change',function(e){set('b',parseFloat(e.target.value)||0)});
+    if($('ed-pt'))$('ed-pt').addEventListener('change',function(e){set('t',parseFloat(e.target.value)||0)});
+    $('ed-pv').addEventListener('click',function(){if(IT[c.src]){srcPreview(c.src);try{(IT[c.src].k==='v'?V:AU).addEventListener('loadedmetadata',function(){(IT[c.src].k==='v'?V:AU).currentTime=c.a},{once:true})}catch(e){}}});
+    return}
+  b.innerHTML='<div class="row"><span class="lb">メイン</span><span>'+P.v.length+'本　'+f1(vEnd())+'秒</span></div><div class="row"><span class="lb">声・音</span><span>'+P.au.length+'本</span></div><div class="row"><span class="lb">全体</span><span>'+f1(total())+'秒</span></div>'+
+    '<ul><li>帯の上の素材を押すと選べます。端の白い所を引っぱると、使う所を短く・長くできます</li><li>メインの映像は、引っぱると順番が入れ替わります。すき間はできません</li><li>声・音は、好きな位置へ動かせます</li><li>スペース：再生・止める</li><li>Ctrl+B：再生位置で分ける</li><li>Delete：消す</li><li>Ctrl+Z：元に戻す</li><li>← →：少し戻す・進める</li><li>Ctrl＋マウスのホイール：帯を広げる・縮める</li></ul>';
+}
+// 帯の上の操作（再生位置・選ぶ・動かす・端を引っぱる）
+var drag=null;
+function xOf(e){var r=inner.getBoundingClientRect();return e.clientX-r.left}
+function snapT(t,ex){
+  var c=[0,T],s=starts();s.forEach(function(x,i){c.push(x,x+L(P.v[i]))});P.au.forEach(function(a){if(a.id!==ex)c.push(a.t,a.t+L(a))});
+  var best=t,bd=8/pps;c.forEach(function(x){if(Math.abs(x-t)<bd){bd=Math.abs(x-t);best=x}});return best;
+}
+inner.addEventListener('pointerdown',function(e){
+  if(e.button!==0)return;
+  if(mode!=='tl')setTL();
+  var clip=e.target.closest('.ed-clip'),x=xOf(e);
+  if(!clip){drag={k:'head'};T=Math.max(0,Math.min(x/pps,total()));sel=null;render();sync(true);inner.setPointerCapture(e.pointerId);return}
+  var tr=clip.dataset.tr,id=clip.dataset.id,f=find(tr,id);sel={tr:tr,id:id};
+  var k=e.target.classList.contains('l')?'l':e.target.classList.contains('r')?'r':'m';
+  drag={k:k,tr:tr,id:id,x0:x,c0:JSON.parse(JSON.stringify(f.c)),moved:false,el:clip};
+  inner.setPointerCapture(e.pointerId);render();
+});
+inner.addEventListener('pointermove',function(e){
+  if(!drag)return;var x=xOf(e);
+  if(drag.k==='head'){T=Math.max(0,Math.min(x/pps,total()));sync(true);return}
+  var dx=(x-drag.x0)/pps;if(!drag.moved&&Math.abs(x-drag.x0)<3)return;
+  if(!drag.moved){snap();drag.moved=true}
+  var f=find(drag.tr,drag.id);if(!f)return;var c=f.c,c0=drag.c0,m=IT[c.src],mx=m?m.d:1e9;
+  if(drag.k==='l'){var a=Math.min(Math.max(0,c0.a+dx),c0.b-0.1);if(drag.tr==='au'){var nt=snapT(c0.t+(a-c0.a),c.id);a=Math.min(Math.max(0,c0.a+(nt-c0.t)),c0.b-0.1);c.t=c0.t+(a-c0.a);if(c.t<0){a-=c.t;c.t=0}}c.a=a;render();return}
+  if(drag.k==='r'){var b=Math.max(Math.min(mx,c0.b+dx),c0.a+0.1);if(drag.tr==='au'){var ne=snapT(c0.t+(b-c0.a),c.id);b=Math.max(Math.min(mx,c0.a+(ne-c0.t)),c0.a+0.1)}c.b=b;render();return}
+  if(drag.tr==='au'){c.t=Math.max(0,snapT(c0.t+dx,c.id));render();return}
+  // メイン：順番を入れ替える（動かしている間は、入る所に青い線）
+  var el=TV.querySelector('.ed-clip[data-id="'+c.id+'"]');if(el){el.classList.add('drag');el.style.transform='translateX('+(x-drag.x0)+'px)'}
+  var s=starts(),idx=P.v.length;for(var i=0;i<P.v.length;i++){if(x<(s[i]+L(P.v[i])/2)*pps){idx=i;break}}
+  drag.idx=idx;var ins=$('ed-ins');ins.style.display='block';ins.style.top=(TV.offsetTop+4)+'px';ins.style.bottom='auto';ins.style.height=(TV.offsetHeight-8)+'px';ins.style.left=((idx<P.v.length?s[idx]:vEnd())*pps-1)+'px';
+});
+function endDrag(){
+  if(!drag)return;$('ed-ins').style.display='none';
+  if(drag.k==='m'&&drag.tr==='v'&&drag.moved&&drag.idx!==undefined){var f=find('v',drag.id);if(f){var c=P.v.splice(f.i,1)[0],to=drag.idx>f.i?drag.idx-1:drag.idx;P.v.splice(to,0,c)}}
+  var ch=drag.moved;drag=null;if(ch){keep();msg('直しました。')}render();sync(true);
+}
+inner.addEventListener('pointerup',endDrag);inner.addEventListener('pointercancel',endDrag);
+// 素材を帯へ引っぱる
+var tl=document.querySelector('.ed-tl');
+tl.addEventListener('dragover',function(e){e.preventDefault();e.dataTransfer.dropEffect='copy';tl.classList.add('ed-drop')});
+tl.addEventListener('dragleave',function(e){if(!tl.contains(e.relatedTarget))tl.classList.remove('ed-drop')});
+tl.addEventListener('drop',function(e){
+  e.preventDefault();tl.classList.remove('ed-drop');var d=e.dataTransfer.getData('text/plain');if(d.indexOf('ed:')!==0)return;var id=d.slice(3),m=IT[id];if(!m)return;
+  if(mode!=='tl')setTL();var x=xOf(e);
+  if(m.k==='v'){var s=starts(),idx=P.v.length;for(var i=0;i<P.v.length;i++){if(x<(s[i]+L(P.v[i])/2)*pps){idx=i;break}}addMedia(id,idx)}
+  else addMedia(id,snapT(Math.max(0,x/pps)));
+});
+// ボタン
+function doSplit(){
+  var tr,f;
+  if(sel){f=find(sel.tr,sel.id);tr=sel.tr}
+  if(!f){var av=actV(T);if(av){f={arr:P.v,i:av.i,c:av.c};tr='v'}}
+  if(!f){msg('分ける所がありません。再生位置を、分けたい素材の上に置いてください。');return}
+  var c=f.c,st=tr==='v'?starts()[f.i]:c.t,cut=c.a+(T-st);
+  if(cut<=c.a+0.05||cut>=c.b-0.05){msg('再生位置が、選んだ素材の上にありません。');return}
+  snap();var n=JSON.parse(JSON.stringify(c));n.id=uid();n.a=cut;c.b=cut;if(tr==='au')n.t=T;f.arr.splice(f.i+1,0,n);sel={tr:tr,id:n.id};keep();render();msg('分けました。');
+}
+function doDel(){if(!sel)return;var f=find(sel.tr,sel.id);if(!f)return;snap();f.arr.splice(f.i,1);sel=null;keep();render();sync(true);msg('消しました。')}
+function doUndo(){if(!undoS.length)return;redoS.push(JSON.stringify(P));P=JSON.parse(undoS.pop());sel=null;keep();render();sync(true)}
+function doRedo(){if(!redoS.length)return;undoS.push(JSON.stringify(P));P=JSON.parse(redoS.pop());sel=null;keep();render();sync(true)}
+$('ed-split').addEventListener('click',doSplit);$('ed-del').addEventListener('click',doDel);$('ed-undo').addEventListener('click',doUndo);$('ed-redo').addEventListener('click',doRedo);
+function zoomTo(v){var c=T;$('ed-zoom').value=Math.max(0,Math.min(100,v));pps=zoomV();render();scr.scrollLeft=Math.max(0,c*pps-scr.clientWidth/2)}
+$('ed-zoom').addEventListener('input',function(){zoomTo(+this.value)});
+$('ed-zi').addEventListener('click',function(){zoomTo(+$('ed-zoom').value+8)});$('ed-zo').addEventListener('click',function(){zoomTo(+$('ed-zoom').value-8)});
+scr.addEventListener('wheel',function(e){if(e.ctrlKey){e.preventDefault();zoomTo(+$('ed-zoom').value+(e.deltaY<0?4:-4))}},{passive:false});
+$('ed-bin').addEventListener('change',grid);
+$('ed-name').addEventListener('change',function(){P.name=this.value;keep()});
+$('ed-new').addEventListener('click',function(){if(!confirm('今の編集を消して、新しく作りますか？（保存していない物は消えます）'))return;snap();P=blank();sel=null;T=0;keep();render();sync(true)});
+$('ed-save').addEventListener('click',function(){
+  var d=new Date(),p=function(x){return ('0'+x).slice(-2)},stamp=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
+  var used={};P.v.concat(P.au).forEach(function(c){if(IT[c.src])used[c.src]={name:IT[c.src].name,url:IT[c.src].u,note:IT[c.src].note||''}});
+  var out={app:'GLB施工動画の編集タブ',ver:1,name:P.name,saved:d.toISOString(),note:'v＝メイン（映像。上から順につなぐ）、au＝声・音（tは帯の上の始まりの秒）。a〜bは素材の中の使う秒',media:used,v:P.v,au:P.au,total:+f1(total())};
+  var blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'}),a=document.createElement('a');
+  var nm=(P.name||'編集').replace(/[\\/:*?"<>|\s]+/g,'_');
+  a.href=URL.createObjectURL(blob);a.download='GLB_編集_'+nm+'_'+stamp+'.json';document.body.appendChild(a);a.click();a.remove();
+  msg('保存しました：ダウンロードのフォルダの「GLB_編集_'+nm+'_'+stamp+'.json」。チャットで「保存した」と伝えてください。');
+});
+$('ed-loadb').addEventListener('click',function(){$('ed-load').click()});
+$('ed-load').addEventListener('change',function(ev){var f=ev.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var j=JSON.parse(r.result);if(!j.v||!j.au)throw 0;snap();P={name:j.name||'',v:j.v,au:j.au};sel=null;T=0;keep();render();sync(true);msg('読み込みました：'+f.name)}catch(e){msg('読み込めませんでした')}};r.readAsText(f);ev.target.value=''});
+document.addEventListener('keydown',function(e){
+  if(pane.hidden)return;var tg=e.target.tagName;if(tg==='INPUT'||tg==='SELECT'||tg==='TEXTAREA')return;
+  if(e.code==='Space'){e.preventDefault();$('ed-play').click()}
+  else if((e.key==='Delete'||e.key==='Backspace')&&sel){e.preventDefault();doDel()}
+  else if(e.ctrlKey&&(e.key==='b'||e.key==='B')){e.preventDefault();doSplit()}
+  else if(e.ctrlKey&&!e.shiftKey&&(e.key==='z'||e.key==='Z')){e.preventDefault();doUndo()}
+  else if(e.ctrlKey&&(e.key==='y'||e.key==='Y'||(e.shiftKey&&(e.key==='z'||e.key==='Z')))){e.preventDefault();doRedo()}
+  else if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();if(mode!=='tl')setTL();T=Math.max(0,Math.min(total(),T+(e.key==='ArrowLeft'?-1:1)*(e.shiftKey?1:1/FPS)));sync(true);follow()}
+});
+window.addEventListener('resize',function(){if(!pane.hidden)render()});
+// タブを開いた時に、帯の幅を合わせる
+new MutationObserver(function(){if(!pane.hidden){render();sync(true)}}).observe(pane,{attributes:true,attributeFilter:['hidden']});
+pps=zoomV();bins();render();
 })();
 </script></section>
 <section class="pane" data-tab="who" data-stage="any">
@@ -962,7 +1135,7 @@ details.rule{padding:10px 12px}
 <script>
 (function(){
   var tab='goal',stage='0';
-  var free=function(){return ['goal','sentei','kumi','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
+  var free=function(){return ['goal','sentei','edit','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
   if(document.querySelector('.tab[data-tab="'+location.hash.slice(1)+'"]'))tab=location.hash.slice(1);
   var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
   var key='glb-tabs-prep-v1',saved={};
@@ -981,7 +1154,8 @@ details.rule{padding:10px 12px}
       if(b.dataset.tab===tab){var w=b.parentNode,r=b.getBoundingClientRect(),o=w.getBoundingClientRect();w.scrollLeft+=r.left-o.left-(w.clientWidth-r.width)/2}
     });
     q('.chip').forEach(function(b){b.classList.toggle('on',b.dataset.stage===stage)});
-    document.querySelector('main').classList.toggle('wide',tab==='say'||tab==='sentei'||tab==='kumi');
+    document.querySelector('main').classList.toggle('wide',tab==='say'||tab==='sentei');
+    document.querySelector('main').classList.toggle('full',tab==='edit');
     document.getElementById('chips').hidden=free();
     document.getElementById('nav').hidden=(free()||stage==='all');
     q('.common').forEach(function(c){c.hidden=c.dataset.tab!==tab});
