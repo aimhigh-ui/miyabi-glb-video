@@ -182,7 +182,7 @@ details.rule{padding:10px 12px}
 <body>
 <div class="goalbar">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div>
 <header>
-<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="edit"><b>編集</b><small>CapCutの画面</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
+<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="fix"><b>修正事項</b><small>次の撮影で</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="edit"><b>編集</b><small>CapCutの画面</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
 <div class="chips" id="chips"><div class="cin"><button class="chip" data-stage="all">全部</button><button class="chip" data-stage="0">0 冒頭</button><button class="chip" data-stage="1">1 足回り</button><button class="chip" data-stage="2">2 予備洗浄</button><button class="chip" data-stage="3">3 ミット洗車</button><button class="chip" data-stage="4">4 鉄粉取り</button><button class="chip" data-stage="5">5 油膜取り</button><button class="chip" data-stage="6">6 軽研磨</button><button class="chip" data-stage="7">7 1層目</button><button class="chip" data-stage="8">8 2層目</button><button class="chip" data-stage="9">9 完成</button></div></div>
 </header>
 <main>
@@ -260,6 +260,15 @@ details.rule{padding:10px 12px}
 <li>入れるか迷う場面は、「新車を長く綺麗に乗りたい人が、20〜30万円に納得する材料になるか」で決めます（上の目的から書いた基準です）</li>
 </ul>
 <p class="src">見た後に何をしてもらうか（CTA）は、まだ決まっていません。</p>
+</section>
+<section class="pane" data-tab="fix" data-stage="any">
+<h2>修正事項（次の撮影で気をつける事）</h2>
+<p class="src">GLB施工動画を作って分かった事を、次の撮影のために残します。</p>
+<div class="box"><h3>1. 定点で固定して撮る時間を、思ったより長く撮る</h3><ul>
+<li><b>何が起きたか：</b>声（台本）で、もう少し話した方がいい所があっても、その所の映像の長さが短すぎて、話せなかった。映像に合わせて、台本の言葉を削ることになった。</li>
+<li><b>次にどうするか：</b>カメラを定点で固定して撮る所は、作業を最後まで、長めに撮っておく。あとで話す長さに合わせて切れるようにする。</li>
+<li><small>2026-11-14 村田さんのメモ</small></li>
+</ul></div>
 </section>
 <section class="pane" data-tab="sentei" data-stage="any">
 <style>
@@ -1173,7 +1182,7 @@ pps=zoomV();bins();render();
 <script>
 (function(){
   var tab='goal',stage='0';
-  var free=function(){return ['goal','sentei','edit','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
+  var free=function(){return ['goal','fix','sentei','edit','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
   if(document.querySelector('.tab[data-tab="'+location.hash.slice(1)+'"]'))tab=location.hash.slice(1);
   var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
   var key='glb-tabs-prep-v1',saved={};
