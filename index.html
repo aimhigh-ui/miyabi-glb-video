@@ -715,7 +715,9 @@ function srcPreview(id){
   prop();
 }
 function load(el,u,t,go){
-  if(el.dataset.u!==u){el.dataset.u=u;el.src=u;el.addEventListener('loadedmetadata',function(){try{el.currentTime=t}catch(e){}if(go&&playing)el.play().catch(function(){})},{once:true});return}
+  el._want=t;     // 読み込みが終わった時に合わせる位置（いちばん新しい物）
+  if(el.dataset.u!==u){el.dataset.u=u;el.src=u;el.addEventListener('loadedmetadata',function(){try{el.currentTime=el._want}catch(e){}if(go&&playing)el.play().catch(function(){})},{once:true});return}
+  if(el.readyState<1)return;
   if(Math.abs(el.currentTime-t)>(playing?0.3:0.01)&&(!playing||!el.seeking))el.currentTime=t;
   if(go&&playing&&el.paused)el.play().catch(function(){});
 }
@@ -730,7 +732,7 @@ function sync(force){
   if(!playing){if(!V.paused)V.pause();if(!AU.paused)AU.pause()}
   head();
 }
-function play(){if(mode!=='tl')setTL();if(T>=total()-0.02)T=0;playing=true;last=performance.now();$('ed-play').textContent='❚❚';sync(true);requestAnimationFrame(tick)}
+function play(){if(mode!=='tl')setTL();if(T>=total()-0.02)T=0;playing=true;last=performance.now();$('ed-play').textContent='❚❚';sync(true);setTimeout(tick,30)}
 function stop(){playing=false;$('ed-play').textContent='▶';V.pause();AU.pause();head()}
 function tick(){
   if(!playing)return;
@@ -740,11 +742,11 @@ function tick(){
     var endT=av.s+L(av.c);
     // 素材の動画の最後まで来た → 次の素材へ（動画の長さの数字と、実際の最後のコマが少しずれるので）
     if(V.ended||(V.duration&&V.currentTime>=V.duration-0.05&&!V.seeking))T=Math.max(T,endT);
-    else if(!V.paused&&!V.seeking&&V.readyState>=3){var tv=av.s+(V.currentTime-av.c.a);T=Math.min(Math.max(tv,T),endT)}
+    else if(!V.paused&&!V.seeking&&V.readyState>=2){var tv=av.s+(V.currentTime-av.c.a);T=Math.min(Math.max(tv,T),endT)}
     // 読み込み中は待つ（時間を進めない）
   }else T+=dt;
   if(T>=total()){T=total();sync(false);stop();return}
-  sync(false);follow();requestAnimationFrame(tick);
+  sync(false);follow();setTimeout(tick,30);
 }
 function follow(){var x=T*pps,w=scr.clientWidth;if(x<scr.scrollLeft+20||x>scr.scrollLeft+w-60)scr.scrollLeft=Math.max(0,x-w*0.25)}
 function head(){$('ed-line').style.left=(T*pps)+'px';$('ed-tc').innerHTML='<b>'+tc(T)+'</b> / '+tc(total())}
