@@ -716,17 +716,17 @@ function srcPreview(id){
 }
 function load(el,u,t,go){
   if(el.dataset.u!==u){el.dataset.u=u;el.src=u;el.addEventListener('loadedmetadata',function(){try{el.currentTime=t}catch(e){}if(go&&playing)el.play().catch(function(){})},{once:true});return}
-  if(Math.abs(el.currentTime-t)>(playing?0.3:0.01)&&!el.seeking)el.currentTime=t;
+  if(Math.abs(el.currentTime-t)>(playing?0.3:0.01)&&(!playing||!el.seeking))el.currentTime=t;
   if(go&&playing&&el.paused)el.play().catch(function(){});
 }
 function sync(force){
   if(mode!=='tl')return;
   var av=actV(T);
   if(!av){$('ed-bl').hidden=false;$('ed-bl').textContent='映像はありません';if(!V.paused)V.pause()}
-  else{var m=IT[av.c.src];if(!m){$('ed-bl').hidden=false;$('ed-bl').textContent='素材がありません';}else{$('ed-bl').hidden=true;var st=av.c.a+(T-av.s);if(force&&V.dataset.u===m.u&&!V.seeking)V.currentTime=st;load(V,m.u,st,true)}}
+  else{var m=IT[av.c.src];if(!m){$('ed-bl').hidden=false;$('ed-bl').textContent='素材がありません';}else{$('ed-bl').hidden=true;var st=av.c.a+(T-av.s);if(force&&V.dataset.u===m.u)V.currentTime=st;load(V,m.u,st,true)}}
   var aa=actA(T);
   if(!aa||!IT[aa.src]){if(!AU.paused)AU.pause()}
-  else{var m2=IT[aa.src],st2=aa.a+(T-aa.t);if(force&&AU.dataset.u===m2.u&&!AU.seeking)AU.currentTime=st2;load(AU,m2.u,st2,true)}
+  else{var m2=IT[aa.src],st2=aa.a+(T-aa.t);if(force&&AU.dataset.u===m2.u)AU.currentTime=st2;load(AU,m2.u,st2,true)}
   if(!playing){if(!V.paused)V.pause();if(!AU.paused)AU.pause()}
   head();
 }
@@ -737,7 +737,10 @@ function tick(){
   var now=performance.now(),dt=(now-last)/1000;last=now;
   var av=actV(T);
   if(av&&IT[av.c.src]&&V.dataset.u===IT[av.c.src].u){
-    if(!V.paused&&!V.seeking&&V.readyState>=3){var tv=av.s+(V.currentTime-av.c.a);T=Math.min(Math.max(tv,T),av.s+L(av.c))}
+    var endT=av.s+L(av.c);
+    // 素材の動画の最後まで来た → 次の素材へ（動画の長さの数字と、実際の最後のコマが少しずれるので）
+    if(V.ended||(V.duration&&V.currentTime>=V.duration-0.05&&!V.seeking))T=Math.max(T,endT);
+    else if(!V.paused&&!V.seeking&&V.readyState>=3){var tv=av.s+(V.currentTime-av.c.a);T=Math.min(Math.max(tv,T),endT)}
     // 読み込み中は待つ（時間を進めない）
   }else T+=dt;
   if(T>=total()){T=total();sync(false);stop();return}
