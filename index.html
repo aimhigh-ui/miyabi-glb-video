@@ -182,7 +182,7 @@ details.rule{padding:10px 12px}
 <body>
 <div class="goalbar">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div>
 <header>
-<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
+<div class="hin"><div class="goalline">目的：新車を長く綺麗に乗りたい人に、セラミック（20〜30万円）を納得して選んでもらう</div><div class="tabs"><button class="tab" data-tab="goal"><b>目的</b><small>一番大事</small></button><button class="tab" data-tab="sentei"><b>使用素材の選定</b><small>映像を選ぶ</small></button><button class="tab" data-tab="kumi"><b>組み合わせ</b><small>秒を自由に</small></button><button class="tab" data-tab="who"><b>人物像</b><small>見込み客</small></button><button class="tab" data-tab="real"><b>工程表</b><small>実際の施工</small></button><button class="tab" data-tab="compare"><b>見本の比較</b><small>2本の流れ</small></button><button class="tab" data-tab="check"><b>見る時</b><small>チェック</small></button><button class="tab" data-tab="say"><b>台本</b><small>何を言うか</small></button><button class="tab" data-tab="shot"><b>撮影</b><small>何を映すか</small></button><button class="tab" data-tab="order"><b>撮影順</b><small>この順で撮る</small></button><button class="tab" data-tab="mind"><b>意識</b><small>どう喋るか</small></button><button class="tab" data-tab="voice"><b>声</b><small>答える声</small></button><button class="tab" data-tab="ask"><b>聞くこと</b><small>お店に聞く</small></button><button class="tab" data-tab="prep"><b>用意する物</b><small>済みの印つき</small></button><button class="tab" data-tab="out"><b>動画の外</b><small>サムネなど</small></button></div></div>
 <div class="chips" id="chips"><div class="cin"><button class="chip" data-stage="all">全部</button><button class="chip" data-stage="0">0 冒頭</button><button class="chip" data-stage="1">1 足回り</button><button class="chip" data-stage="2">2 予備洗浄</button><button class="chip" data-stage="3">3 ミット洗車</button><button class="chip" data-stage="4">4 鉄粉取り</button><button class="chip" data-stage="5">5 油膜取り</button><button class="chip" data-stage="6">6 軽研磨</button><button class="chip" data-stage="7">7 1層目</button><button class="chip" data-stage="8">8 2層目</button><button class="chip" data-stage="9">9 完成</button></div></div>
 </header>
 <main>
@@ -569,6 +569,157 @@ details.rule{padding:10px 12px}
 })();
 </script>
 </section>
+<section class="pane" data-tab="kumi" data-stage="any"><style>
+.km-wrap{display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:16px;align-items:start}
+.km-view{position:sticky;top:104px;border:2px solid var(--accent);border-radius:10px;background:#fff;padding:10px 12px;display:flex;flex-direction:column;gap:8px;max-height:calc(100vh - 116px);overflow:auto}
+.km-view h3{margin:0;font-size:17px}
+.km-view select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;width:100%}
+.km-view video{width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;display:block}
+.km-what{font-size:13px;color:var(--sub);line-height:1.5}
+.km-io{display:grid;grid-template-columns:auto 1fr auto;gap:6px 8px;align-items:center}
+.km-io input{width:100%;font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px}
+.km-btn{border:1px solid var(--accent);border-radius:8px;padding:8px 12px;font:inherit;font-weight:700;cursor:pointer;background:#fff;color:var(--accent);line-height:1.3}
+.km-btn.main{background:var(--accent);color:#fff}
+.km-btns{display:flex;gap:6px;flex-wrap:wrap}.km-btns .km-btn{flex:1 1 140px}
+.km-len{font-size:18px;font-weight:700}
+.km-now{font-size:14px;color:var(--sub)}
+.km-bar{position:sticky;top:104px;z-index:5;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:0 0 12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.km-bar label.km-btn{display:inline-block}
+.km-msg{flex:1 1 100%;font-size:14px;color:var(--sub);line-height:1.6}
+.km-cut{border:1px solid var(--line);border-radius:10px;background:#fff;margin:0 0 10px;padding:10px 12px}
+.km-cut.on{border:3px solid var(--accent);background:#fffdf7}
+.km-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.km-head b{font-size:18px}
+.km-diff{font-weight:700;border-radius:999px;padding:1px 12px;font-size:14px}
+.km-diff.short{background:#f8e9e6;color:#9a3b2e}.km-diff.over{background:#fff3e0;color:#a35a00}.km-diff.ok{background:#e3f1e4;color:#22682c}
+.km-say{font-size:14px;color:var(--sub);line-height:1.6;margin:4px 0 6px}
+.km-list{list-style:none;margin:0 0 6px;padding:0;display:flex;flex-direction:column;gap:4px}
+.km-list li{display:flex;gap:6px;align-items:center;flex-wrap:wrap;border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:#fafaf8}
+.km-list li.ed{border-color:var(--accent);background:#fff3e0}
+.km-list li span{flex:1 1 200px}
+.km-list li button{border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;font-size:14px;padding:2px 8px;cursor:pointer}
+.km-empty{font-size:14px;color:var(--sub)}
+.km-total{font-weight:700}
+@media(max-width:1000px){.km-wrap{grid-template-columns:1fr}.km-view{position:static;max-height:none}}
+</style><h2>組み合わせ（映像の秒を自由に決めて並べる）</h2><p>カット62〜79に、使いたい動画の「始め〜終わり」を何本でも並べられます。カットの秒は、並べた映像の合計で決まります。右の「声」は元の録音の長さです。AIの声を作った後、並べた映像に合わせて声と秒を合わせ直します。</p><p class="src">使い方：①カットの「このカットに足す」を押す　②右で動画を選んで再生し、「今の所を始めに」「今の所を終わりに」を押す　③「カットに足す」を押す。並べた映像の「直す」を押すと、右に読み込んで秒を直せます。</p><div class="km-bar"><span>全部の映像 <b id="km-all">0.0</b>秒 ／ 声 <b id="km-voice">0.0</b>秒</span><button type="button" class="km-btn main" id="km-save">保存する</button><label class="km-btn">保存した物を読み込む<input type="file" id="km-load" accept=".json" hidden></label><button type="button" class="km-btn" id="km-playall">全部を通して再生</button><span class="km-msg" id="km-msg">並べるたびに、このブラウザに自動で残ります。「保存する」を押すと、ダウンロードのフォルダにファイルができます。</span></div><div class="km-wrap"><div class="km-cuts"><div class="km-cut" data-n="62" data-dur="12.2"><div class="km-head"><b>カット62</b><span>声 12.2秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：MIYABIでは2層塗りをお勧めしています1層だけでは塗装の凸凹を埋め切れず膜が薄くなって水の弾き方やムラが出やすいからです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="63" data-dur="4.5"><div class="km-head"><b>カット63</b><span>声 4.5秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：納車の後によくいただくご質問にもお答えしておきます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="64" data-dur="9.7"><div class="km-head"><b>カット64</b><span>声 9.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：施工の後は3ヶ月から半年に1回を目安に洗車でお越しくださいそのときに水の弾き具合を見て無料で整えます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="65" data-dur="11.9"><div class="km-head"><b>カット65</b><span>声 11.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：最後の工程は最終の仕上げですライトを使ってムラがないかを2時間かけてみていきます塗って終わりにはしません長く綺麗に乗っていただくためです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="66" data-dur="4.0"><div class="km-head"><b>カット66</b><span>声 4.0秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：本日の施工内容はこちらです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="67" data-dur="3.3"><div class="km-head"><b>カット67</b><span>声 3.3秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：洗車から最終の仕上げまで8工程</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="68" data-dur="2.5"><div class="km-head"><b>カット68</b><span>声 2.5秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：約17時間30分</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="69" data-dur="4.7"><div class="km-head"><b>カット69</b><span>声 4.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：金額は19万2000円から22万2000円です</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="70" data-dur="3.4"><div class="km-head"><b>カット70</b><span>声 3.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：この金額にはここまでお見せした磨きと</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="71" data-dur="4.4"><div class="km-head"><b>カット71</b><span>声 4.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：2層の塗り方重ねと4大保証がすべて入っております</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="72" data-dur="2.7"><div class="km-head"><b>カット72</b><span>声 2.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：この8工程でやった上で</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="73" data-dur="2.8"><div class="km-head"><b>カット73</b><span>声 2.8秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：今回出来上がったお車はこちらです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="74" data-dur="9.9"><div class="km-head"><b>カット74</b><span>声 9.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：新車のコーティングをされるお客様からよくいただく疑問なんですけど新車だからコーティングはいらない違いがわからないという方はよくいらっしゃいます</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="75" data-dur="5.4"><div class="km-head"><b>カット75</b><span>声 5.4秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：こちらがコーティングの前と後の水の弾き方です</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="76" data-dur="4.7"><div class="km-head"><b>カット76</b><span>声 4.7秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：新車の時の感動を5年から7年持続します</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="77" data-dur="14.9"><div class="km-head"><b>カット77</b><span>声 14.9秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：施工の後も洗車でお越しの時に汚れ落とし小さな傷の直し水の弾きの手入れを4大保証でお守りします板金塗装で直したところは無料でかけ直します</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="78" data-dur="11.6"><div class="km-head"><b>カット78</b><span>声 11.6秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：ディーラーや他のお店との違いは1日1台だけを施工して受付からお渡しまで同じ担当が見て車の状態に合わせて工程を組み立てることです</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div><div class="km-cut" data-n="79" data-dur="8.1"><div class="km-head"><b>カット79</b><span>声 8.1秒</span><span>映像 <b class="km-sum">0.0</b>秒</span><span class="km-diff short">映像がまだありません</span></div><div class="km-say">セリフ：ご視聴ありがとうございましたチャンネル登録高評価もよろしくお願いします</div><ul class="km-list"></ul><div class="km-btns"><button type="button" class="km-btn" data-act="target">このカットに足す</button><button type="button" class="km-btn" data-act="playcut">このカットを通して再生</button></div></div></div><div class="km-view"><h3>素材を見る</h3><label>足す先：<select id="km-target"><option value="62">カット62（声 12.2秒）</option><option value="63">カット63（声 4.5秒）</option><option value="64">カット64（声 9.7秒）</option><option value="65">カット65（声 11.9秒）</option><option value="66">カット66（声 4.0秒）</option><option value="67">カット67（声 3.3秒）</option><option value="68">カット68（声 2.5秒）</option><option value="69">カット69（声 4.7秒）</option><option value="70">カット70（声 3.4秒）</option><option value="71">カット71（声 4.4秒）</option><option value="72">カット72（声 2.7秒）</option><option value="73">カット73（声 2.8秒）</option><option value="74">カット74（声 9.9秒）</option><option value="75">カット75（声 5.4秒）</option><option value="76">カット76（声 4.7秒）</option><option value="77">カット77（声 14.9秒）</option><option value="78">カット78（声 11.6秒）</option><option value="79">カット79（声 8.1秒）</option></select></label><label>動画：<select id="km-src"></select></label><video id="km-video" controls muted playsinline preload="metadata"></video><div class="km-now">今の所：<b id="km-cur">0.0</b>秒</div><div class="km-what" id="km-what"></div><div class="km-io"><button type="button" class="km-btn" id="km-setA">今の所を始めに</button><input type="number" id="km-a" step="0.1" min="0" value="0"><span>秒</span><button type="button" class="km-btn" id="km-setB">今の所を終わりに</button><input type="number" id="km-b" step="0.1" min="0" value="0"><span>秒</span></div><div>使う長さ：<span class="km-len" id="km-len">0.0</span>秒</div><div class="km-btns"><button type="button" class="km-btn" id="km-playAB">始め〜終わりを再生</button><button type="button" class="km-btn main" id="km-add">カットに足す</button></div><div class="km-btns" id="km-edbox" hidden><button type="button" class="km-btn main" id="km-upd">直した秒で上書き</button><button type="button" class="km-btn" id="km-cancel">直すのをやめる</button></div></div></div><script>
+(function(){
+  var KEY='glb-kumiawase-v1',CANDS={"62": [364, 362, 363, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "63": [367, 366, 370, 368, 369, 371, 372, 373, 374, 375], "64": [369, 371, 366, 367, 368, 370, 372, 373, 374, 375], "65": [375, 373, 366, 367, 368, 369, 370, 371, 372, 374, 376, 377, 378, 379, 380], "66": [313, 303, 304, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "67": [327, 309, 310, 311, 315, 316, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "68": [341, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "69": [374, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 375, 366, 367, 376, 377, 378, 379, 380], "70": [343, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 344, 362, 363, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "71": [363, 309, 310, 311, 315, 316, 327, 328, 329, 330, 331, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342, 343, 344, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 362, 364, 368, 369, 370, 371, 372, 373, 374, 375, 366, 367, 376, 377, 378, 379, 380], "72": [376, 368, 369, 370, 371, 372, 373, 374, 375, 377, 378, 379, 380, 366, 367], "73": [380, 368, 369, 370, 371, 372, 373, 374, 375, 376, 377, 378, 379, 366, 367], "74": [377, 376, 378, 379, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "75": [379, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360, 376, 377, 378, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375], "76": [376, 368, 369, 370, 371, 372, 373, 374, 375, 377, 378, 379, 380, 366, 367], "77": [369, 373, 375, 366, 367, 368, 370, 371, 372, 374, 376, 377, 378, 379, 380], "78": [374, 370, 366, 367, 368, 369, 371, 372, 373, 375, 376, 377, 378, 379, 380], "79": [378, 376, 377, 379, 380, 366, 367, 368, 369, 370, 371, 372, 373, 374, 375]};
+  var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var $=function(i){return document.getElementById(i)};
+  var st={};try{st=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  if(!st.cuts)st.cuts={};
+  function keep(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+  function f1(x){return (Math.round(x*10)/10).toFixed(1)}
+  var ALL=(window.ST_ALL||[]),INFO={};ALL.forEach(function(v){INFO[v.no]=v});
+  var vid=$('km-video'),tgt=$('km-target'),src=$('km-src'),edit=null,play=null,auto=false;
+  function label(no){var v=INFO[no];return 'GX010'+no+(v?'　'+v.stage+'　'+Math.round(v.len)+'秒':'')}
+  function fillSrc(keepNo){
+    var n=tgt.value,c=CANDS[n]||[],h='<optgroup label="このカットの候補">';
+    c.forEach(function(no){h+='<option value="'+no+'">'+label(no)+'</option>'});
+    h+='</optgroup><optgroup label="ほかの動画（全部）">';
+    ALL.forEach(function(v){if(c.indexOf(+v.no)<0)h+='<option value="'+v.no+'">'+label(v.no)+'</option>'});
+    src.innerHTML=h+'</optgroup>';
+    if(keepNo)src.value=String(keepNo);
+  }
+  function load(no,t){
+    var u='sentei_full/GX010'+no+'.mp4';
+    $('km-what').textContent=INFO[no]?INFO[no].what.replace(/&amp;/g,'&'):'';
+    if(vid.getAttribute('src')!==u){vid.setAttribute('src',u);vid.addEventListener('loadedmetadata',function(){auto=true;vid.currentTime=t||0},{once:true})}
+    else{auto=true;vid.currentTime=t||0}
+  }
+  function A(){return parseFloat($('km-a').value)||0}
+  function B(){return parseFloat($('km-b').value)||0}
+  function showLen(){$('km-len').textContent=f1(Math.max(0,B()-A()))}
+  function setTarget(n){tgt.value=String(n);q('.km-cut').forEach(function(d){d.classList.toggle('on',d.dataset.n===String(n))});fillSrc(src.value)}
+  function paint(){
+    var all=0,voice=0;
+    q('.km-cut').forEach(function(d){
+      var n=d.dataset.n,L=st.cuts[n]||[],dur=parseFloat(d.dataset.dur),sum=0,ul=d.querySelector('.km-list');
+      ul.innerHTML='';
+      L.forEach(function(x,i){
+        sum+=x.b-x.a;
+        var li=document.createElement('li');
+        if(edit&&edit.n===n&&edit.i===i)li.className='ed';
+        li.innerHTML='<span>'+(i+1)+'. GX010'+x.no+'　'+f1(x.a)+'〜'+f1(x.b)+'秒（'+f1(x.b-x.a)+'秒）</span>'+
+          '<button data-k="up">↑</button><button data-k="down">↓</button><button data-k="see">直す</button><button data-k="del">消す</button>';
+        q('button',li).forEach(function(b){b.addEventListener('click',function(){
+          var k=b.dataset.k;
+          if(k==='up'&&i>0){L.splice(i-1,0,L.splice(i,1)[0])}
+          if(k==='down'&&i<L.length-1){L.splice(i+1,0,L.splice(i,1)[0])}
+          if(k==='del'){L.splice(i,1);if(edit&&edit.n===n)endEdit()}
+          if(k==='see'){setTarget(n);fillSrc(x.no);load(x.no,x.a);$('km-a').value=f1(x.a);$('km-b').value=f1(x.b);showLen();edit={n:n,i:i};$('km-edbox').hidden=false;$('km-add').hidden=true}
+          keep();paint();
+        })});
+        ul.appendChild(li);
+      });
+      if(!L.length)ul.innerHTML='<li class="km-empty" style="border:0;background:none">まだ並べていません</li>';
+      d.querySelector('.km-sum').textContent=f1(sum);
+      var df=sum-dur,s=d.querySelector('.km-diff');
+      s.className='km-diff '+(!L.length?'short':Math.abs(df)<0.3?'ok':df<0?'short':'over');
+      s.textContent=!L.length?'映像がまだありません':Math.abs(df)<0.3?'声とほぼ同じ':df<0?'映像が '+f1(-df)+'秒 足りない':'映像が '+f1(df)+'秒 多い';
+      all+=sum;voice+=dur;
+    });
+    $('km-all').textContent=f1(all);$('km-voice').textContent=f1(voice);
+  }
+  function endEdit(){edit=null;$('km-edbox').hidden=true;$('km-add').hidden=false}
+  function playList(list){
+    var tok={};play=tok;var i=0;
+    function next(){
+      if(play!==tok)return;
+      if(i>=list.length){play=null;vid.pause();return}
+      var x=list[i++];fillSrc(x.no);load(x.no,x.a);
+      var go=function(){if(play!==tok)return;vid.play().catch(function(){})};
+      if(vid.readyState>=1)go();else vid.addEventListener('loadedmetadata',function(){setTimeout(go,50)},{once:true});
+      tok.end=x.b;tok.next=next;
+    }
+    next();
+  }
+  vid.addEventListener('timeupdate',function(){
+    $('km-cur').textContent=f1(vid.currentTime);
+    if(play&&play.end!==undefined&&vid.currentTime>=play.end){var nx=play.next;play.end=undefined;nx()}
+  });
+  // 手で動画の位置を動かしたら、通しの再生をやめる（こちらで動かした時は auto で見分ける）
+  vid.addEventListener('seeking',function(){if(!auto)play=null});
+  vid.addEventListener('seeked',function(){auto=false});
+  tgt.addEventListener('change',function(){setTarget(tgt.value)});
+  src.addEventListener('change',function(){play=null;load(src.value,0)});
+  $('km-setA').addEventListener('click',function(){$('km-a').value=f1(vid.currentTime);if(B()<A())$('km-b').value=f1(Math.min(vid.duration||A(),A()+3));showLen()});
+  $('km-setB').addEventListener('click',function(){$('km-b').value=f1(vid.currentTime);showLen()});
+  $('km-a').addEventListener('input',showLen);$('km-b').addEventListener('input',showLen);
+  $('km-playAB').addEventListener('click',function(){if(B()>A())playList([{no:src.value,a:A(),b:B()}])});
+  $('km-add').addEventListener('click',function(){
+    if(!(B()>A())){$('km-msg').textContent='終わりを、始めより後にしてください。';return}
+    var n=tgt.value;(st.cuts[n]=st.cuts[n]||[]).push({no:+src.value,a:+f1(A()),b:+f1(B())});
+    keep();paint();$('km-msg').textContent='カット'+n+'に GX010'+src.value+' の '+f1(A())+'〜'+f1(B())+'秒 を足しました。';
+  });
+  $('km-upd').addEventListener('click',function(){
+    if(!edit||!(B()>A()))return;
+    st.cuts[edit.n][edit.i]={no:+src.value,a:+f1(A()),b:+f1(B())};keep();endEdit();paint();
+  });
+  $('km-cancel').addEventListener('click',function(){endEdit();paint()});
+  q('.km-cut').forEach(function(d){
+    d.querySelector('[data-act=target]').addEventListener('click',function(){setTarget(d.dataset.n);$('km-msg').textContent='足す先をカット'+d.dataset.n+'にしました。右で動画を選んでください。'});
+    d.querySelector('[data-act=playcut]').addEventListener('click',function(){var L=st.cuts[d.dataset.n]||[];if(L.length){setTarget(d.dataset.n);playList(L)}});
+  });
+  $('km-playall').addEventListener('click',function(){
+    var L=[];q('.km-cut').forEach(function(d){(st.cuts[d.dataset.n]||[]).forEach(function(x){L.push(x)})});if(L.length)playList(L);
+  });
+  $('km-save').addEventListener('click',function(){
+    var d=new Date(),p=function(x){return ('0'+x).slice(-2)},stamp=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'_'+p(d.getHours())+p(d.getMinutes());
+    var out={saved:d.toISOString(),note:'カットごとに、並べた映像（動画の番号・始め・終わりの秒）。カット番号は1始まり',cuts:{}};
+    q('.km-cut').forEach(function(x){var L=st.cuts[x.dataset.n]||[];if(L.length)out.cuts[x.dataset.n]={voice:+x.dataset.dur,clips:L}});
+    var blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='GLB_組み合わせ_'+stamp+'.json';document.body.appendChild(a);a.click();a.remove();
+    $('km-msg').textContent='保存しました：ダウンロードのフォルダの「GLB_組み合わせ_'+stamp+'.json」。チャットで「保存した」と伝えてください。';
+  });
+  $('km-load').addEventListener('change',function(ev){
+    var f=ev.target.files[0];if(!f)return;var r=new FileReader();
+    r.onload=function(){try{var j=JSON.parse(r.result),c={};Object.keys(j.cuts||{}).forEach(function(k){c[k]=j.cuts[k].clips||j.cuts[k]});st.cuts=c;keep();paint();$('km-msg').textContent='読み込みました：'+f.name}catch(e){$('km-msg').textContent='読み込めませんでした'}};
+    r.readAsText(f);
+  });
+  setTarget(tgt.value);fillSrc();if(src.value)load(src.value,0);paint();
+})();
+</script></section>
 <section class="pane" data-tab="who" data-stage="any">
 <h2>見込み客の人物像</h2>
 <div class="flow">
@@ -811,7 +962,7 @@ details.rule{padding:10px 12px}
 <script>
 (function(){
   var tab='goal',stage='0';
-  var free=function(){return ['goal','sentei','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
+  var free=function(){return ['goal','sentei','kumi','who','real','compare','check','say','order','out'].indexOf(tab)>=0};
   if(document.querySelector('.tab[data-tab="'+location.hash.slice(1)+'"]'))tab=location.hash.slice(1);
   var q=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
   var key='glb-tabs-prep-v1',saved={};
@@ -830,7 +981,7 @@ details.rule{padding:10px 12px}
       if(b.dataset.tab===tab){var w=b.parentNode,r=b.getBoundingClientRect(),o=w.getBoundingClientRect();w.scrollLeft+=r.left-o.left-(w.clientWidth-r.width)/2}
     });
     q('.chip').forEach(function(b){b.classList.toggle('on',b.dataset.stage===stage)});
-    document.querySelector('main').classList.toggle('wide',tab==='say'||tab==='sentei');
+    document.querySelector('main').classList.toggle('wide',tab==='say'||tab==='sentei'||tab==='kumi');
     document.getElementById('chips').hidden=free();
     document.getElementById('nav').hidden=(free()||stage==='all');
     q('.common').forEach(function(c){c.hidden=c.dataset.tab!==tab});
