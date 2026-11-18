@@ -1,0 +1,3577 @@
+<!doctype html><html><head><meta charset=utf8><meta name="robots" content="noindex,nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>MIYABI マインドマップ</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* 中心から右へ枝が伸びるマップ。枝ごとに色を分け、2段目より下は下線だけで見せる */
+:root{
+  --bg:#eef1f6; --dot:#d5dbe6; --panel:#ffffff; --fg:#1d2330; --muted:#5d6678; --line:#c6cdd9;
+  --root-bg:#1d2330; --root-fg:#ffffff; --hit:#ffe58a; --shadow:0 2px 10px rgba(29,35,48,.10);
+  --b1:#3567c9; --b2:#14917d; --b3:#c47a12; --b4:#cc3f35; --b5:#7652c2; --b6:#c2387a;
+  --font:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif;
+  height:100%;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14171d; --dot:#252a34; --panel:#1e232c; --fg:#e7e9ef; --muted:#9aa3b5; --line:#3a4150;
+  --root-bg:#e7e9ef; --root-fg:#14171d; --hit:#6b5a12; --shadow:0 2px 10px rgba(0,0,0,.4);
+  --b1:#6f9bf0; --b2:#3cc2aa; --b3:#e7a54a; --b4:#f0736a; --b5:#a88bec; --b6:#ec6fa8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14171d; --dot:#252a34; --panel:#1e232c; --fg:#e7e9ef; --muted:#9aa3b5; --line:#3a4150;
+  --root-bg:#e7e9ef; --root-fg:#14171d; --hit:#6b5a12; --shadow:0 2px 10px rgba(0,0,0,.4);
+  --b1:#6f9bf0; --b2:#3cc2aa; --b3:#e7a54a; --b4:#f0736a; --b5:#a88bec; --b6:#ec6fa8; color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);overflow:hidden}
+#app{height:100%;display:flex;flex-direction:column}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-block:10px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background:var(--panel);border-bottom:1px solid var(--line);position:relative;z-index:5}
+.bar h1{font-size:16px;font-weight:700;margin:0 8px 0 0;white-space:nowrap}
+.bar input{font:inherit;font-size:14px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg);width:12em;min-width:0}
+button{font:inherit;font-size:13px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 10px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--b1);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--fg);color:var(--panel);border-color:var(--fg)}
+.seg{display:flex}.seg button{border-radius:0}.seg button:first-child{border-radius:6px 0 0 6px}.seg button:last-child{border-radius:0 6px 6px 0;margin-left:-1px}
+.spacer{flex:1}
+#hits{font-size:12px;color:var(--muted)}
+#vp{flex:1;position:relative;overflow:hidden;touch-action:none;cursor:grab;
+  background-image:radial-gradient(var(--dot) 1px,transparent 1px);background-size:22px 22px}
+#vp.drag{cursor:grabbing}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+#edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
+#edges path{fill:none;stroke-width:2}
+.n{position:absolute;width:max-content;max-width:300px;font-size:14px;line-height:1.55;padding:2px 2px 4px;border-bottom:2px solid var(--c);cursor:default;white-space:normal;word-break:normal;overflow-wrap:anywhere}
+.n.root{background:var(--root-bg);color:var(--root-fg);border:0;border-radius:12px;padding:14px 18px;max-width:340px;box-shadow:var(--shadow)}
+.n.root b{display:block;font-size:20px;margin-bottom:6px}
+.n.root span{font-size:13px;line-height:1.6;display:block;opacity:.85}
+.n.l1{background:var(--panel);border:2px solid var(--c);border-radius:10px;padding:8px 14px;font-weight:700;font-size:15px;box-shadow:var(--shadow)}
+.n.vid{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px 8px 40px;width:270px;max-width:none;box-shadow:var(--shadow)}
+.n.vid::before{content:"";position:absolute;left:10px;top:11px;width:22px;height:16px;border-radius:4px;background:var(--b4)}
+.n.vid::after{content:"";position:absolute;left:19px;top:15px;border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.n.vid a{color:var(--fg);text-decoration:none;font-weight:500}
+.n.vid a:hover{text-decoration:underline}
+.n .meta{display:block;font-size:12px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums}
+.n a.lnk{color:var(--c);font-size:12px;margin-left:6px;white-space:nowrap}
+.n.hit{background:var(--hit)}
+.n.vid.hit,.n.l1.hit{background:var(--hit)}
+.tg{position:absolute;width:20px;height:20px;border-radius:50%;border:2px solid var(--c);background:var(--panel);color:var(--fg);
+  font-size:11px;font-weight:700;line-height:16px;text-align:center;padding:0;cursor:pointer;transform:translate(-2px,-50%)}
+.zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:var(--shadow)}
+.zoom span{font-size:12px;min-width:3.2em;text-align:center;font-variant-numeric:tabular-nums}
+#outline{flex:1;overflow:auto;padding-block:16px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+#outline ul{list-style:none;margin:0;padding-left:20px;border-left:2px solid var(--line)}
+#outline>ul{padding-left:0;border:0;max-width:760px}
+#outline li{margin:6px 0;line-height:1.6;font-size:15px}
+#outline li.o1>div{font-weight:700;font-size:16px;color:var(--c);margin-top:14px}
+#outline a{color:var(--b1)}
+#outline .meta{color:var(--muted);font-size:12px;margin-left:6px}
+@media (prefers-reduced-motion:no-preference){#world.anim{transition:transform .25s ease}}
+@media (max-width:640px){.bar h1{font-size:15px;width:100%}.bar input{flex:1}#mapSeg{width:100%}#mapSeg button{flex:1}.bar input#q{flex:1 1 100%}}
+</style>
+
+<div id="app">
+  <div class="bar">
+    <h1>MIYABI マインドマップ</h1>
+    <div class="seg" id="mapSeg" role="group" aria-label="マップの切り替え">
+      <button id="mA" type="button" aria-pressed="true">ゴールのマップ</button>
+      <button id="mB" type="button" aria-pressed="false">動画の設計図</button>
+    </div>
+    <input id="q" type="search" placeholder="言葉で探す" aria-label="マップの中を言葉で探す">
+    <span id="hits"></span>
+    <button id="openAll" type="button">全部開く</button>
+    <button id="closeAll" type="button">2段目まで</button>
+    <span class="spacer"></span>
+    <div class="seg" role="group" aria-label="表示の切り替え">
+      <button id="vMap" type="button" aria-pressed="true">マップ</button>
+      <button id="vOut" type="button" aria-pressed="false">一覧</button>
+    </div>
+  </div>
+  <div id="vp">
+    <div id="world"><svg id="edges"></svg><div id="nodes"></div></div>
+    <div class="zoom">
+      <button id="zOut" type="button" aria-label="小さくする">−</button>
+      <span id="zPct">100%</span>
+      <button id="zIn" type="button" aria-label="大きくする">＋</button>
+      <button id="zFit" type="button">全体</button>
+    </div>
+  </div>
+  <div id="outline" hidden></div>
+</div>
+
+<script>
+// ===== マップの中身（MindMeisterの2つのマップを、文字を変えずに写した物） =====
+// t=文字 / sub=中心の補足 / u=外のリンク / v=YouTubeの動画ID / m=補足 / c=下の枝
+// MAP_A＝ゴール（https://www.mindmeister.com/app/map/4114247102）
+// MAP_B＝動画の設計図（https://www.mindmeister.com/app/map/4114362686）
+const MAP_A = {
+ "t": "ゴール",
+ "sub": "今のきれいな状態を、できるだけ長く保ちながら、長く乗っていきたい（新車コーティングの見込み客）",
+ "c": [
+  {
+   "t": "見込み客みんなに共通（悩みはプラスからのスタート・70くらい）",
+   "c": [
+    {
+     "t": "新車を買う前・納車前・納車してすぐの人"
+    },
+    {
+     "t": "知識がなく、自分の状況での最適解がない"
+    },
+    {
+     "t": "分からない：費用対効果／なぜ新車にコーティングか／自分の車だとどうか"
+    },
+    {
+     "t": "目的はみんな同じ。手段は、車の状態・使い方・考え方・家庭の事情・お金で変わる"
+    },
+    {
+     "t": "売れる人：知識はあるが、人に自信を持って説明できるほどではない。でも「今のきれいな状態を長く保ちたい」気持ちがある"
+    }
+   ]
+  },
+  {
+   "t": "【一番深い】数十万円が前提の人（本命）",
+   "c": [
+    {
+     "t": "お金に余裕がある。専門家に頼むのが一番と分かっている"
+    },
+    {
+     "t": "比べる相手は業者どうし。ディーラーオプションと比べたがる"
+    },
+    {
+     "t": "機能より「誰から買うか」：安心感・信用・信頼"
+    },
+    {
+     "t": "営業が強いと保留にする。対応の印象で決める"
+    },
+    {
+     "t": "段取りが悪いとイラつきやすいかもしれない"
+    },
+    {
+     "t": "例：レクサスでディーラーのコーティング30万円弱に価値があるか"
+    },
+    {
+     "t": "例：セラミック36万円を2店舗で比べている"
+    },
+    {
+     "t": "動画で入れたいこと",
+     "c": [
+      {
+       "t": "誰が施工するか：どんな技を持った人が、何をするから、こうなる"
+      },
+      {
+       "t": "ディーラーオプションと何が違うかを徹底的に比べる"
+      },
+      {
+       "t": "その人に合った物を伝えて、安心感を出す"
+      },
+      {
+       "t": "作業の流れ・段取りを説明する"
+      }
+     ]
+    },
+    {
+     "t": "検索しそうな言葉・興味がありそうなこと（Googleの月の検索数・10/30 Keyword Tool）",
+     "c": [
+      {
+       "t": "ディーラー コーティング（月1,000回）",
+       "c": [
+        {
+         "t": "知りたいこと：ディーラーで頼むと実際どうなるのか（だれが施工するか・中身・値段の内訳）"
+        },
+        {
+         "t": "動画の題材：ディーラーで施工した車の1年後・3年後の状態を見せる",
+         "c": [
+          {
+           "t": "動画：「ディーラーコーティングは磨けてない...？」洗車のプロが暴く衝撃の真実（中野優作 / CAR and LIFE.・25.8万回・1年前）https://youtu.be/OsgN2XRQ7vk",
+           "u": "https://youtu.be/OsgN2XRQ7vk"
+          },
+          {
+           "t": "動画：【保存版】知らないとぼったくられる？ディーラーコーティングのメリット・デメリットを忖度なしで徹底解説（ぬぬふぁくとりー・11.8万回・2年前）https://youtu.be/pVnAzlNpQOg",
+           "u": "https://youtu.be/pVnAzlNpQOg"
+          },
+          {
+           "t": "動画：ディーラーのコーティングをおススメしない３つの理由！（BEAUTIFUL CARS 洗車チャンネル・9.1万回・5年前）https://youtu.be/mggoaDXKZ-M",
+           "u": "https://youtu.be/mggoaDXKZ-M"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "コーティング 専門店（月1,900回）",
+       "c": [
+        {
+         "t": "知りたいこと：専門店はディーラーと何が違うのか、どの店なら任せていいのか"
+        },
+        {
+         "t": "動画の題材：ディーラー施工の車と専門店施工の車を並べて比べる",
+         "c": [
+          {
+           "t": "動画：「施工業者は〇〇で選べ」コーティングの最適解についてプロ同士が話した結果...（中野優作 / CAR and LIFE.・81.8万回・1年前）https://youtu.be/DsWl8yAdQRY",
+           "u": "https://youtu.be/DsWl8yAdQRY"
+          },
+          {
+           "t": "動画：【プロの本音】カーコーティングするならディーラー・専門店・量販店結局どこがいい？（carbeauty iic・1.2万回・3か月前）https://youtu.be/GWFWoka73SY",
+           "u": "https://youtu.be/GWFWoka73SY"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "新車 コーティング 専門店（月140回）",
+       "c": [
+        {
+         "t": "知りたいこと：新車を専門店に頼む時の流れ・費用・時期"
+        },
+        {
+         "t": "動画の題材：納車から専門店の施工・引き渡しまでを見せる",
+         "c": [
+          {
+           "t": "動画：【プロの本音】カーコーティングするならディーラー・専門店・量販店結局どこがいい？（carbeauty iic・1.2万回・3か月前）https://youtu.be/GWFWoka73SY",
+           "u": "https://youtu.be/GWFWoka73SY"
+          },
+          {
+           "t": "動画：【洗車のプロが解説】ディーラーと専門店のコーティングの違い。Keeperって実際どうなの？（センスアールのRYUYA・24.3万回・1年前）https://youtu.be/usw_rUIK7jc",
+           "u": "https://youtu.be/usw_rUIK7jc"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "新車 コーティング どこがいい（月140回）",
+       "c": [
+        {
+         "t": "知りたいこと：ディーラー・キーパー・専門店のどこがいいのか"
+        },
+        {
+         "t": "動画の題材：施工先ごとの「値段・中身・数年後の結果」を比べる",
+         "c": [
+          {
+           "t": "動画：せっかく新車コーティングしたのに、、一年でとんでもない状態になったクラウンクロスオーバー【前編】（まなっちガレージ・99.2万回・2年前）https://youtu.be/ii4bmzfdRXc",
+           "u": "https://youtu.be/ii4bmzfdRXc"
+          },
+          {
+           "t": "動画：業者の失敗で艶が無くなったデリカを洗車で救う！（ワックスウォッシュ / スッキリ洗車・36.2万回・1年前）https://youtu.be/obaZiFmcqnY",
+           "u": "https://youtu.be/obaZiFmcqnY"
+          },
+          {
+           "t": "動画：新車でディーラーコーティング　実は納車時とんでもない状態だった【ヴェルファイア 40系】（まなっちガレージ・7.3万回・1年前）https://youtu.be/2UR-EjLNc1E",
+           "u": "https://youtu.be/2UR-EjLNc1E"
+          },
+          {
+           "t": "動画：【EXキーパー】20万円のコーティングをノーメンテ青空駐車で2年維持した艶と撥水のリアル（チラカーライフ・20.5万回・1年前）https://youtu.be/fzAjNjYThGU",
+           "u": "https://youtu.be/fzAjNjYThGU"
+          },
+          {
+           "t": "動画：「施工業者は〇〇で選べ」コーティングの最適解についてプロ同士が話した結果...（中野優作 / CAR and LIFE.・81.8万回・1年前）https://youtu.be/DsWl8yAdQRY",
+           "u": "https://youtu.be/DsWl8yAdQRY"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "新車 コーティング ディーラー 専門店（月10回）",
+       "c": [
+        {
+         "t": "知りたいこと：ディーラーと専門店の見積もりの差と、中身の差"
+        },
+        {
+         "t": "動画の題材：同じ車でディーラーと専門店の見積もりを並べ、内訳を説明する",
+         "c": [
+          {
+           "t": "動画：【洗車のプロが解説】ディーラーと専門店のコーティングの違い。Keeperって実際どうなの？（センスアールのRYUYA・24.3万回・1年前）https://youtu.be/usw_rUIK7jc",
+           "u": "https://youtu.be/usw_rUIK7jc"
+          },
+          {
+           "t": "動画：【新型ヴェルファイア】私が敢えてディーラーコーティングせずに他でコーティングをする理由（わちゃめちゃじゃけえ。・3.0万回・2年前）https://youtu.be/zWtT9xE1IDc",
+           "u": "https://youtu.be/zWtT9xE1IDc"
+          },
+          {
+           "t": "動画：【必見】元大手ディーラー施工員が暴露！コーティングで後悔する前に（僕たちの洗車旅。・2.0万回・3か月前）https://youtu.be/CNBeV9xDYpU",
+           "u": "https://youtu.be/CNBeV9xDYpU"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "レクサス ディーラー コーティング（月90回）",
+       "c": [
+        {
+         "t": "知りたいこと：レクサスのディーラーコーティングに、その値段の価値があるのか"
+        },
+        {
+         "t": "動画の題材：レクサスのディーラー施工車のその後と、専門店との比べ",
+         "c": [
+          {
+           "t": "動画：レクサスボディコートプレミアムのメリットとデメリット。カーコーティング専門店を使うかどっちがいいの？（シグモン・5.7万回・5年前）https://youtu.be/zAgud4EWQpc",
+           "u": "https://youtu.be/zAgud4EWQpc"
+          },
+          {
+           "t": "動画：【ディーラーコーティング】一年経過したので徹底確認とメンテナンス施工してみた｜レクサス（リリーとレクサス・1.8万回・1年前）https://youtu.be/pZJkz6ZzpnU",
+           "u": "https://youtu.be/pZJkz6ZzpnU"
+          },
+          {
+           "t": "動画：【レクサスRX】高いコーティング、本当に必要？ダイヤⅡとクリスタルの3年間費用を徹底比較！（YandYChannel・0.5万回・1か月前）https://youtu.be/ce17jfyMpE8",
+           "u": "https://youtu.be/ce17jfyMpE8"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "アルファード コーティング ディーラー（月30回）",
+       "c": [
+        {
+         "t": "知りたいこと：大きくて高い車は、ディーラーと専門店のどちらがいいか"
+        },
+        {
+         "t": "動画の題材：アルファードの施工事例と値段の比べ",
+         "c": [
+          {
+           "t": "動画：【40系アルファード】8万円のディーラーコーティングてどうなん？？【ガードコスメSP】（OJISAN CHANNEL・2.1万回・2年前）https://youtu.be/c0zNjYD0Fjk",
+           "u": "https://youtu.be/c0zNjYD0Fjk"
+          },
+          {
+           "t": "動画：新車でディーラーコーティング　実は納車時とんでもない状態だった【ヴェルファイア 40系】（まなっちガレージ・7.3万回・1年前）https://youtu.be/2UR-EjLNc1E",
+           "u": "https://youtu.be/2UR-EjLNc1E"
+          },
+          {
+           "t": "動画：【新車40アルファードにEXキーパー施工】全工程を徹底解説！ディーラーコーティングよりも遥かに凄い！（くるまあい・2.5万回・2年前）https://youtu.be/yrw6YJrOKFQ",
+           "u": "https://youtu.be/yrw6YJrOKFQ"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "セラミックコーティング（月6,600回）",
+       "c": [
+        {
+         "t": "知りたいこと：ガラスと何が違うのか、高いだけの価値があるのか"
+        },
+        {
+         "t": "動画の題材：セラミックで施工した車の数年後",
+         "c": [
+          {
+           "t": "動画：ガラスの時代は終わり。上位互換のセラミックコーティング使ったら最高すぎた。（ぬぬふぁくとりー・9.3万回・4か月前）https://youtu.be/LQNDzAS6DJg",
+           "u": "https://youtu.be/LQNDzAS6DJg"
+          },
+          {
+           "t": "動画：セラミックコーティング後、1ヶ月洗車せずにアルファードを放置してみた結果。NOJ（まさるTV 車チャンネル・4.0万回・4年前）https://youtu.be/MD7BKjHK44k",
+           "u": "https://youtu.be/MD7BKjHK44k"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "セラミックコーティング 京都（月30回）",
+       "c": [
+        {
+         "t": "知りたいこと：京都で頼める店と、その評判"
+        },
+        {
+         "t": "動画の題材：京都の店の施工の様子とお客さんの声",
+         "c": [
+          {
+           "t": "動画：アルファード30後期セラミックコーティングNOJ京都店（munehiko mitsui・0.1万回・8年前）https://youtu.be/dycniDb8bO0",
+           "u": "https://youtu.be/dycniDb8bO0"
+          },
+          {
+           "t": "動画：【最高品質】コーティング専門店のセラミックコーティング全工程見せます!!（中古車編）（FOURSIDE Ch.・2.4万回・3年前）https://youtu.be/69pr9X3Qijk",
+           "u": "https://youtu.be/69pr9X3Qijk"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "コーティング 施工証明書（月260回）",
+       "c": [
+        {
+         "t": "知りたいこと：本当に施工されたかを確かめる方法、だまされない方法"
+        },
+        {
+         "t": "動画の題材：証明書がない・頼んだ物と違うコーティングだった、という事例",
+         "c": [
+          {
+           "t": "動画：【注意】コーティング施工証明書の特徴｜よくある失敗例を紹介｜キーパーコーティング（BEN_ch・0.8万回・4年前）https://youtu.be/E0nDT8DoNa8",
+           "u": "https://youtu.be/E0nDT8DoNa8"
+          },
+          {
+           "t": "動画：【要注意】コーティングの5年保証、そういう意味じゃありません（Detail_Lab / D_Lab・0.6万回・2か月前）https://youtu.be/WqZ0eVREhyU",
+           "u": "https://youtu.be/WqZ0eVREhyU"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "コーティング 京都（月140回）",
+       "c": [
+        {
+         "t": "知りたいこと：近くで信頼できる店はどこか"
+        },
+        {
+         "t": "動画の題材：地元の店のだれが、どう施工するかを見せる",
+         "c": [
+          {
+           "t": "動画：京都コーティング専門店　洗匠_Senshow HONDA CIVIC FD2 TypeR G’zox Class M（洗匠_Senshow Kyoto・3.9万回・7か月前）https://youtu.be/fhSb2q6We2M",
+           "u": "https://youtu.be/fhSb2q6We2M"
+          },
+          {
+           "t": "動画：京都コーティング専門店　洗匠_Senshow ACURA TLX TypeS G’zox Class M（洗匠_Senshow Kyoto・0.1万回・7か月前）https://youtu.be/pyl5adqCAEk",
+           "u": "https://youtu.be/pyl5adqCAEk"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "コーティング 滋賀（月110回）",
+       "c": [
+        {
+         "t": "知りたいこと：近くで信頼できる店はどこか"
+        },
+        {
+         "t": "動画の題材：地元の店のだれが、どう施工するかを見せる",
+         "c": [
+          {
+           "t": "※滋賀の店の動画は、検索の上位6本に出てこなかった（11/2）"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "興味：「コーティングしたのに半年でツヤゼロ」のような、ディーラーやキーパーで施工して失敗した話の動画（施工先を比べるために見る・村田さん 11/2）",
+       "c": [
+        {
+         "t": "例：ワックスウォッシュ「【コーティングの失敗？】艶ゼロのアリアを徹底洗車で救う！」（38万回・1年前、サムネ「半年で艶ゼロ」「12万円コーティングの末路」）"
+        },
+        {
+         "t": "動画の題材：ほかの店で施工した車が、こうなってしまった（第三者の結果を見せて、施工先を比べる材料にする）",
+         "c": [
+          {
+           "t": "動画：業者の失敗で艶が無くなったデリカを洗車で救う！（ワックスウォッシュ / スッキリ洗車・36.2万回・1年前）https://youtu.be/obaZiFmcqnY",
+           "u": "https://youtu.be/obaZiFmcqnY"
+          },
+          {
+           "t": "動画：せっかく新車コーティングしたのに、、一年でとんでもない状態になったクラウンクロスオーバー【前編】（まなっちガレージ・99.2万回・2年前）https://youtu.be/ii4bmzfdRXc",
+           "u": "https://youtu.be/ii4bmzfdRXc"
+          },
+          {
+           "t": "動画：新車でディーラーコーティング　実は納車時とんでもない状態だった【ヴェルファイア 40系】（まなっちガレージ・7.3万回・1年前）https://youtu.be/2UR-EjLNc1E",
+           "u": "https://youtu.be/2UR-EjLNc1E"
+          },
+          {
+           "t": "動画：【必見】元大手ディーラー施工員が暴露！コーティングで後悔する前に（僕たちの洗車旅。・2.0万回・3か月前）https://youtu.be/CNBeV9xDYpU",
+           "u": "https://youtu.be/CNBeV9xDYpU"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "一段浅い：20万〜40万円が前提の人",
+     "c": [
+      {
+       "t": "知識はあるが、自信を持って人に説明できるほどではない"
+      },
+      {
+       "t": "ハッタリは効かない"
+      },
+      {
+       "t": "動画で入れたいこと",
+       "c": [
+        {
+         "t": "具体的な説明と「だからこのコーティングがいい」と腑に落ちる説明"
+        },
+        {
+         "t": "1層・2層・3層の違い、コーティング剤の違いを小学4年生でも分かるように"
+        }
+       ]
+      },
+      {
+       "t": "検索しそうな言葉・興味がありそうなこと（Googleの月の検索数・10/30 Keyword Tool）",
+       "c": [
+        {
+         "t": "セラミックコーティングとは（月590回）",
+         "c": [
+          {
+           "t": "知りたいこと：仕組みと、ガラスとの違いを分かりやすく知りたい"
+          },
+          {
+           "t": "動画の題材：小学4年生でも分かるセラミックとガラスの違い",
+           "c": [
+            {
+             "t": "動画：セラミックコーティングのメリット7選・デメリット5つを専門店が解説（carbeauty iic・1.0万回・9か月前）https://youtu.be/-7jJQeNe_DI",
+             "u": "https://youtu.be/-7jJQeNe_DI"
+            },
+            {
+             "t": "動画：【本音】SENSE-Rがガラスコーティングをやめた理由。今は“セラミック”を選びます（センスアールのRYUYA・5.3万回・1か月前）https://youtu.be/3WuvCG0ubIw",
+             "u": "https://youtu.be/3WuvCG0ubIw"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "セラミックコーティング デメリット（月260回）",
+         "c": [
+          {
+           "t": "知りたいこと：高いのに失敗しないか、自分に向いているか"
+          },
+          {
+           "t": "動画の題材：セラミックで後悔した例と、向かない人",
+           "c": [
+            {
+             "t": "動画：高いのに満足できない？セラミックコーティングで起きがちな後悔の正体（carbeauty iic・0.5万回・9か月前）https://youtu.be/7i9U9DggBYU",
+             "u": "https://youtu.be/7i9U9DggBYU"
+            },
+            {
+             "t": "動画：セラミックコーティングの嘘。（オートヴェッシュ・2.7万回・3年前）https://youtu.be/hldRI6kYadI",
+             "u": "https://youtu.be/hldRI6kYadI"
+            },
+            {
+             "t": "動画：セラミックコーティングのメリット7選・デメリット5つを専門店が解説（carbeauty iic・1.0万回・9か月前）https://youtu.be/-7jJQeNe_DI",
+             "u": "https://youtu.be/-7jJQeNe_DI"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "セラミックコーティング 意味ない（月390回）",
+         "c": [
+          {
+           "t": "知りたいこと：本当に意味があるのか、他社でやって意味がなかった人の話"
+          },
+          {
+           "t": "動画の題材：「セラミックにしたのに…」という車を見せて原因を説明する",
+           "c": [
+            {
+             "t": "動画：高いのに満足できない？セラミックコーティングで起きがちな後悔の正体（carbeauty iic・0.5万回・9か月前）https://youtu.be/7i9U9DggBYU",
+             "u": "https://youtu.be/7i9U9DggBYU"
+            },
+            {
+             "t": "動画：セラミックコーティングの嘘。（オートヴェッシュ・2.7万回・3年前）https://youtu.be/hldRI6kYadI",
+             "u": "https://youtu.be/hldRI6kYadI"
+            },
+            {
+             "t": "動画：【閲覧注意】知らないと後悔するガラスコーティングの落とし穴と本当のメリット（Mr Saten / ミスターサテン・31.1万回・10か月前）https://youtu.be/5iDdjqDpygI",
+             "u": "https://youtu.be/5iDdjqDpygI"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "セラミックコーティング ガラスコーティング（月30回）",
+         "c": [
+          {
+           "t": "知りたいこと：結局どちらを選べばいいのか"
+          },
+          {
+           "t": "動画の題材：同じ条件で2種類を並べて比べる",
+           "c": [
+            {
+             "t": "動画：ガラスの時代は終わり。上位互換のセラミックコーティング使ったら最高すぎた。（ぬぬふぁくとりー・9.3万回・4か月前）https://youtu.be/LQNDzAS6DJg",
+             "u": "https://youtu.be/LQNDzAS6DJg"
+            },
+            {
+             "t": "動画：【本音】SENSE-Rがガラスコーティングをやめた理由。今は“セラミック”を選びます（センスアールのRYUYA・5.3万回・1か月前）https://youtu.be/3WuvCG0ubIw",
+             "u": "https://youtu.be/3WuvCG0ubIw"
+            },
+            {
+             "t": "動画：悩んでいる人は見て欲しい！新型ヴェルファイアに【最高峰】のセラミックコーティングを施工したら（ブーワンチャンネル・3.1万回・2年前）https://youtu.be/zTXmUeYFqGI",
+             "u": "https://youtu.be/zTXmUeYFqGI"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "コーティング種類（月320回）",
+         "c": [
+          {
+           "t": "知りたいこと：種類ごとの特徴と、自分に合う物"
+          },
+          {
+           "t": "動画の題材：車の使い方・保管場所ごとの種類の選び方",
+           "c": [
+            {
+             "t": "動画：【初心者必見】知らないと損!?コーティングの種類と選び方（carbeauty iic・2.5万回・1年前）https://youtu.be/E0tvgRi1mnY",
+             "u": "https://youtu.be/E0tvgRi1mnY"
+            },
+            {
+             "t": "動画：コーティングの種類、結局どれが正解？初心者向けに違いをまとめて解説（Detail_Lab / D_Lab・1.7万回・4か月前）https://youtu.be/xf_ftOJVq_Q",
+             "u": "https://youtu.be/xf_ftOJVq_Q"
+            },
+            {
+             "t": "動画：後悔しないコーティングの選び方を洗車屋が解説します。（洗車屋の豆知識ch・2.0万回・1年前）https://youtu.be/pdJyPjBqbp0",
+             "u": "https://youtu.be/pdJyPjBqbp0"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "ガラスコーティング しない 方がいい（月1,900回）",
+         "c": [
+          {
+           "t": "知りたいこと：「しない方がいい」は本当か、した人の失敗談"
+          },
+          {
+           "t": "動画の題材：「しない方がいい」と言われる理由を実際の車で確かめる",
+           "c": [
+            {
+             "t": "動画：【閲覧注意】知らないと後悔するガラスコーティングの落とし穴と本当のメリット（Mr Saten / ミスターサテン・31.1万回・10か月前）https://youtu.be/5iDdjqDpygI",
+             "u": "https://youtu.be/5iDdjqDpygI"
+            },
+            {
+             "t": "動画：ガラスコーティングは「しない方がいい」って本当？プロが語るデメリットと、よくある失敗と後悔。（carbeauty iic・0.5万回・6か月前）https://youtu.be/TL04kC--Y6o",
+             "u": "https://youtu.be/TL04kC--Y6o"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "車 コーティング 効果（月140回）",
+         "c": [
+          {
+           "t": "知りたいこと：効果が実際どれくらい続くのか"
+          },
+          {
+           "t": "動画の題材：施工直後・半年・1年・3年の状態を並べる",
+           "c": [
+            {
+             "t": "動画：【EXキーパー】20万円のコーティングをノーメンテ青空駐車で2年維持した艶と撥水のリアル（チラカーライフ・20.5万回・1年前）https://youtu.be/fzAjNjYThGU",
+             "u": "https://youtu.be/fzAjNjYThGU"
+            },
+            {
+             "t": "動画：【本音レビュー】キーパーコーティングって実際どうなの？プロが正直に語ります。（センスアールのRYUYA・35.3万回・1年前）https://youtu.be/-PBodPFRM0Q",
+             "u": "https://youtu.be/-PBodPFRM0Q"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "新車 コーティング 下地処理（月40回）",
+         "c": [
+          {
+           "t": "知りたいこと：新車でも下地処理が要るのか"
+          },
+          {
+           "t": "動画の題材：新車の塗装を拡大して、納車時の状態を見せる",
+           "c": [
+            {
+             "t": "動画：新車コーティング迷ってる人必見！研磨する？しない？KeePer歴16年のプロが本音で回答（キーパープロショップ林堂店・2.5万回・8か月前）https://youtu.be/W_5MtKMJ6d8",
+             "u": "https://youtu.be/W_5MtKMJ6d8"
+            },
+            {
+             "t": "動画：【闇】新車に研磨は必要なの？元ディーラーマンが事実を語ります（BEN_ch・3.1万回・2年前）https://youtu.be/ys0oe3wc918",
+             "u": "https://youtu.be/ys0oe3wc918"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "新車 研磨 必要（月30回）",
+         "c": [
+          {
+           "t": "知りたいこと：新車に磨きは要るのか、削って大丈夫か"
+          },
+          {
+           "t": "動画の題材：磨く・磨かないで仕上がりがどう違うか",
+           "c": [
+            {
+             "t": "動画：【闇】新車に研磨は必要なの？元ディーラーマンが事実を語ります（BEN_ch・3.1万回・2年前）https://youtu.be/ys0oe3wc918",
+             "u": "https://youtu.be/ys0oe3wc918"
+            },
+            {
+             "t": "動画：新車コーティング迷ってる人必見！研磨する？しない？KeePer歴16年のプロが本音で回答（キーパープロショップ林堂店・2.5万回・8か月前）https://youtu.be/W_5MtKMJ6d8",
+             "u": "https://youtu.be/W_5MtKMJ6d8"
+            },
+            {
+             "t": "動画：新車は磨く？磨かない？塗装の膜厚を計測しながらプロが本音を話す…（BEAUTIFUL CARS 洗車チャンネル・7.5万回・7年前）https://youtu.be/ASlOxGUYgzc",
+             "u": "https://youtu.be/ASlOxGUYgzc"
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "ディーラー コーティング メンテナンス（月50回）",
+         "c": [
+          {
+           "t": "知りたいこと：ディーラーのメンテナンスの中身と料金"
+          },
+          {
+           "t": "動画の題材：メンテナンスで実際に何をしているかを見せる",
+           "c": [
+            {
+             "t": "動画：【騙されてる？】ディーラーコーティングを綺麗に保つ方法※宣伝等ありません（BEN_ch・1.2万回・11か月前）https://youtu.be/K0P5jiJm2-k",
+             "u": "https://youtu.be/K0P5jiJm2-k"
+            },
+            {
+             "t": "動画：ディーラーコーティングに水シミがついたらどうするの？プロが解説！（BEAUTIFUL CARS 洗車チャンネル・4.7万回・1年前）https://youtu.be/o28Mvd3dJzw",
+             "u": "https://youtu.be/o28Mvd3dJzw"
+            },
+            {
+             "t": "動画：【実演比較】ボディコーティング後にメンテナンスキットを使って愛車を洗車する方法を解説します！（中野優作 / CAR and LIFE.・11.2万回・11か月前）https://youtu.be/Kq8QMLBw1Sw",
+             "u": "https://youtu.be/Kq8QMLBw1Sw"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "さらに浅い：10万〜30万円の間で手段に迷っている人",
+       "c": [
+        {
+         "t": "業者次第・誰がやるか次第で、予算以上でも出す"
+        },
+        {
+         "t": "口コミで判断する"
+        },
+        {
+         "t": "値段だけが頭に残り、良さが分かっていない"
+        },
+        {
+         "t": "必要性を感じたら絶対やってくれそう"
+        },
+        {
+         "t": "動画で入れたいこと",
+         "c": [
+          {
+           "t": "効果と「こういう人がやってくれる」という信頼"
+          },
+          {
+           "t": "内訳：保証の中身、再施工の金額と理由"
+          },
+          {
+           "t": "新車でコーティングした人の口コミを見せる"
+          }
+         ]
+        },
+        {
+         "t": "検索しそうな言葉・興味がありそうなこと（Googleの月の検索数・10/30 Keyword Tool）",
+         "c": [
+          {
+           "t": "新車 コーティング 必要か（月880回）",
+           "c": [
+            {
+             "t": "知りたいこと：やらなかったらどうなるのか"
+            },
+            {
+             "t": "動画の題材：コーティングあり・なしの車の数年後を比べる",
+             "c": [
+              {
+               "t": "動画：【知らないと後悔】コーティングしなきゃダメ？プロが正直にお答えします！（BEAUTIFUL CARS 洗車チャンネル・1.1万回・10か月前）https://youtu.be/NBHhoofoNLM",
+               "u": "https://youtu.be/NBHhoofoNLM"
+              },
+              {
+               "t": "動画：【車業界の悪習⁈】コーティング業者の選び方、そもそも必要なのか？（BEAUTIFUL CARS 洗車チャンネル・30.6万回・2年前）https://youtu.be/-Zoezu7SJPQ",
+               "u": "https://youtu.be/-Zoezu7SJPQ"
+              },
+              {
+               "t": "※上位には不要派・節約の動画も多い → 外側の枝へ分けた"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "新車 コーティング おすすめ（月1,000回）",
+           "c": [
+            {
+             "t": "知りたいこと：結局どれがいいのか"
+            },
+            {
+             "t": "動画の題材：予算ごとのおすすめと、その理由",
+             "c": [
+              {
+               "t": "動画：【新車】コーティングするなら断然〇〇コーティングがおすすめ！【中古車も】（くるまのこと、ぜんぶ【SKオート】・0.9万回・1年前）https://youtu.be/iMnyneP3YaY",
+               "u": "https://youtu.be/iMnyneP3YaY"
+              },
+              {
+               "t": "動画：【本音レビュー】キーパーコーティングって実際どうなの？プロが正直に語ります。（センスアールのRYUYA・35.3万回・1年前）https://youtu.be/-PBodPFRM0Q",
+               "u": "https://youtu.be/-PBodPFRM0Q"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "新車 コーティング キーパー（月590回）",
+           "c": [
+            {
+             "t": "知りたいこと：キーパーと、ディーラー・専門店の違い"
+            },
+            {
+             "t": "動画の題材：キーパーで施工した車のその後（ほかの施工先と比べる）",
+             "c": [
+              {
+               "t": "動画：【本音レビュー】キーパーコーティングって実際どうなの？プロが正直に語ります。（センスアールのRYUYA・35.3万回・1年前）https://youtu.be/-PBodPFRM0Q",
+               "u": "https://youtu.be/-PBodPFRM0Q"
+              },
+              {
+               "t": "動画：【2026最新版】KeePerの4種類を全資格持ちの現役技術者が解説します（BEN_ch・24.1万回・6か月前）https://youtu.be/lTMZD-NrFXs",
+               "u": "https://youtu.be/lTMZD-NrFXs"
+              },
+              {
+               "t": "動画：新車コーティング迷ってる人必見！研磨する？しない？KeePer歴16年のプロが本音で回答（キーパープロショップ林堂店・2.5万回・8か月前）https://youtu.be/W_5MtKMJ6d8",
+               "u": "https://youtu.be/W_5MtKMJ6d8"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "キーパー コーティング 評判（月1,300回）",
+           "c": [
+            {
+             "t": "知りたいこと：実際に頼んだ人の声"
+            },
+            {
+             "t": "動画の題材：キーパーで施工した人の、その後のレビュー",
+             "c": [
+              {
+               "t": "動画：【本音レビュー】キーパーコーティングって実際どうなの？プロが正直に語ります。（センスアールのRYUYA・35.3万回・1年前）https://youtu.be/-PBodPFRM0Q",
+               "u": "https://youtu.be/-PBodPFRM0Q"
+              },
+              {
+               "t": "動画：【今すぐ見て】ダイヤⅡキーパーやめた方がいいかもの人います（BEN_ch・9.1万回・7か月前）https://youtu.be/Zr0xWVwWq1Y",
+               "u": "https://youtu.be/Zr0xWVwWq1Y"
+              },
+              {
+               "t": "動画：【EXキーパー】20万円のコーティングをノーメンテ青空駐車で2年維持した艶と撥水のリアル（チラカーライフ・20.5万回・1年前）https://youtu.be/fzAjNjYThGU",
+               "u": "https://youtu.be/fzAjNjYThGU"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "キーパー コーティング 値段（月880回）",
+           "c": [
+            {
+             "t": "知りたいこと：値段と中身が釣り合っているか"
+            },
+            {
+             "t": "動画の題材：値段ごとの中身を比べる",
+             "c": [
+              {
+               "t": "動画：【2026年版】金額で比較!!キーパーコーティングの選び方！（ランディスタジオ・5.6万回・8か月前）https://youtu.be/KymhRB4pP74",
+               "u": "https://youtu.be/KymhRB4pP74"
+              },
+              {
+               "t": "動画：【2026最新版】KeePerの4種類を全資格持ちの現役技術者が解説します（BEN_ch・24.1万回・6か月前）https://youtu.be/lTMZD-NrFXs",
+               "u": "https://youtu.be/lTMZD-NrFXs"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "トヨタ コーティング 値段（月320回）",
+           "c": [
+            {
+             "t": "知りたいこと：トヨタのディーラーのコーティングの値段と、その価値"
+            },
+            {
+             "t": "動画の題材：トヨタ純正（CPCなど）の中身と値段の説明",
+             "c": [
+              {
+               "t": "動画：【ハリアー】ディーラー任せで大丈夫？コーティングとメンテナンスパックの選び方（タンドク / クルマのハナシ・2.3万回・2年前）https://youtu.be/xlYlcnnBnb8",
+               "u": "https://youtu.be/xlYlcnnBnb8"
+              },
+              {
+               "t": "動画：【保存版】知らないとぼったくられる？ディーラーコーティングのメリット・デメリットを忖度なしで徹底解説（ぬぬふぁくとりー・11.8万回・2年前）https://youtu.be/pVnAzlNpQOg",
+               "u": "https://youtu.be/pVnAzlNpQOg"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ガラスコーティング 値段（月260回）",
+           "c": [
+            {
+             "t": "知りたいこと：相場はいくらか"
+            },
+            {
+             "t": "動画の題材：店ごとの値段と中身の比べ",
+             "c": [
+              {
+               "t": "動画：【閲覧注意】知らないと後悔するガラスコーティングの落とし穴と本当のメリット（Mr Saten / ミスターサテン・31.1万回・10か月前）https://youtu.be/5iDdjqDpygI",
+               "u": "https://youtu.be/5iDdjqDpygI"
+              },
+              {
+               "t": "動画：【2026年版】金額で比較!!キーパーコーティングの選び方！（ランディスタジオ・5.6万回・8か月前）https://youtu.be/KymhRB4pP74",
+               "u": "https://youtu.be/KymhRB4pP74"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ディーラー コーティング 高い（月50回）",
+           "c": [
+            {
+             "t": "知りたいこと：なぜ高いのか、専門店の方が得なのか"
+            },
+            {
+             "t": "動画の題材：ディーラーの値段の内訳を説明する",
+             "c": [
+              {
+               "t": "動画：「ディーラーコーティングは磨けてない...？」洗車のプロが暴く衝撃の真実（中野優作 / CAR and LIFE.・25.8万回・1年前）https://youtu.be/OsgN2XRQ7vk",
+               "u": "https://youtu.be/OsgN2XRQ7vk"
+              },
+              {
+               "t": "動画：【保存版】知らないとぼったくられる？ディーラーコーティングのメリット・デメリットを忖度なしで徹底解説（ぬぬふぁくとりー・11.8万回・2年前）https://youtu.be/pVnAzlNpQOg",
+               "u": "https://youtu.be/pVnAzlNpQOg"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ディーラー コーティング 値段（月40回）",
+           "c": [
+            {
+             "t": "知りたいこと：いくらが普通なのか"
+            },
+            {
+             "t": "動画の題材：ディーラーごとの値段の比べ",
+             "c": [
+              {
+               "t": "動画：【洗車のプロが解説】ディーラーと専門店のコーティングの違い。Keeperって実際どうなの？（センスアールのRYUYA・24.3万回・1年前）https://youtu.be/usw_rUIK7jc",
+               "u": "https://youtu.be/usw_rUIK7jc"
+              },
+              {
+               "t": "動画：【保存版】知らないとぼったくられる？ディーラーコーティングのメリット・デメリットを忖度なしで徹底解説（ぬぬふぁくとりー・11.8万回・2年前）https://youtu.be/pVnAzlNpQOg",
+               "u": "https://youtu.be/pVnAzlNpQOg"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "新車 コーティング いらない（月170回）",
+           "c": [
+            {
+             "t": "知りたいこと：「いらない」派の理由は本当か"
+            },
+            {
+             "t": "動画の題材：コーティングしなかった人の車の数年後",
+             "c": [
+              {
+               "t": "動画：【知らないと後悔】コーティングしなきゃダメ？プロが正直にお答えします！（BEAUTIFUL CARS 洗車チャンネル・1.1万回・10か月前）https://youtu.be/NBHhoofoNLM",
+               "u": "https://youtu.be/NBHhoofoNLM"
+              },
+              {
+               "t": "※この言葉の上位は、不要派・節約の動画が多い → 外側の枝「節約・不要・自分でやる前提の動画」へ"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ガラスコーティング 京都 口コミ（月20回）",
+           "c": [
+            {
+             "t": "知りたいこと：京都で実際に頼んだ人の声"
+            },
+            {
+             "t": "動画の題材：お客さんの声・口コミを紹介する",
+             "c": [
+              {
+               "t": "動画：京都コーティング専門店　洗匠_Senshow HONDA CIVIC FD2 TypeR G’zox Class M（洗匠_Senshow Kyoto・3.9万回・7か月前）https://youtu.be/fhSb2q6We2M",
+               "u": "https://youtu.be/fhSb2q6We2M"
+              },
+              {
+               "t": "※京都の口コミを扱う動画は、上位6本に出てこなかった（11/2）"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "コーティング メンテナンス 料金（月90回）",
+           "c": [
+            {
+             "t": "知りたいこと：施工したあと、いくらかかるのか"
+            },
+            {
+             "t": "動画の題材：5年間でかかるお金の合計を見せる",
+             "c": [
+              {
+               "t": "動画：【ハリアー】ディーラー任せで大丈夫？コーティングとメンテナンスパックの選び方（タンドク / クルマのハナシ・2.3万回・2年前）https://youtu.be/xlYlcnnBnb8",
+               "u": "https://youtu.be/xlYlcnnBnb8"
+              },
+              {
+               "t": "動画：【車をキレイに維持するのにメンテナンスが必要不可欠】ガラスコーティングのメンテナンスの教科書（ながら洗車 / 洗車の教科書・22.3万回・2年前）https://youtu.be/_mHwI0YA2F8",
+               "u": "https://youtu.be/_mHwI0YA2F8"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ガラスコーティング 再施工（月40回）",
+           "c": [
+            {
+             "t": "知りたいこと：再施工はいつ・いくら・なぜ要るのか"
+            },
+            {
+             "t": "動画の題材：再施工の中身と金額を、一つずつ説明する",
+             "c": [
+              {
+               "t": "動画：【プロ直伝】9割が間違ってる！ガラスコーティング後の正しい初回洗車（センスアールのRYUYA・16.3万回・1か月前）https://youtu.be/6yFvXy64nac",
+               "u": "https://youtu.be/6yFvXy64nac"
+              },
+              {
+               "t": "動画：【車をキレイに維持するのにメンテナンスが必要不可欠】ガラスコーティングのメンテナンスの教科書（ながら洗車 / 洗車の教科書・22.3万回・2年前）https://youtu.be/_mHwI0YA2F8",
+               "u": "https://youtu.be/_mHwI0YA2F8"
+              },
+              {
+               "t": "動画：ディーラーコーティングに水シミがついたらどうするの？プロが解説！（BEAUTIFUL CARS 洗車チャンネル・4.7万回・1年前）https://youtu.be/o28Mvd3dJzw",
+               "u": "https://youtu.be/o28Mvd3dJzw"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "ウォータースポット（月2,900回）",
+           "c": [
+            {
+             "t": "知りたいこと：コーティングしたのに出るのはなぜか、防げるのか"
+            },
+            {
+             "t": "動画の題材：コーティング車のウォータースポットの原因と対処",
+             "c": [
+              {
+               "t": "動画：ウォータースポットになったことが一度でもある方はこちらをご覧下さい。【洗車屋が解説】（ながら洗車 / 洗車の教科書・53.9万回・5年前）https://youtu.be/mJb1wNYe9qY",
+               "u": "https://youtu.be/mJb1wNYe9qY"
+              },
+              {
+               "t": "動画：これでボディにウォータースポットがつかない！？洗車屋が教えるウォータースポットを防ぐ方法4選（ながら洗車 / 洗車の教科書・9.1万回・7年前）https://youtu.be/8_pz_GZPYGE",
+               "u": "https://youtu.be/8_pz_GZPYGE"
+              },
+              {
+               "t": "動画：ディーラーコーティングに水シミがついたらどうするの？プロが解説！（BEAUTIFUL CARS 洗車チャンネル・4.7万回・1年前）https://youtu.be/o28Mvd3dJzw",
+               "u": "https://youtu.be/o28Mvd3dJzw"
+              }
+             ]
+            }
+           ]
+          },
+          {
+           "t": "興味：「コーティングしたのに半年でツヤゼロ」のような、ディーラーやキーパーで施工して失敗した話の動画（施工先を比べるために見る・村田さん 11/2）",
+           "c": [
+            {
+             "t": "例：ワックスウォッシュ「【コーティングの失敗？】艶ゼロのアリアを徹底洗車で救う！」（38万回・1年前、サムネ「半年で艶ゼロ」「12万円コーティングの末路」）"
+            },
+            {
+             "t": "動画の題材：ほかの店で施工した車が、こうなってしまった（第三者の結果を見せて、施工先を比べる材料にする）",
+             "c": [
+              {
+               "t": "動画：業者の失敗で艶が無くなったデリカを洗車で救う！（ワックスウォッシュ / スッキリ洗車・36.2万回・1年前）https://youtu.be/obaZiFmcqnY",
+               "u": "https://youtu.be/obaZiFmcqnY"
+              },
+              {
+               "t": "動画：せっかく新車コーティングしたのに、、一年でとんでもない状態になったクラウンクロスオーバー【前編】（まなっちガレージ・99.2万回・2年前）https://youtu.be/ii4bmzfdRXc",
+               "u": "https://youtu.be/ii4bmzfdRXc"
+              },
+              {
+               "t": "動画：新車でディーラーコーティング　実は納車時とんでもない状態だった【ヴェルファイア 40系】（まなっちガレージ・7.3万回・1年前）https://youtu.be/2UR-EjLNc1E",
+               "u": "https://youtu.be/2UR-EjLNc1E"
+              },
+              {
+               "t": "動画：【必見】元大手ディーラー施工員が暴露！コーティングで後悔する前に（僕たちの洗車旅。・2.0万回・3か月前）https://youtu.be/CNBeV9xDYpU",
+               "u": "https://youtu.be/CNBeV9xDYpU"
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        },
+        {
+         "t": "浅い（悩み50くらい）：お金はないが知識はある人",
+         "c": [
+          {
+           "t": "新車で水垢に悩んでいるわけではない"
+          },
+          {
+           "t": "やらないといけないとは思っている"
+          },
+          {
+           "t": "対応が面倒な客になりそう"
+          },
+          {
+           "t": "【一番外側】ゴールがない人＝見込み客にならない",
+           "c": [
+            {
+             "t": "8万〜10万円で高いと感じる人（液剤を買って自分でやる人になっていく）"
+            },
+            {
+             "t": "自分で塗ったことがある人・液剤どうしを比べている人"
+            },
+            {
+             "t": "車がすごく好きで、自分で磨かないと気が済まない人"
+            },
+            {
+             "t": "新車ですぐ傷をつけて再コーティングする人（少ない）"
+            },
+            {
+             "t": "この人たちへの発信：簡単3ステップなど自分でパパッとできる物・その場しのぎ・効果が短い物",
+             "c": [
+              {
+               "t": "実際に出ている動画（節約・不要・自分でやる前提）※見込み客の枝には入れていない。題名から判断（11/2 YouTube検索の上位）",
+               "c": [
+                {
+                 "t": "動画：【極論】車のコーティングの最適解をズバッと解説！みんなお金出しすぎです！（車の維持・節約ch【元ディーラー営業マン】・26.8万回・1年前）https://youtu.be/iI9XhE1_zG0",
+                 "u": "https://youtu.be/iI9XhE1_zG0"
+                },
+                {
+                 "t": "動画：【性能比較】カーコーティング耐久性比較検証！ディーラー・専門店・DIY忖度無し比較解説！（車の維持・節約ch【元ディーラー営業マン】・1.3万回・12日前）https://youtu.be/RaFLf9Lh5qs",
+                 "u": "https://youtu.be/RaFLf9Lh5qs"
+                },
+                {
+                 "t": "動画：コーティング？そんなの必要ねぇ！（オートヴェッシュ・12.3万回・3年前）https://youtu.be/PEZ7ygmA3WE",
+                 "u": "https://youtu.be/PEZ7ygmA3WE"
+                },
+                {
+                 "t": "動画：【新車】コーティングは必要？不要？元整備士がぶった斬ります！（カルモくんTV / クルマ選び相談室・40.7万回・2年前）https://youtu.be/7p26Z0-hvt4",
+                 "u": "https://youtu.be/7p26Z0-hvt4"
+                },
+                {
+                 "t": "動画：【徹底解説】知らないと損する高額すぎるボディコーティングの闇を業販日本一の車屋社長に聞きました...（中野優作 / CAR and LIFE.・132.5万回・3年前）https://youtu.be/hEGTHrC7nxA",
+                 "u": "https://youtu.be/hEGTHrC7nxA"
+                },
+                {
+                 "t": "動画：【車のプロが暴露 !】業者が言わない！？ガラスコーティングのデメリット（高橋巨樹のガレージライフ・35.1万回・3年前）https://youtu.be/t9b8xNWbMfY",
+                 "u": "https://youtu.be/t9b8xNWbMfY"
+                },
+                {
+                 "t": "動画：【徹底解説】納車後の高額コーティングは必要か？プロの本音に衝撃…（ユーロスポーツ / クルマのコンシェルジュ・3.7万回・1年前）https://youtu.be/IMukSslWlP8",
+                 "u": "https://youtu.be/IMukSslWlP8"
+                },
+                {
+                 "t": "動画：【新車コーティング】KeePerで安いコースを施工｜選んだ理由と実際の仕上がりレビュー（ゆとり旅・2.4万回・1年前）https://youtu.be/jQKDZOZJG60",
+                 "u": "https://youtu.be/jQKDZOZJG60"
+                },
+                {
+                 "t": "動画：素人でも簡単！車の下地処理の順番と使用する洗車用品（Used MINI Life・4.6万回・2年前）https://youtu.be/nhu5JxEOOYU",
+                 "u": "https://youtu.be/nhu5JxEOOYU"
+                },
+                {
+                 "t": "動画：【フクピカクレンジングシート】この使い方でウォータースポット、イオンデポジット、水アカが本気で落ちる（プリ男とジローと・205.8万回・3年前）https://youtu.be/oej1oOtDDN4",
+                 "u": "https://youtu.be/oej1oOtDDN4"
+                },
+                {
+                 "t": "動画：「ガラスコーティング施工後のメンテナンス」をわかりやすく解説します！【DIYガラスコーティング】（Bodycoat・12.8万回・4年前）https://youtu.be/KYMbJqWBBfw",
+                 "u": "https://youtu.be/KYMbJqWBBfw"
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "中古車コーティングのゴール：今のマイナス（水垢・汚れて見える）を改善したい（中古車コーティングの見込み客）",
+   "c": [
+    {
+     "t": "見込み客みんなに共通",
+     "c": [
+      {
+       "t": "今、見た目に不満がある（すでに気になる症状がある）"
+      },
+      {
+       "t": "人に見られている意識が強い。「傷がついたら直さなきゃ」「きれいにしておかなきゃ」と考える"
+      },
+      {
+       "t": "見た目に気を使う人はお金に余裕がある（村田さんの見立て・まだ確かめていない）"
+      },
+      {
+       "t": "洗えば落ちる汚れと、塗装が傷んだ状態の違いを知らないことがある"
+      },
+      {
+       "t": "雨の日でも来店がある（水垢のケアは、その日の天気とは別）"
+      }
+     ]
+    },
+    {
+     "t": "【一番深い】水垢に深く悩んでいる人（10人中3人ほど・村田さんの概算）",
+     "c": [
+      {
+       "t": "なぜ嫌か：車が汚れて見えるから"
+      },
+      {
+       "t": "塗装が傷んで凹んでいる時は、磨く処置が必要（現場の説明）"
+      },
+      {
+       "t": "磨いて整えた状態を放置するのはもったいない → その後のコーティングを提案する流れ"
+      },
+      {
+       "t": "研磨の金額の例：5万円・7万円（正式な料金表ではない）"
+      },
+      {
+       "t": "動画・説明で入れたいこと",
+       "c": [
+        {
+         "t": "症状の診断 → 除去・研磨 → 保護・維持、の順で悩みと施工内容をつなぐ（コーティングだけ見せてもつながらない）"
+        },
+        {
+         "t": "洗えば落ちる汚れと、塗装が傷んだ状態の違いを伝える →「知らなかった」「今対処したい」につながるかもしれない"
+        }
+       ]
+      },
+      {
+       "t": "まだ分かっていないこと",
+       "c": [
+        {
+         "t": "値段の段ごとの特徴（中古車の人の声は、まだ集めて読んでいない）"
+        },
+        {
+         "t": "ほんまの目的（ゴール）の仮説：声を読んで立てる"
+        }
+       ]
+      },
+      {
+       "t": "【一番外側】無料目的の人（10人中7人ほど）＝見込み客にならない",
+       "c": [
+        {
+         "t": "アンケートで省いている"
+        },
+        {
+         "t": "省くと広告の獲得単価は上がり得るが、洗車・対応の手間が減るので結果的に良い、という判断"
+        },
+        {
+         "t": "体験の案：ボンネットだけ磨き無料（実施は決まっていない）"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "新車と中古車の違い（10/30の打ち合わせメモより）",
+   "c": [
+    {
+     "t": "今の状態",
+     "c": [
+      {
+       "t": "中古車：見た目に不満がある"
+      },
+      {
+       "t": "新車：今はきれいだと思っている"
+      }
+     ]
+    },
+    {
+     "t": "求めること",
+     "c": [
+      {
+       "t": "中古車：今のマイナスを改善する"
+      },
+      {
+       "t": "新車：今のよい状態を維持する（今のきれいな状態をできるだけ長く保ちたい）"
+      }
+     ]
+    },
+    {
+     "t": "悩みの入口",
+     "c": [
+      {
+       "t": "中古車：すでに気になる症状（水垢）"
+      },
+      {
+       "t": "新車：購入・納車などの節目、この先の維持への関心"
+      }
+     ]
+    },
+    {
+     "t": "説明の核",
+     "c": [
+      {
+       "t": "中古車：症状と処置の関係"
+      },
+      {
+       "t": "新車：維持の方法と、その施工が要る理由"
+      }
+     ]
+    },
+    {
+     "t": "作業",
+     "c": [
+      {
+       "t": "中古車：下地処理や研磨に手間がかかる"
+      },
+      {
+       "t": "新車：作業時間は中古車の半分ほど（現場の説明・測った表はない）"
+      }
+     ]
+    },
+    {
+     "t": "今分かっていること",
+     "c": [
+      {
+       "t": "中古車：メタ広告の「水垢」でお客さんが取れている（ミヤビの説明）"
+      },
+      {
+       "t": "新車：値段・予算の声54件を読んだ。どの悩み・訴求が受注につながるかは、まだ"
+      }
+     ]
+    },
+    {
+     "t": "注意",
+     "c": [
+      {
+       "t": "新車の人に「新車にも水垢がある」と言っても自分ごとにならず、売り込みに見えるかもしれない"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "新車の人（買う前・納車前・納車してすぐ）が抱える悩み 全部（台帳の声275件・28ジャンル）",
+   "c": [
+    {
+     "t": "1位 値段・予算（54件）",
+     "c": [
+      {
+       "t": "「やりたかったけど、高いからカットする」"
+      },
+      {
+       "t": "費用対効果が分からない"
+      },
+      {
+       "t": "なぜ新車にコーティングがいいのか分からない"
+      },
+      {
+       "t": "自分の車（車種・色・保管場所・使い方・乗り方）だとどうなのか分からない"
+      },
+      {
+       "t": "コーティングした後の仕上がりを想像できない"
+      },
+      {
+       "t": "「5年水洗いだけで済む」が本当に得なのか疑っている"
+      },
+      {
+       "t": "ディーラーの見積もり（14万円・30万円弱など）にその価値があるのか"
+      },
+      {
+       "t": "再施工のたびにお金がかかるのは、どこの店も同じなのか"
+      },
+      {
+       "t": "保証で何が守られるのか分からない"
+      },
+      {
+       "t": "自分でやるか、人に頼むかで迷う"
+      },
+      {
+       "t": "ディーラーオプションを断りづらい・付けるのがマナーかと思う"
+      }
+     ]
+    },
+    {
+     "t": "2位 自分で塗る（DIY）（49件）",
+     "c": [
+      {
+       "t": "ディーラーが高いので、自分で塗るべきか"
+      },
+      {
+       "t": "素人でもできるか、どの製品がいいか"
+      },
+      {
+       "t": "下地処理をどうするか"
+      },
+      {
+       "t": "ムラ・拭き残しが出ないか、液の量が足りるか"
+      },
+      {
+       "t": "ちゃんと塗れているのか分からない"
+      },
+      {
+       "t": "時間と体力がかかる（数時間〜7時間）"
+      },
+      {
+       "t": "新しい状態を長く保ちたい"
+      }
+     ]
+    },
+    {
+     "t": "3位 ディーラーのコーティング・オプション（41件）",
+     "c": [
+      {
+       "t": "ディーラーのコーティングは高い・評判が悪いと聞く"
+      },
+      {
+       "t": "ディーラーか専門店か"
+      },
+      {
+       "t": "契約で付けた物を外したい／付けずに契約して後悔しないか"
+      },
+      {
+       "t": "値引き込み・実質無料なら付けるべきか"
+      },
+      {
+       "t": "施工の範囲（ドアの内側・樹脂・屋根）が抜けていた"
+      },
+      {
+       "t": "「5年もの」が1〜3年で水をはじかなくなった"
+      },
+      {
+       "t": "点検で断りなく洗車機にかけられた"
+      }
+     ]
+    },
+    {
+     "t": "4位 傷・ぶつけた・擦った（40件）",
+     "c": [
+      {
+       "t": "納車してすぐぶつけた・擦ったショック、運転が怖い"
+      },
+      {
+       "t": "家族に言えない・家族に責められる"
+      },
+      {
+       "t": "身に覚えのない傷で落ち込む"
+      },
+      {
+       "t": "洗車で線傷がついた"
+      },
+      {
+       "t": "コーティングした車の傷を自分で消していいのか"
+      },
+      {
+       "t": "納車時からあった傷を伝えたら渋られた"
+      },
+      {
+       "t": "修理代・保険を使うか"
+      }
+     ]
+    },
+    {
+     "t": "5位 洗車・洗車機（38件）",
+     "c": [
+      {
+       "t": "洗車機に入れて傷がつかないか"
+      },
+      {
+       "t": "手洗いが大変・家で洗う場所がない"
+      },
+      {
+       "t": "洗う頻度、いつから洗っていいか"
+      },
+      {
+       "t": "炎天下で洗って白い斑点が出た"
+      },
+      {
+       "t": "コーティング後の洗車用品の選び方、被膜を落とさないか"
+      },
+      {
+       "t": "初めての洗車場で周りの目が気になる"
+      }
+     ]
+    },
+    {
+     "t": "6位 水シミ・水垢・雨じみ（28件）",
+     "c": [
+      {
+       "t": "コーティングしたのに半年足らずで輪じみ・ウォータースポット"
+      },
+      {
+       "t": "洗っても落ちない白い点・シミ"
+      },
+      {
+       "t": "黒・屋根なしだと、すぐシミができないか不安"
+      },
+      {
+       "t": "メンテナンスキットで取れない"
+      },
+      {
+       "t": "再施工した直後にまた水シミ"
+      }
+     ]
+    },
+    {
+     "t": "7位 車内の汚れ（子ども・ペット・荷物）（26件）",
+     "c": [
+      {
+       "t": "子どもの食べこぼし・蹴り汚れ・吐いた汚れ"
+      },
+      {
+       "t": "ペットの毛・爪の傷"
+      },
+      {
+       "t": "雨・泥・アウトドアの汚れ"
+      },
+      {
+       "t": "シートは布か革か"
+      }
+     ]
+    },
+    {
+     "t": "8位 そもそも必要か（21件）",
+     "c": [
+      {
+       "t": "初めての新車でコーティングするべきか"
+      },
+      {
+       "t": "しないとツヤで見劣りするか"
+      },
+      {
+       "t": "洗車をあまりしない・数年で売るのに意味があるか"
+      },
+      {
+       "t": "屋根なし・黒でもいるか、ワックスで足りるか"
+      },
+      {
+       "t": "家族で意見が割れる（本人は不要、妻は希望）"
+      },
+      {
+       "t": "27.5万円の良さが分からない、飛び石を防げるのか"
+      }
+     ]
+    },
+    {
+     "t": "8位 専門店・店選び（21件）",
+     "c": [
+      {
+       "t": "キーパー・NOJ・CPCなど、どれがいいか"
+      },
+      {
+       "t": "店ごとに見積もり・説明が違う（36万円＋追加10万円／24万円）"
+      },
+      {
+       "t": "施工の時期（新車扱いの期間、1か月待つべきか）"
+      },
+      {
+       "t": "事故で再施工になった時どうなるか"
+      },
+      {
+       "t": "ディーラーで付けたあと、専門店が得と知って損した気分"
+      },
+      {
+       "t": "施工店が決まらない"
+      }
+     ]
+    },
+    {
+     "t": "10位 納車前の準備・用品（14件）",
+     "c": [
+      {
+       "t": "納車前に何を買う・準備するか"
+      },
+      {
+       "t": "急な納車の連絡であわてる"
+      },
+      {
+       "t": "盗難対策・ドライブレコーダーの準備"
+      }
+     ]
+    },
+    {
+     "t": "10位 家族・まわりの人（14件）",
+     "c": [
+      {
+       "t": "家族に責められる・言えない"
+      },
+      {
+       "t": "家族が勝手に洗った・触った"
+      },
+      {
+       "t": "家族が関心を持ってくれない"
+      }
+     ]
+    },
+    {
+     "t": "12位 施工・説明への不信（13件）",
+     "c": [
+      {
+       "t": "頼んだ物と違うコーティングだった（セラミックのはずがガラス系）"
+      },
+      {
+       "t": "施工されていない疑い・証明書がない"
+      },
+      {
+       "t": "塗り残し・範囲の説明が足りない"
+      },
+      {
+       "t": "1年点検のメンテナンスが洗車機の水洗いだけ"
+      }
+     ]
+    },
+    {
+     "t": "12位 施工後の手入れ・メンテ（13件）",
+     "c": [
+      {
+       "t": "手入れを続けられるか不安"
+      },
+      {
+       "t": "毎年の再施工費は普通なのか"
+      },
+      {
+       "t": "1年で水をはじかず、点検でも戻らない"
+      },
+      {
+       "t": "施工後の洗車の制限やメンテナンス予約に縛られたくない"
+      }
+     ]
+    },
+    {
+     "t": "12位 コーティング以外（13件）",
+     "c": [
+      {
+       "t": "保険の始まる時期"
+      },
+      {
+       "t": "盗難対策"
+      },
+      {
+       "t": "ドライブレコーダー"
+      },
+      {
+       "t": "新車のにおい"
+      },
+      {
+       "t": "機器がつながらない"
+      }
+     ]
+    },
+    {
+     "t": "15位 施工の時期・順番（12件）",
+     "c": [
+      {
+       "t": "新車のうちにやるべきだったか、もう手遅れか"
+      },
+      {
+       "t": "施工後いつから洗っていいか"
+      },
+      {
+       "t": "部品の取り付けとコーティング、どちらが先か"
+      },
+      {
+       "t": "「新車扱い」の期間を過ぎると追加料金がかかる"
+      }
+     ]
+    },
+    {
+     "t": "15位 ガラスコーティング（12件）",
+     "c": [
+      {
+       "t": "ガラスかセラミックか"
+      },
+      {
+       "t": "ガラスの上に水垢・シミが出た"
+      },
+      {
+       "t": "8万円がばかばかしい、ワックスで足りるか"
+      }
+     ]
+    },
+    {
+     "t": "15位 黒・濃い色（12件）",
+     "c": [
+      {
+       "t": "黒は傷・汚れ・水垢が目立つ"
+      },
+      {
+       "t": "屋根なしで黒を保てるか、色あせ"
+      },
+      {
+       "t": "黒は水をはじく型か、なじむ型か（撥水か親水か）"
+      }
+     ]
+    },
+    {
+     "t": "15位 「○年もつ」・効果が落ちた（12件）",
+     "c": [
+      {
+       "t": "「5年もつ」が1年で水をはじかなくなった"
+      },
+      {
+       "t": "半年で雨じみ・輪じみ"
+      },
+      {
+       "t": "種類・値段・もちの違いが分からない"
+      },
+      {
+       "t": "「水洗いだけ」を守ったのに効果が落ちた"
+      },
+      {
+       "t": "「コーティングしたのに半年でツヤゼロ」のような動画を、納車前の人が施工先を比べるために見ていそう（村田さん 11/2・動画を見て）"
+      }
+     ]
+    },
+    {
+     "t": "19位 飛び石・ドアパンチ・いたずら（11件）",
+     "c": [
+      {
+       "t": "納車してすぐのドアパンチ・飛び石・いたずら傷"
+      },
+      {
+       "t": "マンションの隣の車が怖い"
+      },
+      {
+       "t": "飛び石を防げるか（プロテクションフィルム）"
+      }
+     ]
+    },
+    {
+     "t": "20位 研磨・下地処理（10件）",
+     "c": [
+      {
+       "t": "新車に研磨は要るのか、塗装を削るのに抵抗がある"
+      },
+      {
+       "t": "下地処理なしで小傷ごと固められた"
+      }
+     ]
+    },
+    {
+     "t": "21位 納車時の状態（7件）",
+     "c": [
+      {
+       "t": "納車時から傷・汚れ・水垢がある「本当に新車か」"
+      },
+      {
+       "t": "納車日が雨"
+      }
+     ]
+    },
+    {
+     "t": "21位 セラミックコーティング（7件）",
+     "c": [
+      {
+       "t": "セラミックかガラスか"
+      },
+      {
+       "t": "予算に合わない"
+      },
+      {
+       "t": "3層の追加が要るのか"
+      }
+     ]
+    },
+    {
+     "t": "21位 花粉・黄砂・鳥のフン・鉄粉（7件）",
+     "c": [
+      {
+       "t": "鳥のフンを放置してしまう・跡が残る"
+      },
+      {
+       "t": "花粉・黄砂の落ちないシミ"
+      },
+      {
+       "t": "鉄粉ですぐポツポツが出る"
+      }
+     ]
+    },
+    {
+     "t": "24位 屋根のない駐車場（5件）",
+     "c": [
+      {
+       "t": "屋外で傷む・水シミが不安"
+      }
+     ]
+    },
+    {
+     "t": "25位 マンション・集合住宅・月極（4件）",
+     "c": [
+      {
+       "t": "家で洗えない"
+      },
+      {
+       "t": "ドアパンチが怖い"
+      }
+     ]
+    },
+    {
+     "t": "25位 YouTube・動画を見て（4件）",
+     "c": [
+      {
+       "t": "動画を見て用品をそろえたが、選び方が分からない"
+      }
+     ]
+    },
+    {
+     "t": "27位 白・パール（2件）",
+     "c": [
+      {
+       "t": "汚れが目立たない色か、好きな色か"
+      }
+     ]
+    },
+    {
+     "t": "どれにも当たらない（12件）",
+     "c": [
+      {
+       "t": "ネットの意見が割れて選べない"
+      },
+      {
+       "t": "悪い評判を見て不安"
+      },
+      {
+       "t": "慣らし運転・オイル交換"
+      },
+      {
+       "t": "手放す車が悲しい"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "中古車の人（買う前・納車前・納車してすぐ）が抱える悩み 全部（台帳の声110件・27ジャンル／知恵袋 11/2）",
+   "c": [
+    {
+     "t": "1位 販売店の仕上げ・クリーニング（24件）",
+     "c": [
+      {
+       "t": "「まるごとクリーニング」「ルームクリーニングする」と言われたのに、髪の毛・ホコリ・砂・ヤニが残っている"
+      },
+      {
+       "t": "外は洗車機で軽く洗った程度。グリルや給油口の中が汚い"
+      },
+      {
+       "t": "「磨いておいた」と言われたのに、オーロラ傷やワックスの拭き残しがある"
+      },
+      {
+       "t": "認定中古車はボディを磨いてくれるのか、コーティングはされているのか"
+      },
+      {
+       "t": "納車前にどこまでクリーニングしてくれるのか、現状のままなのか"
+      },
+      {
+       "t": "車内クリーニング代を付けないと、汚れたまま納車と言われた"
+      },
+      {
+       "t": "ダッシュボードの艶出しや除菌剤のぬるぬるが嫌"
+      }
+     ]
+    },
+    {
+     "t": "2位 傷・ぶつけた・擦った（21件）",
+     "c": [
+      {
+       "t": "展示車・現車が線傷・洗車傷・爪傷だらけ"
+      },
+      {
+       "t": "「目立つ傷なし」「傷はない」と言われたのに、薄い傷が全体にある"
+      },
+      {
+       "t": "契約したあとでキズの項目を見てショック"
+      },
+      {
+       "t": "傷は直してもらえるのか、費用はだれが持つのか"
+      },
+      {
+       "t": "初めての洗車で傷に気づく、小傷が気になってしまう"
+      },
+      {
+       "t": "タッチペンの補修の跡が目立つ"
+      }
+     ]
+    },
+    {
+     "t": "2位 前の持ち主の使い方・におい（21件）",
+     "c": [
+      {
+       "t": "タバコ・ペット・芳香剤のにおいが取れない、具合が悪くなる"
+      },
+      {
+       "t": "喫煙車を買うなら、クリーニングでどこまで落ちるか"
+      },
+      {
+       "t": "前の持ち主のコーティングは残っているのか、もう一度する必要があるのか"
+      },
+      {
+       "t": "ガラコの跡・ワックスのカス・ベタベタが残っている"
+      },
+      {
+       "t": "前の持ち主の扱い方（洗車機・洗っていない）が不安"
+      }
+     ]
+    },
+    {
+     "t": "4位 値段・予算（20件）",
+     "c": [
+      {
+       "t": "見積もりのコーティング（4万〜15万円）は必要か、高いのか"
+      },
+      {
+       "t": "強く勧められる・値引きと引き換えに勧められる"
+      },
+      {
+       "t": "仕上げの研磨代（3万5千円など）を「皆さん付けている」と言われた"
+      },
+      {
+       "t": "安い店でしても効果は同じか"
+      },
+      {
+       "t": "後でしようとしたら高くなるのか"
+      }
+     ]
+    },
+    {
+     "t": "5位 水シミ・水垢・雨じみ（18件）",
+     "c": [
+      {
+       "t": "買った車の水垢・ウォータースポットがひどく、市販品で取れない"
+      },
+      {
+       "t": "窓のウロコが取れない"
+      },
+      {
+       "t": "納車してすぐの雨で跡がついた（濡らさない方がいいと聞いていない）"
+      },
+      {
+       "t": "メッキ部分の水垢・くすみ"
+      },
+      {
+       "t": "なるべくお金をかけず、自分で何とかしたい"
+      }
+     ]
+    },
+    {
+     "t": "6位 施工・説明への不信（17件）",
+     "c": [
+      {
+       "t": "施工証明書の日付・作業時間が怪しい"
+      },
+      {
+       "t": "説明と違った（新品交換のはずがリペア、「取れます」が取れなかった）"
+      },
+      {
+       "t": "店のコーティングを断れずに頼んだが、評判が悪くて心配"
+      },
+      {
+       "t": "「コーティングの劣化」と言われたが、本当は塗装の剥がれでは"
+      },
+      {
+       "t": "再施工が前提だと知らなかった"
+      }
+     ]
+    },
+    {
+     "t": "7位 車内の汚れ（子ども・ペット・荷物）（15件）",
+     "c": [
+      {
+       "t": "天井の焦げ跡、ベタベタ、シートの汚れ"
+      },
+      {
+       "t": "プロの車内洗浄を頼みたいが、乾かずに錆びないか"
+      }
+     ]
+    },
+    {
+     "t": "8位 ディーラーのコーティング・オプション（13件）",
+     "c": [
+      {
+       "t": "販売店のコーティング（ダイヤモンド・ポリマーなど）は要るのか"
+      },
+      {
+       "t": "納車前の「洗車とコーティング」は、ガラスコーティングと違うのか"
+      },
+      {
+       "t": "施工した店でメンテナンスしてもらえるか"
+      }
+     ]
+    },
+    {
+     "t": "9位 専門店・店選び（11件）",
+     "c": [
+      {
+       "t": "販売店のコーティングと、キーパーなど専門店のどちらがいいか"
+      },
+      {
+       "t": "10万円以内でおすすめの店"
+      },
+      {
+       "t": "浅い傷消しとコーティングをしてくれる業者を探している"
+      },
+      {
+       "t": "専門店に出す前に鉄粉除去などをしておくべきか"
+      }
+     ]
+    },
+    {
+     "t": "9位 ガラスコーティング（11件）",
+     "c": [
+      {
+       "t": "中古車にガラスコーティングで見た目は変わるか"
+      },
+      {
+       "t": "ワックス済みの車にそのまま施工していいか"
+      },
+      {
+       "t": "何年もつか、取れかけをどう見分けるか"
+      },
+      {
+       "t": "すでにコーティング済みの車に、別のコーティングをしていいか"
+      }
+     ]
+    },
+    {
+     "t": "11位 黒・濃い色（10件）",
+     "c": [
+      {
+       "t": "黒は傷・汚れが目立つか、黒かシルバーか"
+      },
+      {
+       "t": "黒が白っぽく色あせてきた"
+      },
+      {
+       "t": "洗車傷が多い"
+      }
+     ]
+    },
+    {
+     "t": "11位 研磨・下地処理（10件）",
+     "c": [
+      {
+       "t": "研磨で「新車同等」と言われたが、クリアが剥がれないか"
+      },
+      {
+       "t": "研磨とプロテクターはどちらが先か"
+      },
+      {
+       "t": "検査証の傷は、磨く前の傷か後の傷か"
+      }
+     ]
+    },
+    {
+     "t": "11位 納車時の状態（10件）",
+     "c": [
+      {
+       "t": "納車時に汚い、傷が直っていない"
+      },
+      {
+       "t": "納車翌日に変なにおいがする"
+      }
+     ]
+    },
+    {
+     "t": "11位 コーティング以外（保険・防犯・機器・におい）（10件）",
+     "c": [
+      {
+       "t": "車内のにおい消し（芳香剤・車のにおい・タバコ）"
+      },
+      {
+       "t": "除菌のあと手が荒れる気がする"
+      }
+     ]
+    },
+    {
+     "t": "15位 そもそも必要か（8件）",
+     "c": [
+      {
+       "t": "中古車にコーティングは要るか、距離を走っていても要るか"
+      },
+      {
+       "t": "前の持ち主がしていれば要らないのでは"
+      },
+      {
+       "t": "塗装がきれいなので長持ちさせたい"
+      }
+     ]
+    },
+    {
+     "t": "15位 自分で塗る（DIY）（8件）",
+     "c": [
+      {
+       "t": "店のを付けず、自分でしたい。手順と道具は"
+      },
+      {
+       "t": "自分で塗ったらザラザラになった"
+      }
+     ]
+    },
+    {
+     "t": "17位 くすみ・色あせ・塗装の劣化（7件）",
+     "c": [
+      {
+       "t": "バンパーとボディの色が違う、ヘッドライトのくすみ"
+      },
+      {
+       "t": "塗装の剥がれ・白いモヤ。塗装が禿げた所にもコーティングするのか"
+      }
+     ]
+    },
+    {
+     "t": "18位 洗車・洗車機（6件）",
+     "c": [
+      {
+       "t": "初めての洗車。動画を見ても手順がバラバラ"
+      },
+      {
+       "t": "届いたらまず徹底的に洗車したい。道具のおすすめは"
+      }
+     ]
+    },
+    {
+     "t": "19位 施工後の手入れ・メンテ（4件）",
+     "c": [
+      {
+       "t": "ピカピカ感がなくなった、自分の手入れが悪かったか"
+      },
+      {
+       "t": "お金をかけずに、上からワックスで保てるか"
+      }
+     ]
+    },
+    {
+     "t": "19位 「○年もつ」・効果が落ちた（4件）",
+     "c": [
+      {
+       "t": "何年もつか、再施工しないと剥がれてくるか"
+      }
+     ]
+    },
+    {
+     "t": "21位 施工の時期・順番（3件）",
+     "c": [
+      {
+       "t": "後でしたら高くなるか、プロテクターとの順番、専門店に出す前の準備"
+      }
+     ]
+    },
+    {
+     "t": "21位 花粉・黄砂・鳥のフン・鉄粉（3件）",
+     "c": [
+      {
+       "t": "鉄粉でザラザラ、鉄粉除去が終わらない"
+      }
+     ]
+    },
+    {
+     "t": "21位 飛び石・ドアパンチ・いたずら（3件）",
+     "c": [
+      {
+       "t": "納車当日の飛び石、飛び石の跡がショック"
+      }
+     ]
+    },
+    {
+     "t": "24位 屋根のない駐車場（2件）",
+     "c": [
+      {
+       "t": "屋根なしで黒は大丈夫か"
+      }
+     ]
+    },
+    {
+     "t": "24位 納車前の準備・用品（2件）",
+     "c": [
+      {
+       "t": "届いたらまず洗車したい。道具の準備"
+      }
+     ]
+    },
+    {
+     "t": "26位 白・パール（1件）",
+     "c": [
+      {
+       "t": "白なので黒い筋が目立つ"
+      }
+     ]
+    },
+    {
+     "t": "26位 YouTube・動画を見て（1件）",
+     "c": [
+      {
+       "t": "動画を見ても洗車の手順がバラバラで分からない"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "自分でやる人（市販のコーティング剤を自分で塗る人）の声 全部（Amazonのレビュー107件・19ジャンル／11/2）＝見込み客にならない人",
+   "c": [
+    {
+     "t": "目的：この人たちに届かない発信にする＝それ以外の人に届く発信になる（村田さん 11/2）",
+     "c": [
+      {
+       "t": "見込み客にならない人。コーティング剤を買って自分で塗る"
+      },
+      {
+       "t": "お金があるのかないのかは分からない"
+      },
+      {
+       "t": "値段・予算の声より：8万〜10万円で高いと感じる人は、液剤を買って自分でやる人になっていく。自分で塗ったことがある人は、次の車でも自分でやる（村田さん 10/31）"
+      }
+     ]
+    },
+    {
+     "t": "1位 施工が簡単・手軽（51件）",
+     "c": [
+      {
+       "t": "濡れたボディに吹いて拭くだけ、洗車ついでにできる"
+      },
+      {
+       "t": "初めてでも簡単、思ったより簡単"
+      },
+      {
+       "t": "2時間・1〜1.5時間でできた"
+      },
+      {
+       "t": "専門店に頼むより手軽"
+      }
+     ]
+    },
+    {
+     "t": "2位 仕上がり・艶・撥水に満足（48件）",
+     "c": [
+      {
+       "t": "ツヤ・ツルツル・水の弾きを実感"
+      },
+      {
+       "t": "雨で水が弾くのを見て感動した"
+      },
+      {
+       "t": "黒い樹脂も新車みたいになった"
+      }
+     ]
+    },
+    {
+     "t": "3位 コスパ・お金をかけない（24件）",
+     "c": [
+      {
+       "t": "3,000円で2台分"
+      },
+      {
+       "t": "コーティング店で6.7万円払ったのと遜色ない"
+      },
+      {
+       "t": "ディーラーオプションをケチってこれで施工"
+      },
+      {
+       "t": "安くて良い物を探して選んだ、この値段でこの効果"
+      }
+     ]
+    },
+    {
+     "t": "4位 ほかの商品と比べた・乗り換え（20件）",
+     "c": [
+      {
+       "t": "いろいろ試した中で一番合う・たどり着いた"
+      },
+      {
+       "t": "ワックスをやめて一本化"
+      },
+      {
+       "t": "簡易コーティングの持ちに物足りず、硬化型に挑戦"
+      }
+     ]
+    },
+    {
+     "t": "5位 「○年もつ」・効果が落ちた（18件）",
+     "c": [
+      {
+       "t": "1年以上たっても効果が続いた"
+      },
+      {
+       "t": "2年もたない、ボンネット・屋根は早く落ちる"
+      },
+      {
+       "t": "3年はもたない"
+      }
+     ]
+    },
+    {
+     "t": "6位 ムラ・失敗・難しかった（15件）",
+     "c": [
+      {
+       "t": "広い面・晴れの日・黒系はムラになりやすい"
+      },
+      {
+       "t": "拭き取りの手順を間違えて失敗"
+      },
+      {
+       "t": "塗りつぎがムラになった"
+      }
+     ]
+    },
+    {
+     "t": "7位 研磨・下地処理（13件）",
+     "c": [
+      {
+       "t": "コンパウンドやポリッシャーで磨いてから塗った"
+      },
+      {
+       "t": "下地処理が一番大事"
+      },
+      {
+       "t": "下地に水垢が残ると閉じ込めてしまう"
+      }
+     ]
+    },
+    {
+     "t": "8位 効果が期待外れ・合わなかった（11件）",
+     "c": [
+      {
+       "t": "光沢が思ったほど出ない"
+      },
+      {
+       "t": "ガラスに塗ると白く濁った"
+      },
+      {
+       "t": "見た目の違いが分からなかった"
+      }
+     ]
+    },
+    {
+     "t": "9位 施工後の手入れ・メンテ（10件）",
+     "c": [
+      {
+       "t": "輝きが薄れたら塗り直す"
+      },
+      {
+       "t": "洗車のたびに使う"
+      }
+     ]
+    },
+    {
+     "t": "9位 楽しい・洗車が楽しみになった（9件）",
+     "c": [
+      {
+       "t": "雨の日が楽しみになる水玉のはじき方"
+      },
+      {
+       "t": "雨を弾くのを見るのが楽しい、一度使うとやめられない"
+      },
+      {
+       "t": "子どもと一緒にイベント感覚で楽しく作業"
+      },
+      {
+       "t": "コーティングマニアで週4回施工、車をきれいにすること自体が好き"
+      }
+     ]
+    },
+    {
+     "t": "9位 水シミ・水垢・雨じみ（9件）",
+     "c": [
+      {
+       "t": "撥水が強すぎて水シミ"
+      },
+      {
+       "t": "雨染みが減った、目立たなくなった"
+      }
+     ]
+    },
+    {
+     "t": "9位 手間・時間・天気の苦労（9件）",
+     "c": [
+      {
+       "t": "48時間・2日間は水NG、ガレージがないと厳しい"
+      },
+      {
+       "t": "曇りで風のない日を選んだ"
+      },
+      {
+       "t": "1人では体力の限界、約4時間かかった"
+      }
+     ]
+    },
+    {
+     "t": "9位 新車・納車してすぐに使った（9件）",
+     "c": [
+      {
+       "t": "新車のテスラに納車当日、自宅で施工"
+      },
+      {
+       "t": "未使用車にコーティングを付けずに買い、自分で施工"
+      },
+      {
+       "t": "新車にはこれが一番"
+      }
+     ]
+    },
+    {
+     "t": "9位 プロや店のコーティングと比べた（9件）",
+     "c": [
+      {
+       "t": "プロ施工ほどの耐久性はない、コスパ重視の人向け"
+      },
+      {
+       "t": "2年前のプロコーティングとあまり差がない"
+      },
+      {
+       "t": "最高峰を狙うなら10万円出して業者に"
+      }
+     ]
+    },
+    {
+     "t": "16位 黒・濃い色（6件）",
+     "c": [
+      {
+       "t": "黒い車がきれいになった"
+      },
+      {
+       "t": "ウォータースポットが心配で別商品と併用"
+      }
+     ]
+    },
+    {
+     "t": "17位 値段・予算（5件）",
+     "c": [
+      {
+       "t": "値上がりして残念、1万円以下なら星5"
+      },
+      {
+       "t": "値段が高いのがネック、愛車への愛として我慢"
+      }
+     ]
+    },
+    {
+     "t": "18位 付属品・容器の不満（4件）",
+     "c": [
+      {
+       "t": "スプレーが不調・スポンジが使いにくい"
+      }
+     ]
+    },
+    {
+     "t": "18位 愛車への愛着（4件）",
+     "c": [
+      {
+       "t": "マイカー愛が高まった、車への愛着が増した"
+      },
+      {
+       "t": "大事な車を守ってくれてありがとう"
+      }
+     ]
+    },
+    {
+     "t": "20位 洗車・洗車機（3件）",
+     "c": [
+      {
+       "t": "洗車機をかけても撥水が続く"
+      },
+      {
+       "t": "あまり洗車しない人におすすめ"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+};
+const MAP_B = {
+ "t": "動画の設計図",
+ "sub": "新車を長く綺麗に乗りたい人に、セラミックコーティング（20〜30万円）を納得して選んでもらう（オファーから逆算）",
+ "c": [
+  {
+   "t": "① 見込み客（誰に向けるか）",
+   "c": [
+    {
+     "t": "新車を、できるだけ長く綺麗な状態のまま乗りたい人"
+    },
+    {
+     "t": "20〜30万円のコーティングを、もう比較している人"
+    },
+    {
+     "t": "金払いがよく、専門的なところはプロに任せたい人"
+    },
+    {
+     "t": "この人たちが知りたいこと",
+     "c": [
+      {
+       "t": "どんな人がやっているのか"
+      },
+      {
+       "t": "誰がやってくれるのか"
+      },
+      {
+       "t": "ちゃんと比較しながら情報を教えてほしい"
+      },
+      {
+       "t": "段取り（どういう手順で進むのか）"
+      }
+     ]
+    },
+    {
+     "t": "台帳にある、この人たちの声",
+     "c": [
+      {
+       "t": "声：レクサス購入検討。頻繁には洗わないが「新車の綺麗さは維持したい」。ディーラーと専門店の品質の差を知りたい"
+      },
+      {
+       "t": "声：好きな赤の新車・屋外駐車。前のディーラー施工に満足できず動画で調べた。20万円以内なら出せる、30〜40万円は難しい"
+      },
+      {
+       "t": "声：白いミニバン。セラミックを比較中。ある店は36万円＋後日10万円、別の店は24万円という説明"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "② 共通の目的",
+   "c": [
+    {
+     "t": "とにかく長く綺麗に乗りたい（見込み客みんなに共通）"
+    },
+    {
+     "t": "この目的がない人は見込み客にならない（自分で塗る人・その場しのぎで済ませたい人）"
+    }
+   ]
+  },
+  {
+   "t": "③ 落としどころ（オファー・CTA）",
+   "c": [
+    {
+     "t": "手段＝セラミックコーティング"
+    },
+    {
+     "t": "価格帯：20〜30万円"
+    },
+    {
+     "t": "CTAで何をしてもらうか（無料相談・LINE登録・見積もりなど）：まだ決まっていない・要確認"
+    }
+   ]
+  },
+  {
+   "t": "「声：」は新車オーナーの声台帳（知恵袋など）の要約"
+  },
+  {
+   "t": "④ 売るために答える疑問（知恵袋にもあった物）",
+   "c": [
+    {
+     "t": "他のディーラーと比べてどうなのか",
+     "c": [
+      {
+       "t": "声：ディーラーの27.5万円と専門店、どちらにするか（アルファード・名古屋）"
+      },
+      {
+       "t": "声：ディーラーのコーティングは本当に評判が悪いのか"
+      },
+      {
+       "t": "声：ディーラー16万・ディーラー10万・自分で塗る、の3案で迷う（XC40）"
+      },
+      {
+       "t": "声：ディーラーの見積もりとキーパー専門店のどちらにするか（ヤリスクロス）"
+      }
+     ]
+    },
+    {
+     "t": "誰が施工してくれるのか",
+     "c": [
+      {
+       "t": "声：回答者「ディーラーは中間マージンと下請け施工で手抜きになりやすい」"
+      },
+      {
+       "t": "声：回答者「ディーラーは外注なので割高」（XC40の質問）"
+      },
+      {
+       "t": "声：値引きの代わりに「知り合いの業者に無料で施工させる」と言われたが、施工されていなかった"
+      },
+      {
+       "t": "声：ディーラー施工で、ドアの内側とステップが塗られていなかった"
+      }
+     ]
+    },
+    {
+     "t": "営業の人の感じ",
+     "c": [
+      {
+       "t": "声：営業に、勝手にオプションから外されていた"
+      },
+      {
+       "t": "声：約9万円で施工したのに、1年点検でまた勧められた。施工されていない疑い"
+      },
+      {
+       "t": "声：窓に取れない染み。「コーティングで防げた」と言われたが、契約の時に案内はなかった"
+      },
+      {
+       "t": "声：ある店は36万円と後日の追加10万円。説明の仕方を信じていいか迷う"
+      }
+     ]
+    },
+    {
+     "t": "段取り（工数・どういう順でやってくれるか）",
+     "c": [
+      {
+       "t": "声：20万円でセラミックを頼んだのに、証明書はガラス系。施工も1か月遅れた"
+      },
+      {
+       "t": "声：「塗装が落ち着くまで1か月待つ」という情報があり、いつ施工するか決められない"
+      },
+      {
+       "t": "声：「1か月洗車を控えて」と言われたが洗いたい（レクサスRX）"
+      },
+      {
+       "t": "声：チェーン店で下地処理なし。輸送中の小傷が残ったまま固められた"
+      },
+      {
+       "t": "声：樹脂部やルーフが施工範囲の外だと、後で知った（プリウス）"
+      }
+     ]
+    },
+    {
+     "t": "価格（その価値に納得できる価格帯か）",
+     "c": [
+      {
+       "t": "声：見積もり30万円弱に価値はあるか（レクサス・白）"
+      },
+      {
+       "t": "声：27.5万円の良さが分からない（ランクル300）"
+      },
+      {
+       "t": "声：20万円。本人は不要、妻は希望（ノア・白）"
+      },
+      {
+       "t": "声：14.8万円で付けたが、専門店が得と知って損した気分（ハリアー）"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "⑤ 一番よくないこと：価格だけが一人歩きする",
+   "c": [
+    {
+     "t": "価格だけで判断している声",
+     "c": [
+      {
+       "t": "声：ディーラーのガラス8万円がばかばかしい。ワックスで足りるか"
+      },
+      {
+       "t": "声：ディーラーの6〜7万円が高い。自分で塗れるか（カムリ）"
+      },
+      {
+       "t": "声：約11万円を付けない場合のリスクは？ → 回答「値段に見合わない」"
+      }
+     ]
+    },
+    {
+     "t": "だから値段と一緒に、なぜその値段なのか（⑥の5つ）を具体的に伝える"
+    }
+   ]
+  },
+  {
+   "t": "⑥ 価格に納得してもらうために具体的に伝えること",
+   "c": [
+    {
+     "t": "セラミックコーティングが良い理由",
+     "c": [
+      {
+       "t": "声：ガラスかセラミックか迷う（ディフェンダー）"
+      },
+      {
+       "t": "声：CPCダブルGNとEXを比較。何層もある図と性能、維持費、新車に研磨がいるのかが疑問（40アルファード）"
+      },
+      {
+       "t": "声：ワックス、約25万円のガラス、約46万円のセラミックを比較（マツダ・グレー）"
+      }
+     ]
+    },
+    {
+     "t": "セラミックコーティングをするメリット",
+     "c": [
+      {
+       "t": "声：NOJセラミック・NOJロイヤル・キーパーEXのどれがいいか"
+      },
+      {
+       "t": "声：CPCダブルGNとキーパーを比較。価格に見合うか、事故の後の再施工はどうなるか"
+      }
+     ]
+    },
+    {
+     "t": "コーティングしないままのデメリット",
+     "c": [
+      {
+       "t": "声：1台目はコーティングなしで雨染みだらけになった（レクサス）"
+      },
+      {
+       "t": "声：断ったが、新車のうちにやるべきだったか"
+      },
+      {
+       "t": "声：コーティングなしで数か月放置。もう手遅れか（至急）"
+      },
+      {
+       "t": "声：10万円のプロ施工をしないと、ツヤで見劣りするか"
+      }
+     ]
+    },
+    {
+     "t": "自分でコーティング剤を塗る時の弊害",
+     "c": [
+      {
+       "t": "声：焦って自分で塗り、ザラつきが残った（N-BOXカスタム）"
+      },
+      {
+       "t": "声：拭き忘れで、ムラのまま固まった（レヴォーグ）"
+      },
+      {
+       "t": "声：7時間かかった。液が足りずホイールは塗れなかった（ハイラックス）"
+      },
+      {
+       "t": "声：回答者「大型車のDIYはムラになる。業者へ」（アルファード・黒）"
+      },
+      {
+       "t": "声：冬に自分で塗るのが不安（クロストレック・北海道）"
+      },
+      {
+       "t": "「自分でやる人」の台帳のジャンル「ムラ・失敗・難しかった」にも声がある"
+      }
+     ]
+    },
+    {
+     "t": "他社との比較",
+     "c": [
+      {
+       "t": "声：ある店は36万円＋後日10万円、別の店は24万円"
+      },
+      {
+       "t": "声：NOJで見積もり。セラミックは予算に合わず別プランに。3層追加の約5.5万円がいるか迷う"
+      },
+      {
+       "t": "声：ディーラーの27.5万円と、屋内で施工する専門店"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "t": "⑦ 動画の中身・構成（①〜⑥から逆算して、これから掘る）",
+   "c": [
+    {
+     "t": "やることメモ（11/2 村田さん）",
+     "c": [
+      {
+       "t": "切り口：施工してみた系",
+       "c": [
+        {
+         "t": "テスラを使いたい（テスラは塗装が弱いのが特徴・村田さんの説明）"
+        },
+        {
+         "t": "届けたい相手：過去にコーティングしたことがあり、テスラの新車を納車した人・これからする人"
+        },
+        {
+         "t": "第三者話法で入る：「過去にコーティング経験のある方に、よくある悩みなんですけど」"
+        }
+       ]
+      },
+      {
+       "t": "見本の動画を丸々まねしない",
+       "c": [
+        {
+         "t": "見本に、こちらの強みを足す（引いてから足す、でもよい）"
+        },
+        {
+         "t": "狙う価格帯が、見本の動画より倍ぐらい高い（村田さんの見立て）"
+        }
+       ]
+      },
+      {
+       "t": "比較検討している段階の人に向けて、中身を書き換える",
+       "c": [
+        {
+         "t": "誰にやってもらうか・誰からやってもらいたいか"
+        },
+        {
+         "t": "金払いのいい人が求めている情報を足していく"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "撮影メモ（見本の動画を見て・11/3 村田さん）",
+     "c": [
+      {
+       "t": "見本の動画で撮っている場面",
+       "c": [
+        {
+         "t": "施工前（Before）の状態"
+        },
+        {
+         "t": "下処理の泡を、車にかけるところ"
+        },
+        {
+         "t": "タイヤの溝を細かく丁寧にやっているところ（細かい作業をしている感が出せる）"
+        },
+        {
+         "t": "職人の技・細かさが際立つ所は、長めに撮っている印象（どこが細かくなるかは車による）"
+        },
+        {
+         "t": "液剤の場面",
+         "c": [
+          {
+           "t": "液剤だけを映すカット（「この液剤を使うんや」と分かる）"
+          },
+          {
+           "t": "液剤をタオルやポリッシャーにつける場面"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "説明の仕方",
+       "c": [
+        {
+         "t": "こだわり・何に気をつけてやっているか・こうやるとこういうメリットがある、を丁寧に説明している"
+        },
+        {
+         "t": "お金を出す人に「プロに頼むなら、この金額でここまでやってくれるなら納得」と思ってもらえる中身になっている"
+        }
+       ]
+      },
+      {
+       "t": "工程の見せ方",
+       "c": [
+        {
+         "t": "見本は、細かい工程まで本当に全部やっている"
+        },
+        {
+         "t": "全工程を完璧に出す必要はない（ただし大筋は合っていること）"
+        },
+        {
+         "t": "見る人は知識がない。実際の作業を見て「こんなにやってくれるんだ」と感じてもらうのが大事"
+        },
+        {
+         "t": "その車で一番難しそうな所を、分かりやすく丁寧に届ける"
+        }
+       ]
+      },
+      {
+       "t": "撮影の条件",
+       "c": [
+        {
+         "t": "天気のいい日に撮る。薄暗い中だと、きらびやかな感じが出ない"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "見本を見ながらのメモ（BUDDICAの動画・11/3 村田さん）",
+     "c": [
+      {
+       "t": "チャンネル設計で大事なこと",
+       "c": [
+        {
+         "t": "専門家なんだと分かってもらう"
+        },
+        {
+         "t": "ディーラーとどう違うのか"
+        },
+        {
+         "t": "誰から買うか：安心感・信用・信頼感を、BUDDICAの動画よりどんな要素で作るか"
+        },
+        {
+         "t": "動画内の言葉遣い（営業マンの感じ）"
+        },
+        {
+         "t": "段取りが悪いとイラつきやすい → 手取り足取り、丁寧に、視聴者第一で作れているか"
+        }
+       ]
+      },
+      {
+       "t": "扱う車",
+       "c": [
+        {
+         "t": "フィット・カローラスポーツ：中古車"
+        },
+        {
+         "t": "GLB：新車・納車待ち。車の状態はまだ分からない"
+        },
+        {
+         "t": "11日にセラミックコーティング＋強研磨の施工があり、それを動画にする（村田さんは日曜と説明。カレンダーでは11月11日は水曜）"
+        }
+       ]
+      },
+      {
+       "t": "BUDDICAの動画から取り入れること",
+       "c": [
+        {
+         "t": "「宮城の仙台から12時間かけてお越しくださいました」のように、どんな人がどこから頼みに来たかの背景を話す"
+        },
+        {
+         "t": "直接は言わなくても「頼まれる理由があるんだな」と伝わり、重みがつく"
+        },
+        {
+         "t": "実際にあったこと・やることに加えて、そこに至った経緯をちょいちょい入れる → 信頼・信用につながっている"
+        }
+       ]
+      },
+      {
+       "t": "中古車の時に話すこと（見る人が聞く姿勢になるまでに知っておきたい情報）",
+       "c": [
+        {
+         "t": "車の保管状況"
+        },
+        {
+         "t": "洗車の頻度"
+        },
+        {
+         "t": "どういう乗り方をしているか"
+        },
+        {
+         "t": "「この車はこういう状況で、それに対してこのコーティングをしている」と分かる → 自分の車に合った施工を考えてくれると分かり、安心感につながる"
+        },
+        {
+         "t": "新車・中古車に乗っている人が、ほかに何を知っておきたいか：まだ分からない（要調査）"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "見本動画のリサーチ（YouTube・11/2〜11/3）",
+     "c": [
+      {
+       "t": "A. テスラ×前にコーティングした人向けの候補（直近3か月・11/2）",
+       "c": [
+        {
+         "t": "テスラ施工：新車こそ磨くべき理由 テスラ モデルY（BUDDICA）9/18・5.5万回 youtu.be/SN11AV7Mops",
+         "u": "https://youtu.be/SN11AV7Mops"
+        },
+        {
+         "t": "テスラ施工：中古テスラをコーティングしたら（僕テス・PR）10/15・9,369回 youtu.be/ZawbVXfGpOI",
+         "u": "https://youtu.be/ZawbVXfGpOI"
+        },
+        {
+         "t": "テスラ施工：新車テスラモデルY 未施工と施工済みを比較（ガレージハウス沖縄）8/15・2,717回（登録者761人の3.6倍）youtu.be/lbFp4OEQIcY",
+         "u": "https://youtu.be/lbFp4OEQIcY"
+        },
+        {
+         "t": "前に施工した人：高級コーティング後2年で水アカ。剥がす（スグレモン）10/2・16.6万回 youtu.be/dZmPNnTIrHc",
+         "u": "https://youtu.be/dZmPNnTIrHc"
+        },
+        {
+         "t": "前に施工した人：キーパー 水弾き低下で諦めないで（68-ch）10/15・4.4万回 youtu.be/iOpJ2IHOreo",
+         "u": "https://youtu.be/iOpJ2IHOreo"
+        },
+        {
+         "t": "前に施工した人：半年で撥水しなくなった本当の原因（のり）10/17・1.5万回 youtu.be/50Ll47LJCUI",
+         "u": "https://youtu.be/50Ll47LJCUI"
+        },
+        {
+         "t": "分かったこと",
+         "c": [
+          {
+           "t": "テスラ施工で伸びている日本語の動画は、BUDDICAの1本だけ"
+          },
+          {
+           "t": "「テスラ 塗装 弱い」はGoogleの検索候補にあるが、YouTubeに直近3か月の動画は見つからなかった"
+          },
+          {
+           "t": "「前にコーティングした人がテスラを新車で買って施工」を合わせた動画は見つからなかった"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "t": "B. 磨き＋コーティングの施工動画（コメント数で並べた・11/3）",
+       "c": [
+        {
+         "t": "EXキーパー クラウン（ぬぬふぁくとりー）2020・33.8万回・コメント394 youtu.be/PtpQ3xwVZis",
+         "u": "https://youtu.be/PtpQ3xwVZis"
+        },
+        {
+         "t": "EXキーパー メルセデス（NOBLESSE）2020・113万回・コメント247 youtu.be/FmwwvavDTd8",
+         "u": "https://youtu.be/FmwwvavDTd8"
+        },
+        {
+         "t": "新車アルファード 50万円・72時間（センス・アール）2025/10/31・19.3万回・コメント155 youtu.be/dz_wX6YQAaI",
+         "u": "https://youtu.be/dz_wX6YQAaI"
+        },
+        {
+         "t": "中古プジョー308にダイヤモンドキーパー（チラカーライフ）2021・77.9万回・コメント121 youtu.be/vOAPLI2gAjU",
+         "u": "https://youtu.be/vOAPLI2gAjU"
+        },
+        {
+         "t": "マスタングに磨き＋遮熱＋セラミック 30時間（BUDDICA）2026/9/4・38.3万回・コメント58 youtu.be/wUxYynFeQuk",
+         "u": "https://youtu.be/wUxYynFeQuk"
+        },
+        {
+         "t": "新車レクサスRXに遮熱＋セラミック（研磨あり）（BUDDICA）2026/3/12・2.2万回・コメント43 youtu.be/TmG92HCCWMI",
+         "u": "https://youtu.be/TmG92HCCWMI"
+        },
+        {
+         "t": "同じ車種：GLB200dにEXキーパープレミアム（ワンソクTube）2021・23.2万回 youtu.be/PZPQfr1jlRg",
+         "u": "https://youtu.be/PZPQfr1jlRg"
+        },
+        {
+         "t": "同じ車種：新型フィットにEXキーパー（GOOD CARLIFE）2020・4.5万回 youtu.be/Xn81BMbHD7I",
+         "u": "https://youtu.be/Xn81BMbHD7I"
+        },
+        {
+         "t": "ディーラーとの違いの話：高額すぎるボディコーティングの闇（中野優作）132万回・コメント558 youtu.be/hEGTHrC7nxA",
+         "u": "https://youtu.be/hEGTHrC7nxA"
+        },
+        {
+         "t": "前にコーティングした人の話：新車コーティングしたのに一年でとんでもない状態に（まなっちガレージ）99万回・コメント332 youtu.be/ii4bmzfdRXc",
+         "u": "https://youtu.be/ii4bmzfdRXc"
+        }
+       ]
+      },
+      {
+       "t": "C. コメントから分かったこと（上位8本を読んだ要約）",
+       "c": [
+        {
+         "t": "施工する人が見られている：「施工してくれる人がすごい」「店員さんが爽やか」「手際がよくて見とれる」「お店選びが大事」"
+        },
+        {
+         "t": "手順が見えると安心する：「預けたので手順が分からなかったが動画で分かった」「下地作りにここまで手間をかけているとは知らなかった」「専門店は屋根の下なので安心」"
+        },
+        {
+         "t": "手間を見ると値段に納得する：「あの手間を見ると高いのも頷ける」「作業時間から考えると30万円台前半はお得」"
+        },
+        {
+         "t": "動画を見て予約した人がいる：「参考になって予約した。あとは納車を待つだけ」「この動画を見て施工すると決めた」"
+        },
+        {
+         "t": "見たいと言われていること：納車から5年で再施工を考えている人の「汚れた車のビフォーアフター」／代車・送り迎え・ホイールや窓・どの店舗でできるか"
+        },
+        {
+         "t": "気をつける点：新車は「もともときれいで違いが分からない」と言われる（高評価60）→ GLBは違いが見える場面を作る"
+        },
+        {
+         "t": "気をつける点：高額な施工は、コメント欄にお金持ちへのひがみが出る"
+        },
+        {
+         "t": "気をつける点：「白飛びして分かりにくい」「撮影の明るさを考えて」という声（天気のいい日に撮る、と同じ話）"
+        }
+       ]
+      },
+      {
+       "t": "取れなかった物：ショート動画は調べていない／BUDDICAの登録者数は共同投稿で取れず"
+      }
+     ]
+    },
+    {
+     "t": "見本を見ながらのメモ（センスRの新車アルファード・50万円の施工動画・11/3 村田さん）",
+     "c": [
+      {
+       "t": "見た第一印象と前提",
+       "c": [
+        {
+         "t": "50万円を見て「高っ、なんでこんな高いんや」「何がそんなにいいんやろ」と思った（車が分からない人から見て）"
+        },
+        {
+         "t": "見込み客は、コーティングをしたことがある人。初めてでも、納得できたらお金を出す人。心に余裕がある人"
+        },
+        {
+         "t": "「コーティングが必要か」の段階はもう越えていて、「どこでやってもらおうか」で迷っている人に届ける動画にする"
+        }
+       ]
+      },
+      {
+       "t": "話し方（ナレーション）",
+       "c": [
+        {
+         "t": "普通に喋る。ただし、なよなよせず、自信を持ってはきはきと。聞き取りやすい言葉遣いで"
+        },
+        {
+         "t": "語尾は全部言い切る。「〜かもしれません」は使わない。です・ます調で言い切る"
+        },
+        {
+         "t": "言い切る前に前置きを入れる：「当店ではこういったお客様が多いので、〇〇にならないために、こうしています／皆様にはこうお伝えしています」"
+        },
+        {
+         "t": "見本はナレーションの音質がとても良い。ボソボソ喋っていてもよく聞こえる（マイクは不明）"
+        },
+        {
+         "t": "見本の最後の一言が洒落ている。普段使わないような、高級感のある言葉遣いが「高単価なんやな」と納得する要素の一つになっている"
+        },
+        {
+         "t": "雅のナレーターは関西弁が強い人なので、言葉遣いは気をつけてもらう。雅の店舗でこの雰囲気が出せるかは分からない"
+        }
+       ]
+      },
+      {
+       "t": "段取り（工程）の見せ方",
+       "c": [
+        {
+         "t": "施工場所の見映えで劣る分、段取りを分かりやすく明確にする"
+        },
+        {
+         "t": "入り方：「全部で〇工程で進んでいきます。まずこの工程です」。途中も「今この工程をやっています」と言う。これで差別化できる"
+        },
+        {
+         "t": "最後は、出来上がりの手前に全工程の短いカットを入れ、「本日の施工内容」の表（施工内容・オプション・金額・割引）を出す"
+        },
+        {
+         "t": "「1〜6の工程でやった上で、今回出来上がったお車はこちらです」と出すと、普通に出すより重みが出る"
+        }
+       ]
+      },
+      {
+       "t": "文字（テロップ）",
+       "c": [
+        {
+         "t": "明朝体。黒背景（透明度は半分くらい、もやがかかった感じ）に白文字。画面の下にキャプションが入る形"
+        }
+       ]
+      },
+      {
+       "t": "分かりやすさ（専門用語を使わない）",
+       "c": [
+        {
+         "t": "見る人は車の知識がありすぎる人ではない。専門用語を言われても「すごそうだけど分からん」になる"
+        },
+        {
+         "t": "「それがあるから、こうなんです」の「こうなんです」を、お客さんが目で見て分かる物・分かる言葉・メリットまで言う。これが差別化になる"
+        },
+        {
+         "t": "職人からすると当たり前の所も、知識がない人には「そういう感じでやるんや」になる。お客さんは手間代を買っているので、手間を見せる。大変な作業ほど、はしょらない"
+        },
+        {
+         "t": "施工場所が見劣りする分、その施工がどんな問題にどう効くのかを、見る人が分かるように伝える"
+        }
+       ]
+      },
+      {
+       "t": "撮影",
+       "c": [
+        {
+         "t": "処理前の状態を色んな角度から撮っている。車好きなら「この角度のここの汚れ、気になるんよな」という所を、2秒くらいずつ5カットほど"
+        },
+        {
+         "t": "横長の動画なので、見せたい物が画面の真ん中に来るように撮る"
+        },
+        {
+         "t": "ホイールを外して中まで洗っている。部品を外して中まで洗う系はとても強い。何をしているか分からなくても「そこまでやってくれてるんや」という安心感が出る"
+        },
+        {
+         "t": "洗車で使う道具を映すカット（バケツで洗剤を作っている所など）"
+        },
+        {
+         "t": "鉄粉除去剤をかけると紫色に変わる所など、状態の変化を分かりやすく見せているのがとても良い"
+        },
+        {
+         "t": "たっぷり洗車した後に「今回使うコーティング剤です」と見せてから、タオルにつけてホイールに塗っている"
+        },
+        {
+         "t": "ビフォーアフターは、同じ場所・同じ画角・同じ光の当たり具合・同じ天気で撮る（アフターは雨、ビフォーは晴れ、は避ける）"
+        },
+        {
+         "t": "ビフォーアフターの場所（アルファードの場合）：前の顔のゴツゴツした部分、その下、ミラー、後ろの車名の文字など。文字の所が多い。場所は車による"
+        },
+        {
+         "t": "ホイールのビフォーアフターが、たぶん逆に入っている。わざとかは分からない。「ほんまかいな」と動画を止めて見る人が出る＝滞在時間が延び、YouTubeの評価が上がる要素の一つになるかもしれない"
+        }
+       ]
+      },
+      {
+       "t": "見る人の疑問に、施工しながら答える",
+       "c": [
+        {
+         "t": "メンテナンスの質問はよく出る。施工しながら「ここはこうケアすると長持ちします」と答える"
+        },
+        {
+         "t": "見ていて「くぼみや隙間にも本当に塗れてるの？」と思った。→「くぼみはこう塗るので、コーティング剤が素材までしっかり行き届きます」と答える。見ていて思う疑問に答えるのが良い"
+        },
+        {
+         "t": "タイヤカバー：コメントに「コーティングしたばかりのホイールに洗剤と水がかかってもったいない」。ホイールをコーティングした後に車体を洗っているため。カバーをする、または動画内で触れるとさらに良い"
+        },
+        {
+         "t": "何年効果があるか、保証の内容に触れる"
+        }
+       ]
+      },
+      {
+       "t": "「新車だから違いが分からない」への答え",
+       "c": [
+        {
+         "t": "見本のビフォーアフターは、ぱっと見で違いが分かりにくい。コメント欄にも「新車だから違いが分からない」が多い"
+        },
+        {
+         "t": "この言葉が出る＝「新車にコーティングは必要なのか」の疑問が解消しきれていない証拠"
+        },
+        {
+         "t": "コーティング前と後の、水のはじき具合の動画を入れる"
+        },
+        {
+         "t": "ビフォーアフターを映しながら、左上に小さな画面を出して「新車のコーティングをされるお客様からよくいただく疑問なんですが、新車だからコーティングはいらない、違いは分からない、という方がよくいらっしゃいます」→水はじきで違いを見せる"
+        },
+        {
+         "t": "施工しながら、ちょいちょい言う：新車でも付いている鉄粉／新車なのになぜ磨きが必要か／新車でコーティングする理由とメリット／コーティング・下地処理をしないデメリット"
+        }
+       ]
+      },
+      {
+       "t": "雅の強み（差別化）",
+       "c": [
+        {
+         "t": "雅は板金屋なので、下地処理（研磨）の質が違う。板金屋ならではの技術で、細かな洗車傷や塗装の凸凹を段階的に磨き、深い艶の土台を作る"
+        },
+        {
+         "t": "この下地作りがあるからコーティングが映える。お客様も喜んでくださっている、という内容を入れる"
+        },
+        {
+         "t": "コーティング屋は「下地処理が大事」と言う割に、下地処理のシーンが少ない（村田さんの憶測）。雅は「下地処理をここまでやっています。ここまでできるのは板金屋だからです」を、うざいくらい言っていい"
+        },
+        {
+         "t": "下地処理がコーティングの良さに直結することを、分かりやすく伝えるのが一番効く"
+        },
+        {
+         "t": "バフ（ポリッシャーに付ける磨きのパッド）は、板金屋なので硬い物から柔らかい物まで10種類くらいある（村田さん談・数は要確認）。「この中から、今回は新車なのでこれを使います」「こういう状態なので、ここをこうやっていきます」と言う＝手札の多さで、板金屋ならではの下地処理が伝わる"
+        },
+        {
+         "t": "車種に合わせた話をする：塗装が弱い、熱に弱いメッキパーツが多い、樹脂の部分が隣にある、など。「この車に合わせて磨き・下処理をしている」と伝わる。動画の中身はその車に沿って作る"
+        },
+        {
+         "t": "一つ一つの動作に「こうだから、こういう意識でやっています」を付けて、重みを出す"
+        },
+        {
+         "t": "時間と手間をはしょらずにかけていることを伝える。良さが伝わらずに埋もれるのは避ける。お客さんの目線、お客さんが使う言葉で説明する"
+        }
+       ]
+      },
+      {
+       "t": "保証・終わった後の話",
+       "c": [
+        {
+         "t": "終わった後の話（保証・気遣い）もちょいちょい入れて、「こういう保証もあるのか」「ここまで気を使ってくれるのか」を伝える"
+        },
+        {
+         "t": "洗車・下地処理のタイミングで言う例：「雅では4大保証をすべて無料で行っていますので、施工後も安心して、長く満足いただけるコーティングをお客様に提供させていただいております」"
+        },
+        {
+         "t": "コーティング屋の動画は、かっこよくて映えるが、保証の話が弱く安心感に欠ける。ここは勝てる"
+        },
+        {
+         "t": "かっこよさ・店の映えでは勝てない（雅は工場っぽい）"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "t": "サムネ・タイトル・概要欄・チャンネルのメモ（センスRの動画を見て・11/3 村田さん）",
+     "c": [
+      {
+       "t": "進め方",
+       "c": [
+        {
+         "t": "11/3にAIが出した企画と構成の案はダメ。サムネ→タイトル→冒頭の順に、一から決めていく"
+        }
+       ]
+      },
+      {
+       "t": "サムネ",
+       "c": [
+        {
+         "t": "車を真ん中に置いて、上と下に文字を入れる形"
+        },
+        {
+         "t": "上の文字の案：車種名＋コーティングの種類（セラミックコーティング）／金額＋コーティング施工"
+        },
+        {
+         "t": "見本と同じだとパクリになるのが気になる。ただ、文字の配置はどの会社も同じ。今は決めない"
+        }
+       ]
+      },
+      {
+       "t": "見本のタイトル（センスR：新車アルファード50万円）",
+       "c": [
+        {
+         "t": "題：「【洗車】新車アルファードに50万円の最強コーティング施工！72時間徹底洗車 car detailing toyota 40w alphard」（2025/10/31公開・19.3万回・コメント155・登録者15万人） youtu.be/dz_wX6YQAaI",
+         "u": "https://youtu.be/dz_wX6YQAaI"
+        },
+        {
+         "t": "村田さんの疑問：コーティングの動画なのに、なぜ【洗車】？「72時間徹底洗車」もよく分からない。英語も入っている"
+        },
+        {
+         "t": "調べて分かったこと：センスRの概要欄の1行目は「4年間、発信し続けてきた『徹底洗車』を商品化」。ホームページにも「徹底洗車とは？」がある＝「徹底洗車」はセンスRのサービスの名前"
+        },
+        {
+         "t": "調べて分かったこと：センスRの最近の題は、ほぼ全部「【洗車／徹底洗車／セラミック】＋車の状態＋「車名」＋〇時間徹底洗車で甦る＋car detailing 英語の車名」の同じ型。「72時間」はかけた作業の時間"
+        },
+        {
+         "t": "調べて分かったこと：センスRで再生が多いのは、汚れた古い車（クラウン210：22万回、NSX：16万回）。新車は、50万円アルファード19.3万回以外は3〜5万回（24万円アルファード3.2万、ランクル300 5.2万、レクサスNX 3.1万、スープラ3.6万）"
+        },
+        {
+         "t": "英語の「car detailing」は「車をすみずみまで綺麗に仕上げる仕事」という意味。海外の人の検索も取りに行っている見立て（理由は未確認）"
+        }
+       ]
+      },
+      {
+       "t": "ハッシュタグ・概要欄",
+       "c": [
+        {
+         "t": "見本のハッシュタグは3つ：店名・徹底洗車・手洗い洗車。洗車に興味がある人と、コーティングの言葉の両方を取りに行っている見立て（村田さん）"
+        },
+        {
+         "t": "見本の概要欄は、会社の紹介と、問い合わせ先などのリンクがとても多い。多すぎて何が何だか分からない"
+        },
+        {
+         "t": "センスRはコーティング剤や機材も自分の会社で売っているので、リンクが多い見立て（村田さん）。雅にはそれがないので、シンプルにでき、見る人が迷わずリンクを押せる"
+        }
+       ]
+      },
+      {
+       "t": "チャンネル",
+       "c": [
+        {
+         "t": "アイコンとヘッダー画像：コーティング屋さんらしい文字と画像を入れる"
+        },
+        {
+         "t": "チャンネルの説明：雅のキャッチコピーを1つ入れる。マラハさんと考える"
+        }
+       ]
+      },
+      {
+       "t": "ショート動画",
+       "c": [
+        {
+         "t": "本編で撮った映像を組み合わせて、ショートを作る。本編1本からショート3〜4本（村田さんの見立て）"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+};
+// ===== ここまで =====
+
+const MAPS = { a: { tree: MAP_A, key: "miyabimap-closed-goal" }, b: { tree: MAP_B, key: "miyabimap-closed-design" } };
+const BR = ["--b1","--b2","--b3","--b4","--b5","--b6"];
+const HGAP = 46, VGAP = 12;
+
+const store = { get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
+                set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
+
+let which = location.hash === "#design" ? "b" : location.hash === "#goal" ? "a" : (store.get("miyabimap-which") === "b" ? "b" : "a");
+window.addEventListener("hashchange", () => { if (location.hash === "#design") showMap("b"); else if (location.hash === "#goal") showMap("a"); });
+let MAP = MAPS[which].tree, all = [], closed = new Set();
+const saveClosed = () => store.set(MAPS[which].key, [...closed]);
+
+const yt = v => "https://www.youtube.com/watch?v=" + v;
+const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lnkLabel = u => /youtu\.?be/.test(u) ? "動画を開く" : "リンクを開く";
+
+// ノードを作る（マップを切り替えるたびに作り直す）
+const nodesEl = document.getElementById("nodes");
+function build(){
+  MAP = MAPS[which].tree; all = [];
+  closed = new Set(store.get(MAPS[which].key) || []);
+  (function prep(n, depth, color, id, parent){
+    n.id = id; n.depth = depth; n.color = color; n.parent = parent; all.push(n);
+    (n.c||[]).forEach((ch,i)=>prep(ch, depth+1, depth===0 ? BR[i%BR.length] : color, id+"-"+i, n));
+  })(MAP, 0, "--b1", "r", null);
+  nodesEl.innerHTML = "";
+  all.forEach(n => {
+    const el = document.createElement("div");
+    el.className = "n" + (n.depth===0 ? " root" : n.depth===1 ? " l1" : "") + (n.v ? " vid" : "");
+    el.style.setProperty("--c", `var(${n.color})`);
+    if (n.depth===0) el.innerHTML = `<b>${esc(n.t)}</b>` + (n.sub ? `<span>${esc(n.sub)}</span>` : "");
+    else if (n.v) el.innerHTML = `<a href="${yt(n.v)}" target="_blank" rel="noopener">${esc(n.t)}</a><span class="meta">${esc(n.m||"")}</span>`;
+    else el.innerHTML = esc(n.t) + (n.u ? ` <a class="lnk" href="${esc(n.u)}" target="_blank" rel="noopener">${lnkLabel(n.u)}</a>` : "");
+    nodesEl.appendChild(el); n.el = el; n.tg = null;
+    if (n.c && n.c.length) {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "tg"; b.style.setProperty("--c", `var(${n.color})`);
+      b.addEventListener("click", e => { e.stopPropagation(); toggle(n); });
+      nodesEl.appendChild(b); n.tg = b;
+    }
+  });
+}
+
+const isOpen = n => !closed.has(n.id);
+function visible(n){ for(let p=n.parent; p; p=p.parent) if(!isOpen(p)) return false; return true; }
+const boxed = n => n.depth<=1 || !!n.v;
+
+function layout(){
+  all.forEach(n => { const v = visible(n); n.el.hidden = !v; if (n.tg) n.tg.hidden = !v; });
+  all.forEach(n => { if (!n.el.hidden){ n.w = n.el.offsetWidth; n.h = n.el.offsetHeight; } });
+  function band(n){
+    const kids = isOpen(n) ? (n.c||[]) : [];
+    let s = 0; kids.forEach((k,i)=>{ s += band(k) + (i?VGAP:0); });
+    n.band = Math.max(n.h, s); n.kidsH = s; return n.band;
+  }
+  band(MAP);
+  function place(n, x, top){
+    n.x = x; n.y = top + (n.band - n.h)/2;
+    const kids = isOpen(n) ? (n.c||[]) : [];
+    let y = top + (n.band - n.kidsH)/2;
+    kids.forEach(k => { place(k, x + n.w + HGAP, y); y += k.band + VGAP; });
+  }
+  place(MAP, 0, 0);
+  let W = 0, H = MAP.band, d = "";
+  const svg = document.getElementById("edges");
+  svg.innerHTML = "";
+  all.forEach(n => {
+    if (n.el.hidden) return;
+    n.el.style.left = n.x+"px"; n.el.style.top = n.y+"px";
+    W = Math.max(W, n.x + n.w + 30);
+    const ox = n.x + n.w, oy = boxed(n) ? n.y + n.h/2 : n.y + n.h;
+    if (n.tg){ n.tg.style.left = ox+"px"; n.tg.style.top = oy+"px";
+      n.tg.textContent = isOpen(n) ? "−" : String(countAll(n));
+      n.tg.setAttribute("aria-label", (isOpen(n)?"閉じる：":"開く：") + n.t); }
+    if (n.parent && !n.parent.el.hidden){
+      const p = n.parent, px = p.x + p.w + 18, py = boxed(p) ? p.y + p.h/2 : p.y + p.h;
+      const cx = n.x, cy = boxed(n) ? n.y + n.h/2 : n.y + n.h, mx = (px + cx)/2;
+      const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+      path.setAttribute("d", `M${px},${py} C${mx},${py} ${mx},${cy} ${cx},${cy}`);
+      path.style.stroke = `var(${n.color})`;
+      svg.appendChild(path);
+    }
+  });
+  svg.setAttribute("width", W); svg.setAttribute("height", H);
+  world.style.width = W+"px"; world.style.height = H+"px";
+  mapW = W; mapH = H;
+}
+function countAll(n){ return (n.c||[]).reduce((s,k)=>s+1+countAll(k),0); }
+function toggle(n){
+  const before = n.y;
+  if (isOpen(n)) closed.add(n.id); else closed.delete(n.id);
+  saveClosed(); layout();
+  ty += (before - n.y) * s; apply(); // 押したノードが画面上で動かないようにする
+}
+
+// 動かす・拡大
+const vp = document.getElementById("vp"), world = document.getElementById("world");
+let s = 1, tx = 30, ty = 30, mapW = 0, mapH = 0;
+function apply(){ world.style.transform = `translate(${tx}px,${ty}px) scale(${s})`; document.getElementById("zPct").textContent = Math.round(s*100)+"%"; }
+function zoomAt(f, cx, cy){
+  const ns = Math.min(2, Math.max(0.2, s*f)); f = ns/s;
+  tx = cx - (cx - tx)*f; ty = cy - (cy - ty)*f; s = ns; apply();
+}
+function fit(){
+  const r = vp.getBoundingClientRect();
+  s = Math.min(1, Math.max(0.2, Math.min((r.width-60)/mapW, (r.height-60)/mapH)));
+  tx = Math.max(20, (r.width - mapW*s)/2); ty = (r.height - mapH*s)/2; apply();
+}
+function centerOn(n){
+  const r = vp.getBoundingClientRect();
+  world.classList.add("anim");
+  tx = r.width/2 - (n.x + n.w/2)*s; ty = r.height/2 - (n.y + n.h/2)*s; apply();
+  setTimeout(()=>world.classList.remove("anim"), 300);
+}
+document.getElementById("zIn").onclick = () => { const r = vp.getBoundingClientRect(); zoomAt(1.2, r.width/2, r.height/2); };
+document.getElementById("zOut").onclick = () => { const r = vp.getBoundingClientRect(); zoomAt(1/1.2, r.width/2, r.height/2); };
+document.getElementById("zFit").onclick = fit;
+vp.addEventListener("wheel", e => {
+  e.preventDefault();
+  const r = vp.getBoundingClientRect();
+  if (e.ctrlKey || e.metaKey) zoomAt(Math.exp(-e.deltaY*0.01), e.clientX - r.left, e.clientY - r.top);
+  else { tx -= e.shiftKey ? e.deltaY : e.deltaX; ty -= e.shiftKey ? 0 : e.deltaY; apply(); }
+}, { passive:false });
+const pts = new Map(); let last = null, pinch = null;
+vp.addEventListener("pointerdown", e => {
+  if (e.target.closest("a,button")) return;
+  vp.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (pts.size === 1){ last = {x:e.clientX, y:e.clientY}; vp.classList.add("drag"); }
+  if (pts.size === 2){ const [a,b] = [...pts.values()]; pinch = Math.hypot(a.x-b.x, a.y-b.y); }
+});
+vp.addEventListener("pointermove", e => {
+  if (!pts.has(e.pointerId)) return;
+  pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (pts.size === 2 && pinch){
+    const [a,b] = [...pts.values()], d = Math.hypot(a.x-b.x, a.y-b.y), r = vp.getBoundingClientRect();
+    zoomAt(d/pinch, (a.x+b.x)/2 - r.left, (a.y+b.y)/2 - r.top); pinch = d; return;
+  }
+  if (last){ tx += e.clientX - last.x; ty += e.clientY - last.y; last = {x:e.clientX, y:e.clientY}; apply(); }
+});
+const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size){ last = null; vp.classList.remove("drag"); } };
+vp.addEventListener("pointerup", up); vp.addEventListener("pointercancel", up);
+
+// 全部開く・2段目まで
+document.getElementById("openAll").onclick = () => { closed.clear(); saveClosed(); layout(); fit(); };
+document.getElementById("closeAll").onclick = () => { closed = new Set(all.filter(n=>n.depth===2 && n.c).map(n=>n.id)); saveClosed(); layout(); fit(); };
+
+// 探す
+const q = document.getElementById("q"), hits = document.getElementById("hits");
+q.addEventListener("input", () => {
+  const w = q.value.trim().toLowerCase();
+  all.forEach(n => n.el.classList.remove("hit"));
+  if (!w){ hits.textContent = ""; renderOutline(); return; }
+  const found = all.filter(n => (n.t + " " + (n.m||"") + " " + (n.sub||"")).toLowerCase().includes(w));
+  found.forEach(n => { for (let p=n.parent; p; p=p.parent) closed.delete(p.id); n.el.classList.add("hit"); });
+  hits.textContent = found.length ? found.length + "件" : "見つかりません";
+  layout(); if (found[0]) centerOn(found[0]);
+  renderOutline(w);
+});
+
+// 一覧の表示
+function renderOutline(w){
+  const box = document.getElementById("outline");
+  const li = n => {
+    const meta = n.m ? `<span class="meta">${esc(n.m)}</span>` : "";
+    const body = n.v ? `<a href="${yt(n.v)}" target="_blank" rel="noopener">${esc(n.t)}</a>${meta}`
+      : esc(n.t) + (n.u ? ` <a href="${esc(n.u)}" target="_blank" rel="noopener">${lnkLabel(n.u)}</a>` : "");
+    const kids = (n.c||[]).map(li).join("");
+    const mark = w && (n.t + (n.m||"")).toLowerCase().includes(w) ? ' style="background:var(--hit)"' : "";
+    return `<li class="${n.depth===1?"o1":""}" style="--c:var(${n.color})"><div${mark}>${body}</div>${kids?`<ul>${kids}</ul>`:""}</li>`;
+  };
+  box.innerHTML = `<ul><li><div><b>${esc(MAP.t)}</b>${MAP.sub ? "：" + esc(MAP.sub) : ""}</div><ul>${(MAP.c||[]).map(li).join("")}</ul></li></ul>`;
+}
+function setView(m){
+  const out = m === "out";
+  document.getElementById("vp").hidden = out; document.getElementById("outline").hidden = !out;
+  document.getElementById("vMap").setAttribute("aria-pressed", String(!out));
+  document.getElementById("vOut").setAttribute("aria-pressed", String(out));
+  store.set("miyabimap-view", m);
+  if (!out){ layout(); }
+}
+document.getElementById("vMap").onclick = () => { setView("map"); start(); };
+document.getElementById("vOut").onclick = () => setView("out");
+
+// 2つのマップの切り替え
+function showMap(k){
+  which = k; store.set("miyabimap-which", k);
+  document.getElementById("mA").setAttribute("aria-pressed", String(k === "a"));
+  document.getElementById("mB").setAttribute("aria-pressed", String(k === "b"));
+  q.value = ""; hits.textContent = "";
+  build(); renderOutline();
+  if (!document.getElementById("vp").hidden) start();
+}
+document.getElementById("mA").onclick = () => showMap("a");
+document.getElementById("mB").onclick = () => showMap("b");
+
+// 全体を収める。字が小さすぎる時（60%未満）は、中心を60%で左に出す
+function start(){
+  layout(); fit();
+  if (s < 0.6){
+    const r = vp.getBoundingClientRect();
+    s = 0.6; tx = 20 - MAP.x*s; ty = r.height/2 - (MAP.y + MAP.h/2)*s; apply();
+  }
+}
+function init(){
+  showMap(which);
+  if (store.get("miyabimap-view") === "out") setView("out");
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(init); else init();
+</script>
+
+</body></html>
