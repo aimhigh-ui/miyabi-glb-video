@@ -42,11 +42,11 @@ button[aria-pressed="true"]{background:var(--fg);color:var(--panel);border-color
 #world{position:absolute;left:0;top:0;transform-origin:0 0}
 #edges{position:absolute;left:0;top:0;overflow:visible;pointer-events:none}
 #edges path{fill:none;stroke-width:2}
-.n{position:absolute;width:max-content;max-width:300px;font-size:14px;line-height:1.55;padding:2px 2px 4px;border-bottom:2px solid var(--c);cursor:default;white-space:normal;word-break:normal;overflow-wrap:anywhere}
+.n{position:absolute;width:max-content;max-width:340px;font-size:15px;line-height:1.6;padding:2px 2px 4px;border-bottom:2px solid var(--c);cursor:default;white-space:normal;word-break:normal;overflow-wrap:anywhere}
 .n.root{background:var(--root-bg);color:var(--root-fg);border:0;border-radius:12px;padding:14px 18px;max-width:340px;box-shadow:var(--shadow)}
 .n.root b{display:block;font-size:20px;margin-bottom:6px}
 .n.root span{font-size:13px;line-height:1.6;display:block;opacity:.85}
-.n.l1{background:var(--panel);border:2px solid var(--c);border-radius:10px;padding:8px 14px;font-weight:700;font-size:15px;box-shadow:var(--shadow)}
+.n.l1{background:var(--panel);border:2px solid var(--c);border-radius:10px;padding:8px 14px;font-weight:700;font-size:15px;box-shadow:var(--shadow);max-width:280px}
 .n.vid{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 10px 8px 40px;width:270px;max-width:none;box-shadow:var(--shadow)}
 .n.vid::before{content:"";position:absolute;left:10px;top:11px;width:22px;height:16px;border-radius:4px;background:var(--b4)}
 .n.vid::after{content:"";position:absolute;left:19px;top:15px;border-left:6px solid #fff;border-top:4px solid transparent;border-bottom:4px solid transparent}
@@ -56,8 +56,13 @@ button[aria-pressed="true"]{background:var(--fg);color:var(--panel);border-color
 .n a.lnk{color:var(--c);font-size:12px;margin-left:6px;white-space:nowrap}
 .n.hit{background:var(--hit)}
 .n.vid.hit,.n.l1.hit{background:var(--hit)}
-.tg{position:absolute;width:20px;height:20px;border-radius:50%;border:2px solid var(--c);background:var(--panel);color:var(--fg);
-  font-size:11px;font-weight:700;line-height:16px;text-align:center;padding:0;cursor:pointer;transform:translate(-2px,-50%)}
+.tg{position:absolute;min-width:24px;height:24px;border-radius:12px;border:2px solid var(--c);background:var(--panel);color:var(--fg);
+  font-size:12px;font-weight:700;line-height:20px;text-align:center;padding:0 6px;cursor:pointer;transform:translate(4px,-50%);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tg.lft{transform:translate(calc(-100% - 4px),-50%)}
+.tg.shut{background:var(--c);color:var(--panel)}
+.n.has{cursor:pointer}
+.n.has:hover{color:var(--c)}
+.n.root{cursor:default}
 .zoom{position:absolute;right:max(14px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;
   background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:var(--shadow)}
 .zoom span{font-size:12px;min-width:3.2em;text-align:center;font-variant-numeric:tabular-nums}
@@ -68,6 +73,13 @@ button[aria-pressed="true"]{background:var(--fg);color:var(--panel);border-color
 #outline li.o1>div{font-weight:700;font-size:16px;color:var(--c);margin-top:14px}
 #outline a{color:var(--b1)}
 #outline .meta{color:var(--muted);font-size:12px;margin-left:6px}
+#outline summary{cursor:pointer;padding:2px 0}
+#outline summary::marker{color:var(--c)}
+#outline li.o1>details>summary{font-weight:700;font-size:16px;color:var(--c);margin-top:14px}
+#outline .cnt{display:inline-block;margin-left:8px;padding:0 8px;border-radius:10px;background:var(--c);color:var(--panel);font-size:12px;font-weight:700;line-height:20px;vertical-align:1px}
+#outline details[open]>summary .cnt{display:none}
+#outline details>ul{margin-left:6px}
+#outline .o0{margin-bottom:6px}
 @media (prefers-reduced-motion:no-preference){#world.anim{transition:transform .25s ease}}
 @media (max-width:640px){.bar h1{font-size:15px;width:100%}.bar input{flex:1}#mapSeg{width:100%}#mapSeg button{flex:1}.bar input#q{flex:1 1 100%}}
 </style>
@@ -82,7 +94,7 @@ button[aria-pressed="true"]{background:var(--fg);color:var(--panel);border-color
     <input id="q" type="search" placeholder="言葉で探す" aria-label="マップの中を言葉で探す">
     <span id="hits"></span>
     <button id="openAll" type="button">全部開く</button>
-    <button id="closeAll" type="button">2段目まで</button>
+    <button id="closeAll" type="button">たたむ</button>
     <span class="spacer"></span>
     <div class="seg" role="group" aria-label="表示の切り替え">
       <button id="vMap" type="button" aria-pressed="true">マップ</button>
@@ -3364,9 +3376,16 @@ const MAP_B = {
 };
 // ===== ここまで =====
 
-const MAPS = { a: { tree: MAP_A, key: "miyabimap-closed-goal" }, b: { tree: MAP_B, key: "miyabimap-closed-design" } };
+// 2026-11-18 村田さん「縦に長すぎて見にくい。見にくいと思えそうなポイントを全部直して」で直した所
+//  ・最初は大きな枝（2段目）だけを出し、中は閉じておく（前は全部開いていて縦が約3万pxあった）
+//  ・大きな枝を中心の右と左に分ける（縦の長さが半分ほどになる）
+//  ・枝を開くと、同じ段のほかの枝は閉じる（開いた所だけが伸びる）
+//  ・丸い印だけでなく、文字を押しても開け閉めできる。閉じた枝には中の数を色付きで出す
+//  ・開いた枝が画面に入るように動かす。字が小さくなりすぎない大きさで始める
+//  ・一覧も、押すと開く形にした
+const MAPS = { a: { tree: MAP_A, key: "miyabimap2-closed-goal" }, b: { tree: MAP_B, key: "miyabimap2-closed-design" } };
 const BR = ["--b1","--b2","--b3","--b4","--b5","--b6"];
-const HGAP = 46, VGAP = 12;
+const HGAP = 56, VGAP = 12, MINS = 0.85;
 
 const store = { get(k){ try{ return JSON.parse(localStorage.getItem(k)); }catch(e){ return null; } },
                 set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} } };
@@ -3375,32 +3394,42 @@ let which = location.hash === "#design" ? "b" : location.hash === "#goal" ? "a" 
 window.addEventListener("hashchange", () => { if (location.hash === "#design") showMap("b"); else if (location.hash === "#goal") showMap("a"); });
 let MAP = MAPS[which].tree, all = [], closed = new Set();
 const saveClosed = () => store.set(MAPS[which].key, [...closed]);
+const hasKids = n => !!(n.c && n.c.length);
+const defaultClosed = () => new Set(all.filter(n => n.depth >= 1 && hasKids(n)).map(n => n.id));
 
 const yt = v => "https://www.youtube.com/watch?v=" + v;
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const lnkLabel = u => /youtu\.?be/.test(u) ? "動画を開く" : "リンクを開く";
+function countAll(n){ return (n.c||[]).reduce((s,k)=>s+1+countAll(k),0); }
 
 // ノードを作る（マップを切り替えるたびに作り直す）
 const nodesEl = document.getElementById("nodes");
 function build(){
   MAP = MAPS[which].tree; all = [];
-  closed = new Set(store.get(MAPS[which].key) || []);
-  (function prep(n, depth, color, id, parent){
-    n.id = id; n.depth = depth; n.color = color; n.parent = parent; all.push(n);
-    (n.c||[]).forEach((ch,i)=>prep(ch, depth+1, depth===0 ? BR[i%BR.length] : color, id+"-"+i, n));
-  })(MAP, 0, "--b1", "r", null);
+  // 大きな枝を、項目の数が左右で同じくらいになる所で分ける（上から順に右、残りを左）
+  const ks = MAP.c || [], wt = ks.map(k => countAll(k) + 1), tot = wt.reduce((a,b)=>a+b,0);
+  let cut = ks.length, best = Infinity, acc = 0;
+  for (let i = 1; i < ks.length; i++){ acc += wt[i-1]; const d = Math.abs(tot - 2*acc); if (d < best){ best = d; cut = i; } }
+  (function prep(n, depth, color, id, parent, side){
+    n.id = id; n.depth = depth; n.color = color; n.parent = parent; n.side = side; all.push(n);
+    (n.c||[]).forEach((ch,i)=>prep(ch, depth+1, depth===0 ? BR[i%BR.length] : color, id+"-"+i, n, depth===0 ? (i < cut ? 1 : -1) : side));
+  })(MAP, 0, "--b1", "r", null, 0);
+  const saved = store.get(MAPS[which].key);
+  closed = Array.isArray(saved) ? new Set(saved) : defaultClosed();
+  closed.delete("r");
   nodesEl.innerHTML = "";
   all.forEach(n => {
     const el = document.createElement("div");
-    el.className = "n" + (n.depth===0 ? " root" : n.depth===1 ? " l1" : "") + (n.v ? " vid" : "");
+    el.className = "n" + (n.depth===0 ? " root" : n.depth===1 ? " l1" : "") + (n.v ? " vid" : "") + (n.depth>0 && hasKids(n) ? " has" : "");
     el.style.setProperty("--c", `var(${n.color})`);
     if (n.depth===0) el.innerHTML = `<b>${esc(n.t)}</b>` + (n.sub ? `<span>${esc(n.sub)}</span>` : "");
     else if (n.v) el.innerHTML = `<a href="${yt(n.v)}" target="_blank" rel="noopener">${esc(n.t)}</a><span class="meta">${esc(n.m||"")}</span>`;
     else el.innerHTML = esc(n.t) + (n.u ? ` <a class="lnk" href="${esc(n.u)}" target="_blank" rel="noopener">${lnkLabel(n.u)}</a>` : "");
+    el._node = n;
     nodesEl.appendChild(el); n.el = el; n.tg = null;
-    if (n.c && n.c.length) {
+    if (n.depth > 0 && hasKids(n)) {
       const b = document.createElement("button");
-      b.type = "button"; b.className = "tg"; b.style.setProperty("--c", `var(${n.color})`);
+      b.type = "button"; b.className = "tg" + (n.side < 0 ? " lft" : ""); b.style.setProperty("--c", `var(${n.color})`);
       b.addEventListener("click", e => { e.stopPropagation(); toggle(n); });
       nodesEl.appendChild(b); n.tg = b;
     }
@@ -3414,33 +3443,47 @@ const boxed = n => n.depth<=1 || !!n.v;
 function layout(){
   all.forEach(n => { const v = visible(n); n.el.hidden = !v; if (n.tg) n.tg.hidden = !v; });
   all.forEach(n => { if (!n.el.hidden){ n.w = n.el.offsetWidth; n.h = n.el.offsetHeight; } });
+  const stackH = kids => kids.reduce((s,k,i)=>s + k.band + (i?VGAP:0), 0);
   function band(n){
     const kids = isOpen(n) ? (n.c||[]) : [];
-    let s = 0; kids.forEach((k,i)=>{ s += band(k) + (i?VGAP:0); });
-    n.band = Math.max(n.h, s); n.kidsH = s; return n.band;
+    kids.forEach(band);
+    n.kidsH = stackH(kids); n.band = Math.max(n.h, n.kidsH); return n.band;
   }
-  band(MAP);
-  function place(n, x, top){
+  function place(n, x, top, dir){
     n.x = x; n.y = top + (n.band - n.h)/2;
     const kids = isOpen(n) ? (n.c||[]) : [];
     let y = top + (n.band - n.kidsH)/2;
-    kids.forEach(k => { place(k, x + n.w + HGAP, y); y += k.band + VGAP; });
+    kids.forEach(k => { place(k, dir > 0 ? n.x + n.w + HGAP : n.x - HGAP - k.w, y, dir); y += k.band + VGAP; });
   }
-  place(MAP, 0, 0);
-  let W = 0, H = MAP.band, d = "";
-  const svg = document.getElementById("edges");
+  // 中心：右の枝と左の枝を、それぞれ上下の真ん中にそろえる
+  const R = (MAP.c||[]).filter(k => k.side > 0), L = (MAP.c||[]).filter(k => k.side < 0);
+  [...R, ...L].forEach(band);
+  const rh = stackH(R), lh = stackH(L), H = Math.max(MAP.h, rh, lh);
+  MAP.x = 0; MAP.y = (H - MAP.h)/2; MAP.band = H;
+  let y = (H - rh)/2; R.forEach(k => { place(k, MAP.w + HGAP, y, 1); y += k.band + VGAP; });
+  y = (H - lh)/2;     L.forEach(k => { place(k, -HGAP - k.w, y, -1); y += k.band + VGAP; });
+  let minX = 0, maxX = MAP.w;
+  all.forEach(n => { if (!n.el.hidden){ minX = Math.min(minX, n.x - (n.tg && n.side < 0 ? 30 : 0)); maxX = Math.max(maxX, n.x + n.w + (n.tg && n.side > 0 ? 30 : 0)); } });
+  const off = 20 - minX;
+  all.forEach(n => { if (!n.el.hidden) n.x += off; });
+  const W = maxX - minX + 40, svg = document.getElementById("edges");
   svg.innerHTML = "";
   all.forEach(n => {
     if (n.el.hidden) return;
     n.el.style.left = n.x+"px"; n.el.style.top = n.y+"px";
-    W = Math.max(W, n.x + n.w + 30);
-    const ox = n.x + n.w, oy = boxed(n) ? n.y + n.h/2 : n.y + n.h;
-    if (n.tg){ n.tg.style.left = ox+"px"; n.tg.style.top = oy+"px";
-      n.tg.textContent = isOpen(n) ? "−" : String(countAll(n));
-      n.tg.setAttribute("aria-label", (isOpen(n)?"閉じる：":"開く：") + n.t); }
+    const yAt = m => boxed(m) ? m.y + m.h/2 : m.y + m.h;
+    if (n.tg){
+      n.tg.style.left = (n.side > 0 ? n.x + n.w : n.x) + "px"; n.tg.style.top = yAt(n) + "px";
+      const open = isOpen(n);
+      n.tg.textContent = open ? "−" : "+" + countAll(n);
+      n.tg.classList.toggle("shut", !open);
+      n.tg.setAttribute("aria-expanded", String(open));
+      n.tg.setAttribute("aria-label", (open ? "閉じる：" : "開く：") + n.t);
+    }
     if (n.parent && !n.parent.el.hidden){
-      const p = n.parent, px = p.x + p.w + 18, py = boxed(p) ? p.y + p.h/2 : p.y + p.h;
-      const cx = n.x, cy = boxed(n) ? n.y + n.h/2 : n.y + n.h, mx = (px + cx)/2;
+      const p = n.parent, root = p.depth === 0;
+      const px = n.side > 0 ? p.x + p.w + (root ? 0 : 18) : p.x - (root ? 0 : 18), py = yAt(p);
+      const cx = n.side > 0 ? n.x : n.x + n.w, cy = yAt(n), mx = (px + cx)/2;
       const path = document.createElementNS("http://www.w3.org/2000/svg","path");
       path.setAttribute("d", `M${px},${py} C${mx},${py} ${mx},${cy} ${cx},${cy}`);
       path.style.stroke = `var(${n.color})`;
@@ -3451,12 +3494,32 @@ function layout(){
   world.style.width = W+"px"; world.style.height = H+"px";
   mapW = W; mapH = H;
 }
-function countAll(n){ return (n.c||[]).reduce((s,k)=>s+1+countAll(k),0); }
+// 開け閉め。開く時は、同じ段のほかの枝を閉じる
 function toggle(n){
-  const before = n.y;
-  if (isOpen(n)) closed.add(n.id); else closed.delete(n.id);
+  const bx = n.x, by = n.y;
+  if (isOpen(n)) closed.add(n.id);
+  else {
+    closed.delete(n.id);
+    (n.parent ? n.parent.c : []).forEach(k => { if (k !== n && hasKids(k)) closed.add(k.id); });
+  }
   saveClosed(); layout();
-  ty += (before - n.y) * s; apply(); // 押したノードが画面上で動かないようにする
+  tx += (bx - n.x) * s; ty += (by - n.y) * s; apply(); // 押した所が画面の上で動かないようにする
+  if (isOpen(n)) reveal(n);
+}
+// 開いた枝が画面に入るように動かす（大きさは変えない）
+function reveal(n){
+  const r = vp.getBoundingClientRect(), pad = 24;
+  let x0 = n.x, y0 = n.y, x1 = n.x + n.w, y1 = n.y + n.h;
+  (function walk(m){ (isOpen(m) ? m.c||[] : []).forEach(k => { x0 = Math.min(x0,k.x); y0 = Math.min(y0,k.y); x1 = Math.max(x1,k.x+k.w); y1 = Math.max(y1,k.y+k.h); walk(k); }); })(n);
+  const L = x0*s + tx, T = y0*s + ty, Rr = x1*s + tx, B = y1*s + ty;
+  let dx = 0, dy = 0;
+  if ((x1-x0)*s > r.width - pad*2) dx = (n.side < 0 ? r.width - pad - Rr : pad - L);
+  else if (L < pad) dx = pad - L; else if (Rr > r.width - pad) dx = r.width - pad - Rr;
+  if ((y1-y0)*s > r.height - pad*2) dy = pad - T;
+  else if (T < pad) dy = pad - T; else if (B > r.height - pad) dy = r.height - pad - B;
+  if (!dx && !dy) return;
+  world.classList.add("anim"); tx += dx; ty += dy; apply();
+  setTimeout(()=>world.classList.remove("anim"), 300);
 }
 
 // 動かす・拡大
@@ -3469,8 +3532,8 @@ function zoomAt(f, cx, cy){
 }
 function fit(){
   const r = vp.getBoundingClientRect();
-  s = Math.min(1, Math.max(0.2, Math.min((r.width-60)/mapW, (r.height-60)/mapH)));
-  tx = Math.max(20, (r.width - mapW*s)/2); ty = (r.height - mapH*s)/2; apply();
+  s = Math.min(1, Math.max(0.2, Math.min((r.width-40)/mapW, (r.height-40)/mapH)));
+  tx = (r.width - mapW*s)/2; ty = (r.height - mapH*s)/2; apply();
 }
 function centerOn(n){
   const r = vp.getBoundingClientRect();
@@ -3487,28 +3550,38 @@ vp.addEventListener("wheel", e => {
   if (e.ctrlKey || e.metaKey) zoomAt(Math.exp(-e.deltaY*0.01), e.clientX - r.left, e.clientY - r.top);
   else { tx -= e.shiftKey ? e.deltaY : e.deltaX; ty -= e.shiftKey ? 0 : e.deltaY; apply(); }
 }, { passive:false });
-const pts = new Map(); let last = null, pinch = null;
+// ドラッグで動かす。動かさずに離したら、押した文字の枝を開け閉めする
+const pts = new Map(); let last = null, pinch = null, downAt = null, downNode = null, moved = false;
 vp.addEventListener("pointerdown", e => {
   if (e.target.closest("a,button")) return;
+  const el = e.target.closest(".n.has");
+  downNode = el ? el._node : null; downAt = {x:e.clientX, y:e.clientY}; moved = false;
   vp.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
   if (pts.size === 1){ last = {x:e.clientX, y:e.clientY}; vp.classList.add("drag"); }
-  if (pts.size === 2){ const [a,b] = [...pts.values()]; pinch = Math.hypot(a.x-b.x, a.y-b.y); }
+  if (pts.size === 2){ const [a,b] = [...pts.values()]; pinch = Math.hypot(a.x-b.x, a.y-b.y); moved = true; }
 });
 vp.addEventListener("pointermove", e => {
   if (!pts.has(e.pointerId)) return;
   pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (downAt && Math.hypot(e.clientX-downAt.x, e.clientY-downAt.y) > 6) moved = true;
   if (pts.size === 2 && pinch){
     const [a,b] = [...pts.values()], d = Math.hypot(a.x-b.x, a.y-b.y), r = vp.getBoundingClientRect();
     zoomAt(d/pinch, (a.x+b.x)/2 - r.left, (a.y+b.y)/2 - r.top); pinch = d; return;
   }
   if (last){ tx += e.clientX - last.x; ty += e.clientY - last.y; last = {x:e.clientX, y:e.clientY}; apply(); }
 });
-const up = e => { pts.delete(e.pointerId); if (pts.size < 2) pinch = null; if (!pts.size){ last = null; vp.classList.remove("drag"); } };
+const up = e => {
+  const tap = e.type === "pointerup" && pts.size === 1 && !moved && downNode;
+  pts.delete(e.pointerId); if (pts.size < 2) pinch = null;
+  if (!pts.size){ last = null; vp.classList.remove("drag"); }
+  if (tap) toggle(downNode);
+  if (!pts.size){ downNode = null; downAt = null; }
+};
 vp.addEventListener("pointerup", up); vp.addEventListener("pointercancel", up);
 
-// 全部開く・2段目まで
+// 全部開く・たたむ
 document.getElementById("openAll").onclick = () => { closed.clear(); saveClosed(); layout(); fit(); };
-document.getElementById("closeAll").onclick = () => { closed = new Set(all.filter(n=>n.depth===2 && n.c).map(n=>n.id)); saveClosed(); layout(); fit(); };
+document.getElementById("closeAll").onclick = () => { closed = defaultClosed(); saveClosed(); start(); };
 
 // 探す
 const q = document.getElementById("q"), hits = document.getElementById("hits");
@@ -3523,18 +3596,22 @@ q.addEventListener("input", () => {
   renderOutline(w);
 });
 
-// 一覧の表示
+// 一覧の表示（枝は押すと開く。探している時は、当たった所まで開く）
 function renderOutline(w){
   const box = document.getElementById("outline");
+  const hitOf = n => !!w && (n.t + " " + (n.m||"")).toLowerCase().includes(w);
+  const anyHit = n => hitOf(n) || (n.c||[]).some(anyHit);
   const li = n => {
     const meta = n.m ? `<span class="meta">${esc(n.m)}</span>` : "";
     const body = n.v ? `<a href="${yt(n.v)}" target="_blank" rel="noopener">${esc(n.t)}</a>${meta}`
       : esc(n.t) + (n.u ? ` <a href="${esc(n.u)}" target="_blank" rel="noopener">${lnkLabel(n.u)}</a>` : "");
-    const kids = (n.c||[]).map(li).join("");
-    const mark = w && (n.t + (n.m||"")).toLowerCase().includes(w) ? ' style="background:var(--hit)"' : "";
-    return `<li class="${n.depth===1?"o1":""}" style="--c:var(${n.color})"><div${mark}>${body}</div>${kids?`<ul>${kids}</ul>`:""}</li>`;
+    const mark = hitOf(n) ? ' style="background:var(--hit)"' : "";
+    const cls = n.depth===1 ? "o1" : "";
+    if (!hasKids(n)) return `<li class="${cls}" style="--c:var(${n.color})"><div${mark}>${body}</div></li>`;
+    const open = w && (n.c||[]).some(anyHit) ? " open" : "";
+    return `<li class="${cls}" style="--c:var(${n.color})"><details${open}><summary><span${mark}>${body}</span><span class="cnt">${countAll(n)}</span></summary><ul>${n.c.map(li).join("")}</ul></details></li>`;
   };
-  box.innerHTML = `<ul><li><div><b>${esc(MAP.t)}</b>${MAP.sub ? "：" + esc(MAP.sub) : ""}</div><ul>${(MAP.c||[]).map(li).join("")}</ul></li></ul>`;
+  box.innerHTML = `<ul><li><div class="o0"><b>${esc(MAP.t)}</b>${MAP.sub ? "：" + esc(MAP.sub) : ""}</div><ul>${(MAP.c||[]).map(li).join("")}</ul></li></ul>`;
 }
 function setView(m){
   const out = m === "out";
@@ -3550,6 +3627,7 @@ document.getElementById("vOut").onclick = () => setView("out");
 // 2つのマップの切り替え
 function showMap(k){
   which = k; store.set("miyabimap-which", k);
+  try { history.replaceState(null, "", k === "b" ? "#design" : "#goal"); } catch(e){}
   document.getElementById("mA").setAttribute("aria-pressed", String(k === "a"));
   document.getElementById("mB").setAttribute("aria-pressed", String(k === "b"));
   q.value = ""; hits.textContent = "";
@@ -3559,13 +3637,10 @@ function showMap(k){
 document.getElementById("mA").onclick = () => showMap("a");
 document.getElementById("mB").onclick = () => showMap("b");
 
-// 全体を収める。字が小さすぎる時（60%未満）は、中心を60%で左に出す
+// 全体を収める。字が小さくなりすぎる時（85%未満）は、85%で中心を真ん中に出す
 function start(){
   layout(); fit();
-  if (s < 0.6){
-    const r = vp.getBoundingClientRect();
-    s = 0.6; tx = 20 - MAP.x*s; ty = r.height/2 - (MAP.y + MAP.h/2)*s; apply();
-  }
+  if (s < MINS){ s = MINS; centerOn(MAP); }
 }
 function init(){
   showMap(which);
