@@ -3647,6 +3647,10 @@ function init(){
   if (store.get("miyabimap-view") === "out") setView("out");
 }
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(init); else init();
+// 字の形（Webフォント）が後から届くと字の高さが変わるので、届いたら並べ直す（枝どうしが重ならないように）
+const relayout = () => { if (!all.length || document.getElementById("vp").hidden) return; const bx = MAP.x, by = MAP.y; layout(); tx += (bx - MAP.x)*s; ty += (by - MAP.y)*s; apply(); };
+if (document.fonts) document.fonts.addEventListener("loadingdone", relayout);
+window.addEventListener("load", relayout);
 </script>
 
 </body></html>
